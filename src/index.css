@@ -1,0 +1,14 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #2a2c3e;
+	font-family: "Rubik", sans-serif;
+	color: #e8ddc2;
+}
+li {
+	list-style: none;
+}
