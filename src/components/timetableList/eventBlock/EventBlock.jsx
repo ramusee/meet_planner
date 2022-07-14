@@ -2,11 +2,11 @@ import React, {useEffect, useRef} from 'react';
 import './eventBlock.css';
 
 
-const EventBlock = ({listRef}) => {
+const EventBlock = () => {
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
-	const list = listRef.current
+	
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
@@ -39,7 +39,6 @@ const EventBlock = ({listRef}) => {
 		};
 		
 		// Bottom resize
-		
 		const onPointerMoveBottomResize = (e) => {
 			const dy = e.clientY - y;
 			height = height + dy;
