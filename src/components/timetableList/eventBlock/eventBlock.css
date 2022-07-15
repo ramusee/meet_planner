@@ -14,23 +14,28 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 39px;
+	min-height: 100%;
 	background-color: rgba(91, 175, 170, 0.8);
+	opacity: 0;
+}
+.resizeable_visible {
+	opacity: 1;
+	z-index: 100;
 }
 
 .resizer {
 	position: absolute;
 }
+
 .resizer-t {
-	cursor: row-resize;
-	height: 15px;
+	height: 40%;
 	left: 0;
 	top: 0;
 	width: 100%;
 }
+
 .resizer-b {
-	cursor: row-resize;
-	height: 15px;
+	height: 60%;
 	left: 0;
 	bottom: 0;
 	width: 100%;

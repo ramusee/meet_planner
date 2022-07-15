@@ -3,14 +3,15 @@
 	flex-direction: column;
 	flex-grow: 1;
 }
+
 .timetable__item {
 	display: flex;
-	align-items: start;
 	justify-content: space-between;
 	height: 40px;
 	border-bottom: 1px solid #2a2c3e;
 	pointer-events: auto;
 }
+
 .timetable__hour {
 	text-align: end;
 	width: 34px;

@@ -1,57 +1,57 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './eventBlock.css';
 
 
-const EventBlock = () => {
+const EventBlock = ({listRef}) => {
+	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
+	
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
-	
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
 		let height = parseInt(styles.height, 10);
-		let y = 0;
-		
-		resizeableEl.style.top = '0px'
-		resizeableEl.style.bottom = '0px'
-		resizeableEl.onDragStart = () => false
-		
-	//	Top Resize
-		const onPointerMoveTopResize = (e) => {
-			const dy = e.clientY - y;
-			height = height - dy;
-			y = e.clientY;
-			resizeableEl.style.height = `${height}px`;
-		};
-		
-		const onPointerUpTopResize = (e) => {
-			document.removeEventListener("pointermove", onPointerMoveTopResize);
-		};
-		
+		let yCord = 0;
+		const listPosition = listRef.current.getBoundingClientRect();
+		resizeableEl.style.top = '0px';
+		resizeableEl.style.bottom = '0px';
+		resizeableEl.ondragstart = () => false;
+
+		//	Top Resize
 		const onPointerDownTopResize = (e) => {
-			y = e.clientY;
+			e.preventDefault();
+			yCord = e.clientY;
+			
 			const styles = window.getComputedStyle(resizeableEl);
 			resizeableEl.style.bottom = styles.bottom;
 			resizeableEl.style.top = null;
 			document.addEventListener("pointermove", onPointerMoveTopResize);
 			document.addEventListener("pointerup", onPointerUpTopResize);
+			console.log('down', yCord);
+		};
+		const onPointerMoveTopResize = (e) => {
+			console.log(yCord, e.clientY)
+			let dy = e.clientY - yCord;
+			height = height - dy;
+			yCord = e.clientY;
+			let topEl = e.target.getBoundingClientRect().top
+			if(topEl < listPosition.top) {
+				height = height + dy
+			}
+			resizeableEl.style.height = `${height}px`;
+		};
+		const onPointerUpTopResize = (e) => {
+			if(e.target.getBoundingClientRect().top < listPosition.top) {
+				height = parseInt(styles.height, 10) - 10;
+			}
+			document.removeEventListener("pointermove", onPointerMoveTopResize);
 		};
 		
 		// Bottom resize
-		const onPointerMoveBottomResize = (e) => {
-			const dy = e.clientY - y;
-			height = height + dy;
-			y = e.clientY;
-			resizeableEl.style.height = `${height}px`;
-		};
-		
-		const onPointerUpBottomResize = (e) => {
-			document.removeEventListener("pointermove", onPointerMoveBottomResize);
-		};
-		
 		const onPointerDownBottomResize = (e) => {
-			y = e.clientY;
+			e.preventDefault();
+			yCord = e.clientY;
 			const styles = window.getComputedStyle(resizeableEl);
 			resizeableEl.style.top = styles.top;
 			resizeableEl.style.bottom = null;
@@ -59,6 +59,24 @@ const EventBlock = () => {
 			document.addEventListener("pointerup", onPointerUpBottomResize);
 		};
 		
+		const onPointerMoveBottomResize = (e) => {
+			const dy = e.clientY - yCord;
+			height = height + dy;
+			yCord = e.clientY;
+			let bottomEl = e.target.getBoundingClientRect().bottom
+			if(bottomEl > listPosition.bottom) {
+				height = height - dy
+			}
+			resizeableEl.style.height = `${Math.round(height)}px`;
+		};
+		
+		
+		const onPointerUpBottomResize = (e) => {
+			if(e.target.getBoundingClientRect().bottom > listPosition.bottom) {
+				height = parseInt(styles.height, 10) - 10;
+			}
+			document.removeEventListener("pointermove", onPointerMoveBottomResize);
+		};
 		
 		// added down listeners
 		const resizerTop = refTop.current;
@@ -66,14 +84,18 @@ const EventBlock = () => {
 		const resizerBottom = refBottom.current;
 		resizerBottom.addEventListener("pointerdown", onPointerDownBottomResize);
 		
-		return ()=> {
+		return () => {
 			resizerTop.removeEventListener("pointerdown", onPointerDownTopResize);
-			resizerBottom.removeEventListener("pointerdown", onPointerDownBottomResize);}
+			resizerBottom.removeEventListener("pointerdown", onPointerDownBottomResize);
+		};
 	}, []);
 	
 	return (
 		<div className="event-block">
-			<div ref={ref} className="resizeable">
+			<div ref={ref}
+				 className={!isVisibleBlock ? "resizeable" : "resizeable resizeable_visible"}
+				 onPointerDown={() => setIsVisibleBlock(true)}
+			>
 				<div ref={refTop} className="resizer resizer-t"></div>
 				<div ref={refBottom} className="resizer resizer-b"></div>
 			</div>
