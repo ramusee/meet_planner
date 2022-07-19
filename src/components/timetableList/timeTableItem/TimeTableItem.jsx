@@ -10,7 +10,7 @@ const TimeTableItem = ({hour, listRef}) => {
 						<span className="timetable__hour">
 							{hour}
 						</span>
-			<EventBlock listRef={listRef}/>
+			<EventBlock listRef={listRef} hour={hour}/>
 		</li>
 	);
 };

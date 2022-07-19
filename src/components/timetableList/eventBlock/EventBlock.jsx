@@ -1,13 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './eventBlock.css';
-import {times} from './helperTime';
+import {getTime} from "./helperTime";
 
-const EventBlock = ({listRef}) => {
+const EventBlock = ({listRef, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
-	const [timeTop, setTimeTop] = useState(null);
-	const [timeBottom, setTimeBottom] = useState(null);
-	
-	// const
+	const [timeStart, setTimeStart] = useState(null);
+	const [timeEnd, setTimeEnd] = useState(null);
+
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
@@ -16,43 +15,27 @@ const EventBlock = ({listRef}) => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
 		let height = parseInt(styles.height, 10);
-		let yCord = 0;
+		let y = 0;
 		const listPosition = listRef.current.getBoundingClientRect();
 		resizeableEl.style.top = '0px';
 		resizeableEl.style.bottom = '0px';
-		resizeableEl.ondragstart = () => false;
-		let eventBlockTop = resizeableEl.getBoundingClientRect().top
-		let eventBlockBottom = resizeableEl.getBoundingClientRect().bottom
 		
-		if (times.has(Math.round(eventBlockTop))) {
-			setTimeTop(times.get(Math.round(eventBlockTop)));
-		}
-		if (times.has(Math.round(eventBlockBottom)+1)) {
-			setTimeBottom(times.get(Math.round(eventBlockBottom)+1));
-		}
+		let topEl = resizeableEl.getBoundingClientRect().top
+		let bottomEl = resizeableEl.getBoundingClientRect().bottom
+		setTimeStart(getTime(topEl))
+		setTimeEnd(getTime(bottomEl + 1))
 		
 		//	Top Resize
-		const onPointerDownTopResize = (e) => {
-			e.preventDefault();
-			yCord = e.clientY;
-			const styles = window.getComputedStyle(resizeableEl);
-			resizeableEl.style.bottom = styles.bottom;
-			resizeableEl.style.top = null;
-			document.addEventListener("pointermove", onPointerMoveTopResize);
-			document.addEventListener("pointerup", onPointerUpTopResize);
-		};
 		const onPointerMoveTopResize = (e) => {
-			let dy = e.clientY - yCord;
+			let dy = e.pageY - y;
 			height = height - dy;
-			yCord = e.clientY;
+			y = e.pageY;
 			let topEl = e.target.getBoundingClientRect().top
-			
-			if (topEl < listPosition.top) {
+			if (e.target.getBoundingClientRect().top < listPosition.top) {
 				height = height + dy;
 			}
-			if (times.has(Math.round(topEl))) {
-				setTimeTop(times.get(Math.round(topEl)));
-			}
+			setTimeStart(getTime(topEl))
+			
 			resizeableEl.style.height = `${height}px`;
 		};
 		const onPointerUpTopResize = (e) => {
@@ -61,31 +44,29 @@ const EventBlock = ({listRef}) => {
 			}
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 		};
-		
-		// Bottom resize
-		const onPointerDownBottomResize = (e) => {
-			e.preventDefault();
-			yCord = e.clientY;
+		const onPointerDownTopResize = (e) => {
+			y = e.pageY;
 			const styles = window.getComputedStyle(resizeableEl);
-			resizeableEl.style.top = styles.top;
-			resizeableEl.style.bottom = null;
-			document.addEventListener("pointermove", onPointerMoveBottomResize);
-			document.addEventListener("pointerup", onPointerUpBottomResize);
+			resizeableEl.style.bottom = styles.bottom;
+			resizeableEl.style.top = null;
+			document.addEventListener("pointermove", onPointerMoveTopResize);
+			document.addEventListener("pointerup", onPointerUpTopResize);
 		};
 		
+		
+		// Bottom resize
 		const onPointerMoveBottomResize = (e) => {
-			const dy = e.clientY - yCord;
+			e.preventDefault()
+			e.stopPropagation()
+			const dy = e.pageY - y;
 			height = height + dy;
-			yCord = e.clientY;
+			y = e.pageY;
 			let bottomEl = e.target.getBoundingClientRect().bottom;
-			
 			if (bottomEl > listPosition.bottom) {
 				height = height - dy;
 			}
-			if (times.has(Math.round(bottomEl))) {
-				setTimeBottom(times.get(Math.round(bottomEl)));
-			}
-			resizeableEl.style.height = `${Math.round(height)}px`;
+			setTimeEnd(getTime(bottomEl))
+			resizeableEl.style.height = `${height}px`;
 			
 		};
 		const onPointerUpBottomResize = (e) => {
@@ -93,6 +74,15 @@ const EventBlock = ({listRef}) => {
 				height = parseInt(styles.height, 10) - 10;
 			}
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
+		};
+		
+		const onPointerDownBottomResize = (e) => {
+			y = e.pageY;
+			const styles = window.getComputedStyle(resizeableEl);
+			resizeableEl.style.top = styles.top;
+			resizeableEl.style.bottom = null;
+			document.addEventListener("pointermove", onPointerMoveBottomResize);
+			document.addEventListener("pointerup", onPointerUpBottomResize);
 		};
 		
 		// added down listeners
@@ -113,12 +103,14 @@ const EventBlock = ({listRef}) => {
 				 className={!isVisibleBlock ? "resizeable" : "resizeable resizeable_visible"}
 				 onPointerDown={() => setIsVisibleBlock(true)}
 			>
-				<div ref={refTop} className="resizer resizer-t">
+				<div ref={refTop}
+					 className="resizer resizer-t">
 					<span onPointerDown={()=> false}
-						  className="event-block__time">{timeTop}</span>
+						  className="event-block__time">{timeStart}</span>
 				</div>
-				<div ref={refBottom} className="resizer resizer-b">
-					<span  className="event-block__time">{timeBottom}</span>
+				<div ref={refBottom}
+					 className="resizer resizer-b">
+					<span  className="event-block__time">{timeEnd}</span>
 				</div>
 			</div>
 		</div>
