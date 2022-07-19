@@ -1,53 +1,53 @@
 export function getTime(y) {
-	if (y <= 171) {
+	if (y <= 190) {
 		return '12:00';
-	} else if (y < 211) {
+	} else if (y < 210) {
 		return '12:30';
-	} else if (y < 231) {
+	} else if (y < 230) {
 		return '1:00';
-	} else if (y < 251) {
+	} else if (y < 250) {
 		return '1:30';
-	} else if (y < 271) {
+	} else if (y < 270) {
 		return '2:00';
-	} else if (y < 291) {
+	} else if (y < 290) {
 		return '2:30';
-	} else if (y < 311) {
+	} else if (y < 310) {
 		return '3:00';
-	} else if (y < 331) {
+	} else if (y < 330) {
 		return '3:30';
-	} else if (y < 351) {
+	} else if (y < 350) {
 		return '4:00';
-	} else if (y < 371) {
+	} else if (y < 370) {
 		return '4:30';
-	} else if (y < 391) {
+	} else if (y < 390) {
 		return '5:00';
-	} else if (y < 411) {
+	} else if (y < 410) {
 		return '5:30';
-	} else if (y < 431) {
+	} else if (y < 430) {
 		return '6:00';
-	} else if (y < 451) {
+	} else if (y < 450) {
 		return '6:30';
-	} else if ( y < 471) {
+	} else if ( y < 470) {
 		return '7:00';
-	} else if (y < 491) {
+	} else if (y < 490) {
 		return '7:30';
-	} else if (y < 511) {
+	} else if (y < 510) {
 		return '8:00';
-	} else if (y < 531) {
+	} else if (y < 530) {
 		return '8:30';
-	} else if (y < 551) {
+	} else if (y < 550) {
 		return '9:00';
-	} else if (y < 571) {
+	} else if (y < 570) {
 		return '9:30';
-	} else if (y < 591) {
+	} else if (y < 590) {
 		return '10:00';
-	} else if (y < 611) {
+	} else if (y < 610) {
 		return '10:30';
-	} else if (y < 631) {
+	} else if (y < 630) {
 		return '11:00';
-	} else if (y < 651) {
+	} else if (y < 650) {
 		return '11:30';
-	} else if (y >= 651) {
+	} else if (y >= 650) {
 		return '0:00';
 	}
 }
