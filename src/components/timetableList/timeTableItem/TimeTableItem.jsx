@@ -3,14 +3,14 @@ import {EventBlock} from "../eventBlock/EventBlock";
 
 
 const TimeTableItem = ({hour, listRef}) => {
-	
 	return (
-		<li
-			className="timetable__item">
+		<li className="timetable__item">
 						<span className="timetable__hour">
 							{hour}
 						</span>
-			<EventBlock listRef={listRef} hour={hour}/>
+			<EventBlock listRef={listRef}
+						hour={hour}
+			/>
 		</li>
 	);
 };

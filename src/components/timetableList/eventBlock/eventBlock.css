@@ -8,6 +8,8 @@
 .event-block__time {
 	font-size: 12px;
 	cursor: default;
+	width: 55px;
+	text-align: end;
 }
 
 .resizeable {
@@ -22,31 +24,29 @@
 	background-color: rgba(91, 175, 170, 0.8);
 	opacity: 0;
 }
+
 .resizeable_visible {
 	opacity: 1;
 	z-index: 100;
 }
 
 .resizer {
+	display: flex;
 	position: absolute;
+	width: 100%;
+	left: 0;
 }
 
 .resizer-t {
-	padding: 2px 0 0 10px;
-	display: flex;
+	padding: 2px 0 0 5px;
 	align-items: start;
-	height: 40%;
-	left: 0;
+	height: 50%;
 	top: 0;
-	width: 100%;
 }
 
 .resizer-b {
-	padding: 0 0 2px 10px;
-	display: flex;
+	padding: 0 0 2px 5px;
 	align-items: end;
-	height: 60%;
-	left: 0;
+	height: 50%;
 	bottom: 0;
-	width: 100%;
 }

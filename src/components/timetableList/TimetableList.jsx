@@ -3,7 +3,6 @@ import './timetableList.css';
 import {TimeTableItem} from "./timeTableItem/TimeTableItem";
 
 const TimetableList = ({hours}) => {
-	
 	useEffect(() => {
 		listRef.current.onpointerdown = () => {
 			return false;

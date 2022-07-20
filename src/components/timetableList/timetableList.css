@@ -16,4 +16,5 @@
 	text-align: end;
 	width: 34px;
 	font-size: 12px;
+	pointer-events: none;
 }
