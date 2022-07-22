@@ -23,3 +23,8 @@ export function getClosestCoords(listHeight, coords) {
 	}
 	return allCoords.sort((a, b) => Math.abs(coords - a) - Math.abs(coords - b))[0];
 }
+//
+// export function getClosestFreeSlotsCoords(freeSlots) {
+// 	const topCoords = freeSlots.map(slot => slot)
+// 	console.log(topCoords);
+// }

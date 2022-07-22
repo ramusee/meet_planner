@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-	busySlots: [],
+	freeSlots: [],
 };
 
 export const mainSlice = createSlice({
@@ -9,19 +9,22 @@ export const mainSlice = createSlice({
 	initialState,
 	reducers: {
 		setSlots(state, action) {
-			if(state.busySlots.some(item =>
+			if(state.freeSlots.some(item =>
 				item.id === action.payload.id
 			)) {
-				state.busySlots = state.busySlots.map(
+				state.freeSlots = state.freeSlots.map(
 					item => {
 						if (item.id === action.payload.id) {
-							return {...item, top: action.payload.top, bottom: action.payload.top};
+							return {...item,
+								top: action.payload.top,
+								bottom: action.payload.bottom
+							};
 						}
 						return item;
 					}
 				);
 			} else {
-				state.busySlots.push(action.payload)
+				state.freeSlots.push(action.payload)
 			}
 		}
 	},
