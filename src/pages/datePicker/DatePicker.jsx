@@ -51,14 +51,14 @@ const DatePicker = () => {
 				   justifyContent="space-between"
 			>
 				<Button component={Link}
-						to="/"
+						to="/meet_planner/"
 						variant="contained"
 						color="success"
 				>
 					Back
 				</Button>
 				<Button component={Link}
-						to="/timing"
+						to="/meet_planner/timing"
 						variant="contained"
 						color="success"
 				>

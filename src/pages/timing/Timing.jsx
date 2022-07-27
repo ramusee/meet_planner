@@ -28,7 +28,7 @@ const Timing = () => {
 				<TimetableList hours={hoursPM}/>
 			</div>
 			<Button component={Link}
-					to="/date"
+					to="/meet_planner/date"
 					variant="contained"
 					color="success"
 			>

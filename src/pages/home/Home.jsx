@@ -27,7 +27,7 @@ const Home = () => {
 						backgroundColor: '#09CE6999',
 						justifyContent: 'center',
 					}}>
-						<Link to="/">
+						<Link to="/meet_planner">
 							https://planing.msoft.team/a3djfg5
 						</Link>
 					</Box>
@@ -37,7 +37,7 @@ const Home = () => {
 				</Stack>
 			</Stack>
 			<Stack mt="40px" spacing={2} width="100%">
-				<Button variant="contained" color="success" component={Link} to="/date">
+				<Button variant="contained" color="success" component={Link} to="/meet_planner/date">
 					Fill up your slots
 				</Button>
 				<Button variant="contained" color="secondary">Share link</Button>

@@ -11,10 +11,10 @@ function App() {
 	return (
 		<Container maxWidth="sm" sx={{px: 0}}>
 			<Routes>
-				<Route path="/" element={<Layout/>}>
+				<Route path="/meet_planner" element={<Layout/>}>
 					<Route index element={<Home/>}/>
-					<Route path="/date" element={<DatePicker/>}/>
-					<Route path="/timing" element={<Timing/>}/>
+					<Route path="/meet_planner/date" element={<DatePicker/>}/>
+					<Route path="/meet_planner/timing" element={<Timing/>}/>
 				</Route>
 			</Routes>
 		</Container>
