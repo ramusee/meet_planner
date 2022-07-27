@@ -52,10 +52,11 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 			const topElInList = topEl - listPosition.top;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
-			const closestCoordsTop = getClosestCoords(listPosition.height, topElInList);
+			let closestCoordsTop = getClosestCoords(listPosition.height, topElInList);
 			const closestCoordsBottom = getClosestCoords(listPosition.height, bottomElInList);
 			if(topElInList < closestBorder) {
 				height= parseInt(styles.height) + (topElInList - closestBorder)
+				closestCoordsTop = closestBorder
 			} else {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
@@ -101,12 +102,12 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
 			const closestCoordsTop = getClosestCoords(listPosition.height, topElInList);
-			const closestCoordsBottom = getClosestCoords(listPosition.height, bottomElInList);
+			let closestCoordsBottom = getClosestCoords(listPosition.height, bottomElInList);
 			if(bottomElInList > closestBorder) {
 				height= parseInt(styles.height) + (closestBorder - bottomElInList)
+				closestCoordsBottom = closestBorder
 			} else {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
-				
 			}
 			resizeableEl.style.height = `${height-1}px`;
 			dispatch(setSlots({id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));

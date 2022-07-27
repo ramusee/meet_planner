@@ -1,35 +1,24 @@
 import React from 'react';
-import {Box, Button, List, ListItem, ListItemText, Stack, Typography} from "@mui/material";
+import {Box, Button, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
-
 const Home = () => {
+	
 	return (
 		<Box sx={{
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			height: '100%'
 		}}
 		>
-			<Stack mt="50px" spacing={3}>
-				<Stack>
-					<Typography variant="body2"
-								color="secondary"
-					>
+			<Stack mt="50px" width="100%" alignItems="center" spacing={3}>
+				<Stack color="text.primary">
+					<Typography variant="body2">
 						Collect all available slots with your team in 3 steps:
 					</Typography>
-					<List >
-						<ListItem>
-							<ListItemText color="secondary">1. Fill up your slots</ListItemText>
-						</ListItem>
-						<ListItem>
-							<ListItemText>2. Share the link and collect others</ListItemText>
-						</ListItem>
-						<ListItem>
-							<ListItemText>3. Find matches and schedule meeting.</ListItemText>
-						</ListItem>
-					</List>
+					<Typography variant="body2">1. Fill up your slots</Typography>
+					<Typography variant="body2">2. Share the link and collect others</Typography>
+					<Typography variant="body2">3. Find matches and schedule meeting.</Typography>
 				</Stack>
 				<Stack spacing={2} width="100%">
 					<Box sx={{
@@ -41,9 +30,18 @@ const Home = () => {
 							https://planing.msoft.team/a3djfg5
 						</Link>
 					</Box>
+					<Button variant="contained"
+							color="secondary"
+					>
+						Generate new link
+					</Button>
 				</Stack>
 			</Stack>
-			<Stack spacing={2} width="100%">
+			<Stack mt="40px" spacing={2} width="100%">
+				<Button variant="contained" color="success" component={Link} to="/timing">
+					Fill up your slots
+				</Button>
+				<Button variant="contained" color="secondary">Share link</Button>
 			</Stack>
 		</Box>
 	);
