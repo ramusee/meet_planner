@@ -9,7 +9,7 @@ import {DatePicker} from "./pages/datePicker/DatePicker";
 
 function App() {
 	return (
-		<Container maxWidth="sm">
+		<Container maxWidth="sm" sx={{px: 0}}>
 			<Routes>
 				<Route path="/" element={<Layout/>}>
 					<Route index element={<Home/>}/>

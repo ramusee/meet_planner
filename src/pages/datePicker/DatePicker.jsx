@@ -4,8 +4,11 @@ import {Typography} from "@mui/material";
 const DatePicker = () => {
 	return (
 		<>
-			<Typography variant="body2" color="text.primary">
-			
+			<Typography textAlign="center"
+						variant="body2"
+						color="text.primary"
+			>
+				Choose all your available days
 			</Typography>
 		</>
 	);

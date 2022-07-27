@@ -2,6 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
 	freeSlots: [],
+	
 };
 
 export const mainSlice = createSlice({
@@ -31,6 +32,9 @@ export const mainSlice = createSlice({
 		deleteSlot(state, action) {
 			state.freeSlots = state.freeSlots.filter(item => item.id !== action.payload);
 		},
+		addFreeTimes(state, action) {
+		
+		}
 	}
 });
 export default mainSlice.reducer;
