@@ -1,0 +1,28 @@
+.timetable__list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+	background-color: black;
+	margin: 0;
+	padding: 0;
+}
+
+.timetable__item {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #2a2c3e;
+	pointer-events: auto;
+	flex-grow: 1;
+	min-height: 35px;
+	max-height: 40px;
+}
+
+.timetable__hour {
+	text-align: end;
+	width: 34px;
+	color: gray;
+	font-size: 10px;
+	pointer-events: none;
+	white-space: nowrap;
+}

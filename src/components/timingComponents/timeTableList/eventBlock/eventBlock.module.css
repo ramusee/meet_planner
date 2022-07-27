@@ -1,0 +1,73 @@
+.event_block {
+	position: relative;
+	width: 80%;
+	height: 100%;
+	touch-action: none;
+}
+
+.event_block__time {
+	font-size: 11px;
+	cursor: default;
+	width: 55px;
+	text-align: end;
+	font-weight: 500;
+	color: #09CE69;
+	padding: 1px;
+}
+.event_block__del {
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	top: -10px;
+	right: -14px;
+	border-radius: 50px;
+	background-color: rgba(241, 92, 92, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+	cursor: pointer;
+}
+
+.resizeable {
+	position: absolute;
+	border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	flex-wrap: wrap;
+	min-height: 50%;
+	background-color: rgba(9, 206, 105, 0.6);
+	opacity: 0;
+	z-index: 0;
+}
+
+.resizeable_visible {
+	opacity: 1;
+	z-index: 100;
+}
+
+.resizer {
+	display: flex;
+	position: absolute;
+	width: 100%;
+	left: 0;
+}
+
+.resizer_t {
+	align-items: start;
+	height: 0%;
+	top: 0;
+}
+
+.resizer_b {
+	align-items: end;
+	height: 100%;
+	bottom: 0;
+}
+
+.resizer_after_tap {
+	height: 50%;
+}
