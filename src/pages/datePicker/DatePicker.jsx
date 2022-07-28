@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Box, Button, Stack, Typography} from "@mui/material";
 import {Calendar} from "react-multi-date-picker";
+import "react-multi-date-picker/styles/colors/green.css"
 
 import './datePicker.css';
 import {Link} from "react-router-dom";
@@ -30,6 +31,7 @@ const DatePicker = () => {
 					value={dates}
 					onChange={setDates}
 					weekDays={weekDays}
+					className="green"
 					renderButton={(direction, handleClick) => (
 						<button className="calendar_arrow" onClick={handleClick}>
 							{direction === "right" ? "❱" : "❰"}
