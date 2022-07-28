@@ -27,7 +27,7 @@ const Home = () => {
 						backgroundColor: '#09CE6999',
 						justifyContent: 'center',
 					}}>
-						<Link to="/meet_planner">
+						<Link to="/">
 							https://planing.msoft.team/a3djfg5
 						</Link>
 					</Box>

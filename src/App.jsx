@@ -11,7 +11,7 @@ function App() {
 	return (
 		<Container maxWidth="sm" sx={{px: 0}}>
 			<Routes>
-				<Route path="meet_planner" element={<Layout/>}>
+				<Route path="/" element={<Layout/>}>
 					<Route index element={<Home/>}/>
 					<Route path="date" element={<DatePicker/>}/>
 					<Route path="timing" element={<Timing/>}/>
