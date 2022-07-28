@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteSlot, mainSlice} from "../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
 
-const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
+const EventBlock = ({listRef, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
@@ -20,6 +20,7 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
+	const refDelete = useRef(null)
 	const freeSlots = useSelector(state => state.mainReducer.freeSlots);
 	const dispatch = useDispatch();
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
@@ -35,7 +36,16 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 		const topElInList = topEl - listPosition.top;
 		const bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		//	Top Resize
+		
+		const onClickDeleteBtn = () =>{
+			dispatch(deleteSlot(hour));
+			setIsVisibleBlock(false)
+			setIsChange(false)
+			resizeableEl.style.top = '0px';
+			resizeableEl.style.bottom = '0px';
+			resizeableEl.style.height = `${listPosition.height / 12}px`
+		}
+			// Top Resize
 		const onPointerMoveTopResize = (e) => {
 			const dy = e.pageY - y;
 			height = height - dy;
@@ -135,13 +145,16 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 		// added down listeners
 		const resizerTop = refTop.current;
 		const resizerBottom = refBottom.current;
+		const deleteBtn = refDelete.current
 		resizerTop.addEventListener("pointerdown", onPointerDownTopResize);
 		resizerBottom.addEventListener("pointerdown", onPointerDownBottomResize);
+		deleteBtn.addEventListener("click", onClickDeleteBtn)
 		setTimeStart(getTime(listPosition.height, topElInList));
 		setTimeEnd(getTime(listPosition.height, bottomElInList));
 		return () => {
 			resizerTop.removeEventListener("pointerdown", onPointerDownTopResize);
 			resizerBottom.removeEventListener("pointerdown", onPointerDownBottomResize);
+			deleteBtn.removeEventListener("click", onClickDeleteBtn);
 		};
 		// eslint-disable-next-line
 	}, [freeSlots]);
@@ -162,14 +175,11 @@ const EventBlock = ({listRef, hour, setIsExistsEvent}) => {
 						 : `${s.resizer} ${s.resizer_b} ${s.resizer_after_tap}`}>
 				</div>
 				<span className={s.event_block__time}>{`${timeEnd} ${ampm}`}</span>
-				{isVisibleBlock && <div className={s.event_block__del}
+				<button className={s.event_block__del}
+										ref={refDelete}
 										onPointerDown={(e) => e.stopPropagation()}
-										onClick={() => {
-											setIsExistsEvent(false);
-											dispatch(deleteSlot(hour));
-										}
-										}
-				>&times;</div>}
+										disabled={!isVisibleBlock}
+				>×</button>
 			</div>
 		</div>
 	);

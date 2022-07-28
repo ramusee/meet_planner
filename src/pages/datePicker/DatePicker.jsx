@@ -5,12 +5,19 @@ import "react-multi-date-picker/styles/colors/green.css"
 
 import './datePicker.css';
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {addDate} from "../../store/slices/mainSlice";
 
 const weekDays = ["S", "M", "T", "W", "T", " F", " S"];
 
 const DatePicker = () => {
-	const today = Date.now();
-	const [dates, setDates] = useState([today]);
+	const [dates, setDates] = useState([]);
+	const dispatch = useDispatch()
+	
+	const onChange = (data) => {
+		setDates(data)
+		// dispatch(addDate(dates))
+	}
 	console.log(dates);
 	return (
 		<>
@@ -29,7 +36,7 @@ const DatePicker = () => {
 				<Calendar
 					multiple
 					value={dates}
-					onChange={setDates}
+					onChange={onChange}
 					weekDays={weekDays}
 					className="green"
 					renderButton={(direction, handleClick) => (

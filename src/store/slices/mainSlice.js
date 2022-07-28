@@ -2,7 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
 	freeSlots: [],
-	
+	timeSlots: [],
+	dates: []
 };
 
 export const mainSlice = createSlice({
@@ -32,10 +33,13 @@ export const mainSlice = createSlice({
 		deleteSlot(state, action) {
 			state.freeSlots = state.freeSlots.filter(item => item.id !== action.payload);
 		},
-		addFreeTimes(state, action) {
+		addDate(state, action) {
+			state.dates.push(action.payload)
+		},
+		addTimeSlots(state, action) {
 		
 		}
 	}
 });
 export default mainSlice.reducer;
-export const {setSlots, deleteSlot} = mainSlice.actions;
+export const {setSlots, deleteSlot, addDate} = mainSlice.actions;

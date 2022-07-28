@@ -1,7 +1,7 @@
 import React from 'react';
 import {TimetableList} from "../../components/timingComponents/timeTableList/TimetableList";
 import s from './timing.module.css'
-import {Button, Typography} from "@mui/material";
+import {Button, Stack, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 
 const hoursAM = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM',
@@ -27,13 +27,25 @@ const Timing = () => {
 				<TimetableList hours={hoursAM}/>
 				<TimetableList hours={hoursPM}/>
 			</div>
-			<Button component={Link}
-					to="/date"
-					variant="contained"
-					color="success"
+			<Stack direction="row"
+				   width="100%"
+				   justifyContent="space-between"
 			>
-				Back
-			</Button>
+				<Button component={Link}
+						to="/date"
+						variant="contained"
+						color="success"
+				>
+					Back
+				</Button>
+				<Button component={Link}
+						to="/naming"
+						variant="contained"
+						color="success"
+				>
+					Next
+				</Button>
+			</Stack>
 		</>
 	);
 };
