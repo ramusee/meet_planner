@@ -51,7 +51,7 @@ const DatePicker = () => {
 				   justifyContent="space-between"
 			>
 				<Button component={Link}
-						to="/meet_planner/"
+						to="/meet_planner"
 						variant="contained"
 						color="success"
 				>

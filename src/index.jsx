@@ -25,7 +25,7 @@ const theme = createTheme({
 			contrastText: '#000000',
 		}
 	},
-})
+});
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root')
@@ -34,9 +34,9 @@ const root = ReactDOM.createRoot(
 root.render(
 	<Provider store={store}>
 		<BrowserRouter>
-		<ThemeProvider theme={theme}>
+			<ThemeProvider theme={theme}>
 				<App/>
-		</ThemeProvider>
+			</ThemeProvider>
 		</BrowserRouter>
 	</Provider>
 );
