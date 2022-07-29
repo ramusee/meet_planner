@@ -23,7 +23,7 @@
 		min-height: 28px;
 	}
 }
-@media screen and (min-width: 375px) and (max-width: 413px)  {
+@media screen and (min-width: 375px) and (max-width: 390px)  {
 	.timetable__item {
 		min-height: 33px;
 	}

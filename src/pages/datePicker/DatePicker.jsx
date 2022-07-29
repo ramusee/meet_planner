@@ -1,24 +1,34 @@
 import React, {useState} from 'react';
 import {Box, Button, Stack, Typography} from "@mui/material";
-import {Calendar} from "react-multi-date-picker";
+import {Calendar, DateObject} from "react-multi-date-picker";
 import "react-multi-date-picker/styles/colors/green.css"
-
 import './datePicker.css';
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {addDate} from "../../store/slices/mainSlice";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setDate} from "../../store/slices/mainSlice";
 
 const weekDays = ["S", "M", "T", "W", "T", " F", " S"];
+const format = "DD/MM/YYYY"
 
 const DatePicker = () => {
-	const [dates, setDates] = useState([]);
+	const [dates, setDates] = useState([Date.now()])
+	const [isNotValidDate, setIsNotValidDate] = useState(false)
 	const dispatch = useDispatch()
+	const globalDates = useSelector(state => state.mainReducer.dates)
+	const navigate = useNavigate()
 	
-	const onChange = (data) => {
-		setDates(data)
-		// dispatch(addDate(dates))
+	const onChange = (date) => {
+		setDates(date)
+		// dispatch(setDates)
 	}
 	console.log(dates);
+	const handlerBtnOnClick = (e) => {
+		if(dates.length) {
+			navigate("/timing")
+		} else {
+			setIsNotValidDate(true)
+		}
+	}
 	return (
 		<>
 			<Typography textAlign="center"
@@ -28,13 +38,13 @@ const DatePicker = () => {
 				Choose all your available days
 			</Typography>
 			<Box sx={{
-				m: '0 auto',
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center'
+				margin: '0 auto',
+				position: 'relative'
 			}}>
 				<Calendar
 					multiple
+					sort
+					format={format}
 					value={dates}
 					onChange={onChange}
 					weekDays={weekDays}
@@ -57,17 +67,19 @@ const DatePicker = () => {
 							...props.style,
 							color: 'gray'
 						};
-						if (isSameDate(date, selectedDate)) props.style = {
-							...props.style,
-							color: "red",
-							backgroundColor: "#a5a5a5",
-							fontWeight: "bold",
-							border: "1px solid #777"
-						}
 						
 						return props;
 					}}
 				/>
+				{isNotValidDate && <Typography color="error"
+											   sx={{
+												   position: 'absolute',
+												   bottom: '10%',
+												   left: '32%'
+				}}
+				>
+					Please, select dates
+				</Typography>}
 			</Box>
 			<Stack direction="row"
 				   width="100%"
@@ -80,8 +92,7 @@ const DatePicker = () => {
 				>
 					Back
 				</Button>
-				<Button component={Link}
-						to="/timing"
+				<Button onClick={handlerBtnOnClick}
 						variant="contained"
 						color="success"
 				>

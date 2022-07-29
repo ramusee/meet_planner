@@ -5,7 +5,7 @@ import {
 	getClosestCoords,
 	getClosestFreeSlotsBottomCoords,
 	getClosestFreeSlotsTopCoords
-} from "../../../../helpers/helpers";
+} from "../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteSlot, mainSlice} from "../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
@@ -43,7 +43,7 @@ const EventBlock = ({listRef, hour}) => {
 			setIsChange(false)
 			resizeableEl.style.top = '0px';
 			resizeableEl.style.bottom = '0px';
-			resizeableEl.style.height = `${listPosition.height / 12}px`
+			resizeableEl.style.height = `${(listPosition.height / 12) - 1}px`
 		}
 			// Top Resize
 		const onPointerMoveTopResize = (e) => {

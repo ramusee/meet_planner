@@ -10,21 +10,24 @@ import {ThemeProvider, createTheme} from "@mui/material";
 const store = setupStore();
 const theme = createTheme({
 	palette: {
+		mode: 'dark',
 		primary: {
 			main: '#000000',
-			contrastText: '#09CE69'
+			contrastText: '#09CE69',
 		},
 		secondary: {
 			main: '#b0a8a8',
 		},
 		text: {
-			primary: '#09CE69'
+			primary: '#09CE69',
+			secondary: '#f3dcdc'
 		},
 		success: {
 			main: '#09CE69',
 			contrastText: '#000000',
-		}
+		},
 	},
+	
 });
 
 const root = ReactDOM.createRoot(

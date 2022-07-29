@@ -3,17 +3,13 @@ import {Box, Button, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
 const Home = () => {
 	
-	return (
-		<Box sx={{
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			justifyContent: 'space-between',
-		}}
-		>
-			<Stack mt="50px" width="100%" alignItems="center" spacing={3}>
+	return (<>
+			<Stack mt="30px" width="100%" alignItems="center" spacing={3}>
 				<Stack color="text.primary">
-					<Typography variant="body2">
+					<Typography textAlign="center"
+								variant="body2"
+								color="text.primary"
+					>
 						Collect all available slots with your team in 3 steps:
 					</Typography>
 					<Typography variant="body2">1. Fill up your slots</Typography>
@@ -36,13 +32,13 @@ const Home = () => {
 					</Button>
 				</Stack>
 			</Stack>
-			<Stack mt="40px" spacing={2} width="100%">
+			<Stack spacing={2} width="100%">
 				<Button variant="contained" color="success" component={Link} to="date">
 					Fill up your slots
 				</Button>
 				<Button variant="contained" color="secondary">Share link</Button>
 			</Stack>
-		</Box>
+		</>
 	);
 };
 
