@@ -57,7 +57,7 @@
 }
 
 .rmdp-wrapper  {
-	box-shadow: none;
+	box-shadow: none !important;
 }
 
 @media screen and (min-width: 320px) and (max-width: 374px) {

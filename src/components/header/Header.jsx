@@ -5,11 +5,12 @@ const Header = () => {
 	return (
 		<AppBar position="static"
 				sx={{
-					backgroundColor: 'black'
+					backgroundColor: 'black',
+					minHeight: '36px'
 				}}
 		>
 			<Toolbar sx={{
-				minHeight: '40px',
+				minHeight: '35px',
 				backgroundColor: 'black'
 			}}>
 				<Typography variant="h4"

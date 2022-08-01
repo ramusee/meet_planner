@@ -57,10 +57,7 @@ const DatePicker = () => {
 							color: '#fff',
 							width: '35px',
 							height: '35px',
-						}
-						if (isSameDate(date, selectedDate)) props.style = {
-							...props.style,
-							color: "#ffffff",
+							fontSize: '18px'
 						}
 						if (isWeekend) props.style = {
 							...props.style,

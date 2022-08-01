@@ -6,16 +6,14 @@ import {Container} from "@mui/material";
 const Layout = () => {
 	return (
 		<>
-			
-			<Header/>
 			<Container maxWidth="xs" sx={{
 				height: '100%',
-				// maxWidth: '500px',
 				px: 0,
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'space-between'
 			}}>
+				<Header/>
 				<Outlet/>
 			</Container>
 		</>

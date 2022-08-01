@@ -22,6 +22,7 @@ const Timing = () => {
 				<span className="settings-panel__item">All day</span>
 				<span className="settings-panel__item">Timezone: PBT</span>
 			</div>
+
 			<h2 className={s.date}> Sunday, July 12, 2022 </h2>
 			<div className={s.timetable}>
 				<TimetableList hours={hoursAM}/>
