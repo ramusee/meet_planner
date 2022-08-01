@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setDate} from "../../store/slices/mainSlice";
 
 const weekDays = ["S", "M", "T", "W", "T", " F", " S"];
-const format = "DD/MM/YYYY"
+const format = "YYYY/MM/DD"
 
 const DatePicker = () => {
 	const [dates, setDates] = useState([Date.now()])
@@ -18,16 +18,13 @@ const DatePicker = () => {
 	const navigate = useNavigate()
 	
 	const onChange = (date) => {
-		setDates(date)
+		// setDates(toDate(date))
+		// console.log(dates[0].toDate());
 		// dispatch(setDates)
 	}
-	console.log(dates);
+
 	const handlerBtnOnClick = (e) => {
-		if(dates.length) {
-			navigate("/timing")
-		} else {
-			setIsNotValidDate(true)
-		}
+		dates.length ? navigate("/timing") : setIsNotValidDate(true)
 	}
 	return (
 		<>
@@ -53,20 +50,28 @@ const DatePicker = () => {
 						<button className="calendar_arrow" onClick={handleClick}>
 							{direction === "right" ? "❱" : "❰"}
 						</button>)}
-					mapDays={({ date, today, selectedDate, currentMonth, isSameDate,  }) => {
+					mapDays={({ date, today, selectedDate, currentMonth, isSameDate }) => {
 						let props = {};
 						let isWeekend = [0, 6].includes(date.weekDay.index);
-						
+
 						props.style = {
 							color: '#fff',
 							width: '35px',
 							height: '35px',
-							backgroundColor: date.month.index === currentMonth.index ? "fff" : ""
+						}
+						if (isSameDate(date, selectedDate)) props.style = {
+							...props.style,
+							color: "#ffffff",
 						}
 						if (isWeekend) props.style = {
 							...props.style,
-							color: 'gray'
+							color: '#a1a1a1'
 						};
+						if(isSameDate(date, today)) props.style = {
+							...props.style,
+							color: '#ffffff',
+						}
+
 						
 						return props;
 					}}

@@ -15,16 +15,16 @@ const EventBlock = ({listRef, hour}) => {
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
-	
+
+	const freeSlots = useSelector(state => state.mainReducer.freeSlots);
+	const dispatch = useDispatch();
 	const setSlots = mainSlice.actions.setSlots;
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null)
-	const freeSlots = useSelector(state => state.mainReducer.freeSlots);
-	const dispatch = useDispatch();
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
-	
+
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
@@ -33,10 +33,26 @@ const EventBlock = ({listRef, hour}) => {
 		const listPosition = listRef.current.getBoundingClientRect();
 		const topEl = resizeableEl.getBoundingClientRect().top;
 		const bottomEl = resizeableEl.getBoundingClientRect().bottom;
-		const topElInList = topEl - listPosition.top;
-		const bottomElInList = bottomEl - listPosition.top;
+		let topElInList = topEl - listPosition.top;
+		let bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		
+		if(!isChange ) {
+			freeSlots.forEach(item => {
+				if(item.id === hour) {
+					setIsVisibleBlock(true)
+					setIsChange(true)
+					resizeableEl.style.top = `${item.top - topElInList}px`;
+					// resizeableEl.style.bottom = `${item.bottom - bottomElInList}px`;
+					height = (item.bottom - item.top)
+					resizeableEl.style.height = `${height - 1}px`
+					topElInList = item.top
+					bottomElInList = item.bottom
+					setTimeStart(getTime(listPosition.height, topElInList));
+					setTimeEnd(getTime(listPosition.height, bottomElInList));
+				}
+			})
+		}
+
 		const onClickDeleteBtn = () =>{
 			dispatch(deleteSlot(hour));
 			setIsVisibleBlock(false)
