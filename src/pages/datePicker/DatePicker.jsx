@@ -6,21 +6,21 @@ import './datePicker.css';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setDate} from "../../store/slices/mainSlice";
-
+import {format} from "date-fns"
 const weekDays = ["S", "M", "T", "W", "T", " F", " S"];
-const format = "YYYY/MM/DD"
 
 const DatePicker = () => {
 	const [dates, setDates] = useState([Date.now()])
 	const [isNotValidDate, setIsNotValidDate] = useState(false)
 	const dispatch = useDispatch()
 	const globalDates = useSelector(state => state.mainReducer.dates)
-	const navigate = useNavigate()
+	const navigate = useNavigate();
+	const valueDates = globalDates.map(item => new DateObject(item.date))
 	
+	console.log(new Date(Date.parse('2022-08-01T09:54:41.234000+03:00')).toLocaleString());
 	const onChange = (date) => {
-		// setDates(toDate(date))
-		// console.log(dates[0].toDate());
-		// dispatch(setDates)
+		const formatDates = date.map(item => ({date: (item.unix * 1000)}))
+		dispatch(setDate(formatDates))
 	}
 
 	const handlerBtnOnClick = (e) => {
@@ -41,8 +41,7 @@ const DatePicker = () => {
 				<Calendar
 					multiple
 					sort
-					format={format}
-					value={dates}
+					value={valueDates}
 					onChange={onChange}
 					weekDays={weekDays}
 					className="green"

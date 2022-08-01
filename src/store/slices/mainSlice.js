@@ -37,7 +37,7 @@ export const mainSlice = createSlice({
 			state.freeSlots = state.freeSlots.filter(item => item.id !== action.payload);
 		},
 		setDate(state, action) {
-			state.dates.push({date: action.payload})
+			state.dates = action.payload
 		},
 		addTimeSlots(state, action) {
 		
