@@ -13,7 +13,6 @@ const hoursPM = ['Noon', '1 PM', '2 PM', '3 PM', '4 PM',
 
 const TimeTable = ({date}) => {
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate)
-	console.log(date, currentDate);
 	return (
 		currentDate === date ? <Box>
 			<Typography className={s.date}>

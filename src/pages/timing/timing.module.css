@@ -2,7 +2,7 @@
 	display: flex;
 	justify-content: space-between;
 	color: #09CE69;
-	margin: 0 10px 5px;
+	margin: 0px 10px 5px;
 }
 .date {
 	font-weight: 400;
@@ -33,7 +33,10 @@
 	}
 }
 @media screen and (min-width: 375px) and (max-width: 390px)  {
-	.timetable__item {
-		min-height: 33px;
+	.title {
+		font-size: 12px;
+	}
+	.settings_panel {
+		font-size: 14px;
 	}
 }

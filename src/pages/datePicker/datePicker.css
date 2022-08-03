@@ -31,12 +31,13 @@
 .rmdp-day-picker > div > div {
 	margin-top: 20px;
 }
-
 .rmdp-week:first-child {
 	background-color: #151515;
 	border-radius: 8px;
+	font-size: 18px;
 }
 .rmdp-week > div {
+	width: 38px;
 	color: white;
 }
 .rmdp-header-values > span {

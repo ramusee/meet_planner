@@ -26,8 +26,14 @@ const Timing = () => {
 				<TimeTable key={item.date} date={item.date}/>
 			))}
 			{!dates.length && <Typography textAlign="center"
-										  variant="h6"
+										  variant="body1"
 										  mb="150px"
+										  color="text.primary"
+										  p="15px"
+										  sx={{
+											  backgroundColor: "#1f1f1f",
+											  borderRadius: "6px"
+										  }}
 			>
 				Select the dates in the previous step
 			</Typography>}
