@@ -28,14 +28,6 @@
 .rmdp-month-picker span {
 	color: white;
 }
-/*.rmdp-day.rmdp-selected span {*/
-/*	background-color: #09CE69;*/
-/*	box-shadow: 0 0 3px #8798ad;*/
-/*	color: #fff;*/
-/*}*/
-/*.rmdp-day.rmdp-selected > span {*/
-/*	background-color: #09CE69;*/
-/*}*/
 .rmdp-day-picker > div > div {
 	margin-top: 20px;
 }

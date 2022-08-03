@@ -20,7 +20,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 374px) {
 	.timetable__item {
-		min-height: 28px;
+		min-height: 29px;
 	}
 }
 @media screen and (min-width: 375px) and (max-width: 390px)  {

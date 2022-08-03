@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {TimeTableItem} from "./timeTableItem/TimeTableItem";
 import s from './timetableList.module.css'
 
-const TimetableList = ({hours}) => {
+const TimetableList = ({hours, date}) => {
 	useEffect(() => {
 		listRef.current.onpointerdown = () => {
 			return false;
@@ -16,6 +16,7 @@ const TimetableList = ({hours}) => {
 			{hours.map(hour => (
 				<TimeTableItem key={hour}
 							   hour={hour}
+							   date={date}
 							   listRef={listRef}
 				/>
 			))}

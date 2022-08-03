@@ -16,3 +16,24 @@
 	gap: 5px;
 	padding: 6px 10px;
 }
+.title {
+	display: block;
+	width: 100%;
+	text-align: center;
+	color: #09CE69;
+	font-size: 14px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 374px) {
+	.settings_panel {
+		font-size: 12px;
+	}
+	.title {
+		font-size: 12px;
+	}
+}
+@media screen and (min-width: 375px) and (max-width: 390px)  {
+	.timetable__item {
+		min-height: 33px;
+	}
+}

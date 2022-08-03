@@ -16,12 +16,17 @@ const shortNameDay = {
 
 const DatesPanel = () => {
 	const dates = useSelector(state => state.mainReducer.interface.dates);
+	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
 	const dispatch = useDispatch();
 	const handlerDateClick = (date) => {
 		dispatch(setCurrentDate(date));
 	};
 	return (
-		<Stack px="10px" direction="row" spacing={1}>
+		<Stack px="10px" direction="row" spacing={1}
+			   sx={{
+				   overflow: 'auto',
+			   }}
+		>
 			{dates.map(item => (
 				<Stack key={item.date} alignItems="center">
 					<Typography variant="body2"
@@ -35,7 +40,7 @@ const DatesPanel = () => {
 							 display: 'flex',
 							 justifyContent: 'center',
 							 alignItems: 'center',
-							 backgroundColor: '#ffffff',
+							 backgroundColor: currentDate===item.date ? '#ffffff' : '#000000',
 							 borderRadius: '50px',
 							 height: '30px',
 							 width: '30px',
@@ -43,9 +48,11 @@ const DatesPanel = () => {
 						 }}>
 						<Typography variant="body2"
 									component="span"
-									fontWeight="600"
+									fontWeight="500"
 									fontSize="16px"
-									color="black"
+									sx={{
+										color: currentDate===item.date ? '#000000' : '#ffffff'
+									}}
 						>
 							{new DateObject(item.date).day}
 						</Typography>

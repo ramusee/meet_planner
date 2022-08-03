@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
 
-const EventBlock = ({listRef, hour}) => {
+const EventBlock = ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
@@ -23,13 +23,13 @@ const EventBlock = ({listRef, hour}) => {
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
-	let ranges = [];
+	let ranges = []
 	dates.forEach(item => {
-		if(item.date === currentDate) ranges = item.ranges;
+		if(item.date === currentDate) {
+			ranges = item.ranges;
+		}
 	});
-	console.log(dates);
-	console.log(ranges);
-
+	
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
@@ -41,7 +41,7 @@ const EventBlock = ({listRef, hour}) => {
 		let topElInList = topEl - listPosition.top;
 		let bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		if (!isChange) {
+		if (!isChange && date===currentDate) {
 			ranges.forEach(item => {
 				if (item.id === hour) {
 					setIsVisibleBlock(true);

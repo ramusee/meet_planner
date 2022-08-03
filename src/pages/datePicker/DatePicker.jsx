@@ -21,9 +21,13 @@ const DatePicker = () => {
 
 	}
 
-	const handlerBtnOnClick = (e) => {
-		dates.length ? navigate("/timing") : setIsNotValidDate(true)
-		dispatch(setCurrentDate(dates[0].date))
+	const handlerBtnOnClick = () => {
+		if(dates.length) {
+			navigate("/timing")
+			dispatch(setCurrentDate(dates[0].date))
+		} else {
+			setIsNotValidDate(true)
+		}
 	}
 	return (
 		<>
