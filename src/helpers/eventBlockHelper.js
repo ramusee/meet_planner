@@ -27,32 +27,32 @@ export function getClosestCoords(listHeight, coords) {
 	return closest;
 }
 
-export function getClosestFreeSlotsTopCoords(freeSlots, coords, ampm) {
+export function getClosestRangesTopCoords(ranges, coords, ampm) {
 	const bottomCoordsAm = [];
 	const bottomCoordsPm = [];
 	if (ampm === 'AM') {
-		freeSlots.forEach(item => {
+		ranges.forEach(item => {
 			if (item.id.slice(-2) === ampm) bottomCoordsAm.push(item.bottom);
 		});
 		return Math.max(...bottomCoordsAm.filter(item => item < coords));
 	} else {
-		freeSlots.forEach(item => {
+		ranges.forEach(item => {
 			if ((item.id.slice(-2) === ampm) || item.id.slice(-2) === 'on') bottomCoordsPm.push(item.bottom);
 		});
 		return Math.max(...bottomCoordsPm.filter(item => item < coords));
 	}
 }
 
-export function getClosestFreeSlotsBottomCoords(freeSlots, coords, ampm) {
+export function getClosestRangesBottomCoords(ranges, coords, ampm) {
 	const topCoordsAm = [];
 	const topCoordsPm = [];
 	if (ampm === 'AM') {
-		freeSlots.forEach(item => {
+		ranges.forEach(item => {
 			if (item.id.slice(-2) === ampm) topCoordsAm.push(item.top);
 		});
 		return Math.min(...topCoordsAm.filter(item => item > coords));
 	} else {
-		freeSlots.forEach(item => {
+		ranges.forEach(item => {
 			if (item.id.slice(-2) === ampm) topCoordsPm.push(item.top);
 		});
 		return Math.min(...topCoordsPm.filter(item => item > coords));

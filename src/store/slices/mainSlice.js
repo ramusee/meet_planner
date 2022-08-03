@@ -2,8 +2,10 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
 	userName: '',
-	freeSlots: [],
-	dates: []
+	interface: {
+		dates: [],
+		currentDate: '',
+	},
 };
 
 export const mainSlice = createSlice({
@@ -11,38 +13,53 @@ export const mainSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserName(state, action) {
-			state.userName = action.payload
+			state.userName = action.payload;
 		},
-		setSlots(state, action) {
-			if (state.freeSlots.some(item =>
-				item.id === action.payload.id
-			)) {
-				state.freeSlots = state.freeSlots.map(
-					item => {
-						if (item.id === action.payload.id) {
-							return {
-								...item,
-								top: action.payload.top,
-								bottom: action.payload.bottom
-							};
-						}
-						return item;
+		setRanges(state, action) {
+			state.interface.dates.forEach(item => {
+				if (item.date === action.payload.date) {
+					if (item.ranges.some(range =>
+						range.id === action.payload.id
+					)) {
+						item.ranges = item.ranges.map(
+							range => {
+								if (range.id === action.payload.id) {
+									return {
+										...range,
+										top: action.payload.top,
+										bottom: action.payload.bottom
+									};
+								}
+								return range;
+							}
+						);
+					} else {
+						item.ranges.push({
+							id: action.payload.id,
+							top: action.payload.top,
+							bottom: action.payload.bottom
+						});
 					}
-				);
-			} else {
-				state.freeSlots.push(action.payload);
-			}
+					return item
+				}
+			});
 		},
 		deleteSlot(state, action) {
-			state.freeSlots = state.freeSlots.filter(item => item.id !== action.payload);
+			state.interface.dates = state.interface.dates.map(item => {
+				if(item.date === action.payload.date) {
+					return {...item,
+						ranges: item.ranges.filter(range => range.id !== action.payload.id)};
+				}
+				return item
+			})
 		},
 		setDate(state, action) {
-			state.dates = action.payload
+			state.interface.dates = action.payload;
 		},
-		addTimeSlots(state, action) {
-		
+		setCurrentDate(state, action) {
+			state.interface.currentDate = action.payload;
 		}
 	}
 });
 export default mainSlice.reducer;
-export const {setUserName, setSlots, deleteSlot, setDate} = mainSlice.actions;
+export const {setUserName, setRanges, deleteSlot, setDate, setCurrentDate} = mainSlice.actions;

@@ -52,7 +52,7 @@ const Naming = () => {
 				</Button>
 			</Box>
 				<Button component={Link}
-						to="/date"
+						to="/timing"
 						variant="contained"
 						color="success"
 				>

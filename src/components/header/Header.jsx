@@ -9,9 +9,10 @@ const Header = () => {
 					minHeight: '36px'
 				}}
 		>
-			<Toolbar sx={{
-				minHeight: '35px',
-				backgroundColor: 'black'
+			<Toolbar
+				variant="dense"
+				sx={{
+					backgroundColor: 'black'
 			}}>
 				<Typography variant="h4"
 							color="inherit"
