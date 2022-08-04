@@ -17,13 +17,11 @@ const DatePicker = () => {
 	const navigate = useNavigate();
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const isIncludesCurrentDate = dates.some(item => item.date === currentDate)
-
 	const onChange = (date) => {
 		const formatDates = date.map(item => ({date: (item.unix * 1000), ranges: []}));
 		dispatch(setDate(formatDates));
 		if (date.length) setIsNotValidDate(false);
 	};
-	
 	const handlerBtnOnClick = () => {
 		if (dates.length) {
 			navigate("/timing");
@@ -82,7 +80,7 @@ const DatePicker = () => {
 											   p="15px"
 											   sx={{
 												   position: 'absolute',
-												   bottom: '10%',
+												   bottom: '0%',
 												   left: '27%',
 												   backgroundColor: "#1f1f1f",
 												   borderRadius: "6px"

@@ -1,7 +1,9 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography} from "@mui/material";
+import {AppBar, Toolbar, Typography, useMediaQuery} from "@mui/material";
 
 const Header = () => {
+	const matches = useMediaQuery('(min-width: 500px)');
+
 	return (
 		<AppBar position="static"
 				sx={{
@@ -18,7 +20,7 @@ const Header = () => {
 							color="inherit"
 							component="p"
 							sx={{
-								margin: '0 auto',
+								margin: !matches ? '0 auto' : 0,
 								fontWeight: 600,
 								lineHeight: '90%'
 							}}

@@ -11,7 +11,7 @@ const hoursPM = ['Noon', '1 PM', '2 PM', '3 PM', '4 PM',
 	'5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'
 ];
 
-const TimeTable = ({date}) => {
+const TimeTable = React.memo( ({date}) => {
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate)
 	return (
 		currentDate === date ? <Box>
@@ -24,6 +24,6 @@ const TimeTable = ({date}) => {
 			</Box>
 		</Box> : null
 	);
-};
+});
 
 export {TimeTable};

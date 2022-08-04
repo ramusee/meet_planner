@@ -8,7 +8,7 @@ import {TimeTable} from "../../components/timingComponents/timeTable/TimeTable";
 
 
 
-const Timing = () => {
+const Timing = React.memo(() => {
 	const {dates} = useSelector(state => state.mainReducer.interface);
 	return (<>
 			<Box px="10px">
@@ -58,6 +58,6 @@ const Timing = () => {
 			</Stack>
 		</>
 	);
-};
+});
 
 export {Timing};

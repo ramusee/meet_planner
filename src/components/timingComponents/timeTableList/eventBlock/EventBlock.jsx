@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
 
-const EventBlock = ({listRef, date, hour}) => {
+const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
@@ -29,6 +29,8 @@ const EventBlock = ({listRef, date, hour}) => {
 			ranges = item.ranges;
 		}
 	});
+	
+	//TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 	
 	useEffect(() => {
 		const resizeableEl = ref.current;
@@ -204,6 +206,6 @@ const EventBlock = ({listRef, date, hour}) => {
 			</div>
 		</div>
 	);
-};
+});
 
 export {EventBlock};

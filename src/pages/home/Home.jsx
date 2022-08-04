@@ -1,11 +1,30 @@
 import React from 'react';
-import {Box, Button, Stack, Typography} from "@mui/material";
+import {Box, Button, Icon, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from 'react-router-dom';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+
+
+const Arrow = () => {
+	const matches = useMediaQuery('(min-width: 600px)');
+	
+	return (
+			matches && <Icon sx={{
+				width: '80px',
+				height: '80px'
+			}}>
+				<DoubleArrowIcon sx={{fontSize: '80px'}}/>
+			</Icon>
+	)
+}
+
 const Home = () => {
+	const matches = useMediaQuery('(min-width: 600px)');
 	
 	return (<>
 			<Stack mt="30px" width="100%" alignItems="center" spacing={3}>
-				<Stack color="text.primary">
+				<Stack color="text.primary" sx={{
+					flexDirection: matches ? 'row' : 'column'
+				}}>
 					<Typography textAlign="center"
 								variant="body2"
 								color="text.primary"
@@ -13,7 +32,9 @@ const Home = () => {
 						Collect all available slots with your team in 3 steps:
 					</Typography>
 					<Typography variant="body2">1. Fill up your slots</Typography>
+					<Arrow/>
 					<Typography variant="body2">2. Share the link and collect others</Typography>
+					<Arrow/>
 					<Typography variant="body2">3. Find matches and schedule meeting.</Typography>
 				</Stack>
 				<Stack spacing={2} width="100%">
