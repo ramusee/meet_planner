@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Typography} from "@mui/material";
 import s from "../../../pages/timing/timing.module.css";
 import {DateObject} from "react-multi-date-picker";
-import {TimetableList} from "../timeTableList/TimetableList";
+import {TimetableList} from "./timeTableList/TimetableList";
 import {useSelector} from "react-redux";
 
 const hoursAM = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM',

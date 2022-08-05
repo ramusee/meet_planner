@@ -1,17 +1,21 @@
 import React from 'react';
-import {Avatar, Box, Button, Stack, Typography} from "@mui/material";
+import {Avatar, Box, Button, Container, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import googleIcon from "../../images/googleIcon.png";
 
 const Concurrences = () => {
 	const userName = useSelector(state => state.mainReducer.userName);
+	const matches = useMediaQuery('(min-width: 900px)');
+
 	return (
 		<>
-			<Box>
+			<Container maxWidth="xs">
 				<Typography textAlign="center"
-							variant="body2"
+							variant={ matches? "h4" : "body2"}
+							fontWeight={matches ? "500" : "400"}
 							color="text.primary"
+							gutterBottom
 				>
 					Concurrences
 				</Typography>
@@ -54,8 +58,8 @@ const Concurrences = () => {
 						</Stack>
 					</Stack>
 				</Stack>
-			</Box>
-			<Box>
+			</Container>
+			<Container maxWidth="xs">
 				<Typography color="text.primary"
 							variant="body2"
 				>
@@ -86,8 +90,8 @@ const Concurrences = () => {
 						</Stack>
 					</Stack>
 				</Stack>
-			</Box>
-			<Stack spacing={2} width="100%">
+			</Container>
+			<Stack margin="0 auto" maxWidth="400px" spacing={2} width="100%">
 				<Button variant="contained" color="success" component={Link} to="/date">
 					Fill up your slots
 				</Button>

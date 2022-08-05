@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Stack, Typography} from "@mui/material";
+import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Calendar, DateObject} from "react-multi-date-picker";
 import "react-multi-date-picker/styles/colors/green.css";
 import './datePicker.css';
@@ -17,6 +17,8 @@ const DatePicker = () => {
 	const navigate = useNavigate();
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const isIncludesCurrentDate = dates.some(item => item.date === currentDate)
+	const matches = useMediaQuery('(min-width: 900px)');
+
 	const onChange = (date) => {
 		const formatDates = date.map(item => ({date: (item.unix * 1000), ranges: []}));
 		dispatch(setDate(formatDates));
@@ -35,10 +37,11 @@ const DatePicker = () => {
 	return (
 		<>
 			<Typography textAlign="center"
-						variant="body2"
+						variant={matches ? "h4" : "body2"}
+						fontWeight={matches ? "500" : "400"}
 						color="text.primary"
 			>
-				Choose all your available days
+				Pick all your available days
 			</Typography>
 			<Box sx={{
 				margin: '0 auto',

@@ -2,7 +2,7 @@ import React from 'react';
 import {AppBar, Toolbar, Typography, useMediaQuery} from "@mui/material";
 
 const Header = () => {
-	const matches = useMediaQuery('(min-width: 500px)');
+	const matches = useMediaQuery('(min-width: 900px)');
 
 	return (
 		<AppBar position="static"

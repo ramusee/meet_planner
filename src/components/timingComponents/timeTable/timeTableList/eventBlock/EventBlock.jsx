@@ -5,9 +5,9 @@ import {
 	getClosestCoords,
 	getClosestRangesBottomCoords,
 	getClosestRangesTopCoords
-} from "../../../../helpers/eventBlockHelper";
+} from "../../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
+import {deleteSlot, setRanges} from "../../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
 
 const EventBlock = React.memo( ({listRef, date, hour}) => {

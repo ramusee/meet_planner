@@ -1,63 +1,25 @@
-import React, {useState} from 'react';
-import {Box, Button, Stack, TextField, Typography} from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
+import React from 'react';
+import {Box, Button, Stack, TextField, Typography, useMediaQuery} from "@mui/material";
+import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserName} from "../../store/slices/mainSlice";
-import {upperLetter} from "../../helpers/upperLetter";
-import {DateObject} from "react-multi-date-picker";
-
-function convertDateToUTC(date) {
-	return new Date(date.getUTCFullYear(), date.getUTCMonth(),
-		date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(),
-		date.getUTCSeconds());
-}
+import {NamingForm} from "../../components/namingComponents/NaimingForm";
 
 const Naming = React.memo(() => {
-	const [inputValue, setInputValue] = useState('');
 	const userName = useSelector(state => state.mainReducer.userName);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const onSubmit = (e) => {
-		e.preventDefault();
-		if (!inputValue) return;
-		dispatch(setUserName(upperLetter(inputValue)));
-		setInputValue('');
-		navigate("/concurrences");
-	};
-	const onChangeInputValue = (e) => {
-		setInputValue(e.target.value);
-	};
+	const matches = useMediaQuery('(min-width: 900px)');
+
 	return (
 		<>
 			<Typography textAlign="center"
-						variant="body2"
+						variant={matches ? "h4" : "body2"}
+						fontWeight={matches ? "500" : "400"}
 						color="text.primary"
 			>
 				Underwrite your slots
 			</Typography>
-			{!userName ? <Box component="form"
-							  noValidate
-							  autoComplete="off"
-							  onSubmit={onSubmit}
-							  sx={{
-								  display: 'flex',
-								  flexDirection: 'column',
-								  alignItems: 'center',
-								  gap: '20px'
-							  }}>
-					<TextField label="Your Name"
-							   variant="outlined"
-							   color="success"
-							   value={inputValue}
-							   onChange={onChangeInputValue}
-					/>
-					<Button type="submit"
-							variant="outlined"
-							color="success"
-					>
-						Save
-					</Button>
-				</Box>
+			{!userName ? <NamingForm/>
 				: <Stack alignItems="center" gap="20px">
 					<Typography textAlign="center"
 								variant="body1"
