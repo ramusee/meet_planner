@@ -7,8 +7,9 @@ import {
 	getClosestRangesTopCoords
 } from "../../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setRanges} from "../../../../../store/slices/mainSlice";
+import {deleteSlot, setCurrentDate, setRanges} from "../../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
+import {useMediaQuery} from "@mui/material";
 
 const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -24,6 +25,8 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const refDelete = useRef(null);
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
 	let ranges = []
+	const matches = useMediaQuery('(min-width: 900px)');
+
 	dates.forEach(item => {
 		if(item.date === currentDate) {
 			ranges = item.ranges;
@@ -43,7 +46,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 		let topElInList = topEl - listPosition.top;
 		let bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		if (!isChange && date===currentDate) {
+		if (!isChange && date ===currentDate) {
 			ranges.forEach(item => {
 				if (item.id === hour) {
 					setIsVisibleBlock(true);
@@ -156,7 +159,12 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			y = e.pageY;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
+			const topEl = ref.current.getBoundingClientRect().top;
+			const topElInList = topEl - listPosition.top;
 			const styles = window.getComputedStyle(resizeableEl);
+			// if(topElInList < closestBorder) {
+			// 	resizeableEl.style.top = closestBorder - ;
+			// }
 			resizeableEl.style.top = styles.top;
 			resizeableEl.style.bottom = null;
 			closestBorder = getClosestRangesBottomCoords(ranges, bottomElInList, ampm);
@@ -185,7 +193,10 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 		<div className={s.event_block}>
 			<div ref={ref}
 				 className={!isVisibleBlock ? `${s.resizeable}` : `${s.resizeable} ${s.resizeable_visible}`}
-				 onPointerDown={() => setIsVisibleBlock(true)}
+				 onPointerDown={() => {
+					 setIsVisibleBlock(true);
+					 dispatch(setCurrentDate(date))
+				 }}
 			>
 				<span className={s.event_block__time}>{`${timeStart} ${ampm}`}</span>
 				<div ref={refTop}

@@ -37,7 +37,7 @@ const DatePicker = () => {
 	return (
 		<>
 			<Typography textAlign="center"
-						variant={matches ? "h4" : "body2"}
+						variant={matches ? "h5" : "body2"}
 						fontWeight={matches ? "500" : "400"}
 						color="text.primary"
 			>

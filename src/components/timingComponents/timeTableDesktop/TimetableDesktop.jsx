@@ -10,18 +10,15 @@ const hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM',
 	'7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
 
 const TimetableDesktop = React.memo(({date}) => {
-
 	return (
-		<Box>
-			<Box>
+			<Box sx={{minWidth: '200px'}}>
 				<Typography className={s.date}>
-					{new DateObject(date).format("dddd MMMM D, YYYY")}
+					{new DateObject(date).format("ddd D")}
 				</Typography>
 				<Box className={s.timetable}>
 					<TimetableList hours={hours} date={date}/>
 				</Box>
 			</Box>
-		</Box>
 	);
 });
 

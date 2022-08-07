@@ -16,7 +16,7 @@ const Timing = React.memo(() => {
 			<Box px="10px">
 				<Typography color="text.primary"
 							textAlign="center"
-							variant={matches ? "h4" : "body2"}
+							variant={matches ? "h5" : "body2"}
 							fontWeight={matches ? "500" : "400"}
 				>
 					Give your available time with tap and drag
@@ -28,23 +28,26 @@ const Timing = React.memo(() => {
 			</Box>
 			{!matches && <DatesPanel/>}
 
-			{// {matches ? <Stack direction="row">{
-			// 	dates.map(item => (
-			// 		<TimetableDesktop key={item.date} date={item.date}/>
-			// 	))}
-			// 	</Stack>
-			// 	:
+			   {matches ? <Stack direction="row"
+								 spacing={2}
+								 sx={{overflowX: 'auto'}}
+				   >{
+				dates.map(item => (
+					<TimetableDesktop key={item.date} date={item.date}/>
+				))}
+				</Stack>
+				:
 				dates.map(item => (
 					<TimeTable key={item.date} date={item.date}/>
 				))}
 			{!dates.length && <Typography textAlign="center"
 										  variant="body1"
-										  mb="150px"
 										  color="text.primary"
 										  p="15px"
 										  sx={{
 											  backgroundColor: "#1f1f1f",
-											  borderRadius: "6px"
+											  borderRadius: '6px',
+											  margin: '0 auto 150px'
 										  }}
 			>
 				Select the dates in the previous step

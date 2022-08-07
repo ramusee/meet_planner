@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, IconButton, Stack, Typography} from "@mui/material";
+import {Button, IconButton, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 

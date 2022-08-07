@@ -1,9 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {DateObject} from "react-multi-date-picker";
 
 const initialState = {
 	userName: '',
 	interface: {
-		dates: [],
+		dates: [
+			{
+				date: 1659989023000,
+				ranges: []
+			},
+			{
+				date: 1660075423000,
+				ranges: [],
+			}
+		],
 		currentDate: '',
 	},
 };
@@ -40,18 +50,20 @@ export const mainSlice = createSlice({
 							bottom: action.payload.bottom
 						});
 					}
-					return item
+					return item;
 				}
 			});
 		},
 		deleteSlot(state, action) {
 			state.interface.dates = state.interface.dates.map(item => {
-				if(item.date === action.payload.date) {
-					return {...item,
-						ranges: item.ranges.filter(range => range.id !== action.payload.id)};
+				if (item.date === action.payload.date) {
+					return {
+						...item,
+						ranges: item.ranges.filter(range => range.id !== action.payload.id)
+					};
 				}
-				return item
-			})
+				return item;
+			});
 		},
 		setDate(state, action) {
 			state.interface.dates = action.payload;

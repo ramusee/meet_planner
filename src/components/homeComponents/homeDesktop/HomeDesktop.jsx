@@ -1,45 +1,16 @@
 import React from 'react';
-import {Box, Button, Icon, IconButton, Stack, Typography, useMediaQuery} from "@mui/material";
+import {Button, IconButton, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
-
-const Arrow = () => {
-	return (
-		<Icon sx={{
-			width: '80px',
-			height: '80px'
-		}}>
-			<DoubleArrowIcon sx={{fontSize: '80px'}}/>
-		</Icon>
-	);
-};
-const Circle = ({number}) => {
-	return (
-		<Box sx={{
-			display: 'flex',
-			justifyContent: 'center',
-			alignItems: 'center',
-			width: '80px',
-			height: '80px',
-			borderRadius: '50px',
-			backgroundColor: '#09CE69',
-			color: '#000000',
-		}}>{number}</Box>);
-};
+import {Arrow, Circle} from "./ui";
 
 const HomeDesktop = () => {
-
-	const matches = useMediaQuery('(min-width: 900px)');
-
 	return (<>
 			<Stack my="40px" width="100%" alignItems="center" spacing={3}>
 				<Typography textAlign="center"
 							color="text.primary"
-							sx={{
-								fontSize: '26px',
-								fontWeight: '500'
-							}}
+							variant="h5"
+							fontWeight="500"
 				>
 					Collect all available slots with your team in 3 steps:
 				</Typography>

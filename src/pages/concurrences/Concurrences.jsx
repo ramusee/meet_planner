@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Box, Button, Container, Stack, Typography, useMediaQuery} from "@mui/material";
+import {Avatar, Button, Container, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import googleIcon from "../../images/googleIcon.png";

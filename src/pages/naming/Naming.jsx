@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Stack, TextField, Typography, useMediaQuery} from "@mui/material";
+import {Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserName} from "../../store/slices/mainSlice";
@@ -13,7 +13,7 @@ const Naming = React.memo(() => {
 	return (
 		<>
 			<Typography textAlign="center"
-						variant={matches ? "h4" : "body2"}
+						variant={matches ? "h5" : "body2"}
 						fontWeight={matches ? "500" : "400"}
 						color="text.primary"
 			>
