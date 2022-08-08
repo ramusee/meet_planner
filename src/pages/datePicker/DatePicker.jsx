@@ -5,7 +5,7 @@ import "react-multi-date-picker/styles/colors/green.css";
 import './datePicker.css';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentDate, setDate} from "../../store/slices/mainSlice";
+import {addMonth, clearMonths, setCurrentDate, setCurrentMonth, setDate} from "../../store/slices/mainSlice";
 
 const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -14,26 +14,34 @@ const DatePicker = () => {
 	const dispatch = useDispatch();
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
+	const selectedMonths = useSelector(state=> state.mainReducer.interface.selectedMonths)
 	const navigate = useNavigate();
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const isIncludesCurrentDate = dates.some(item => item.date === currentDate)
 	const matches = useMediaQuery('(min-width: 900px)');
-
+	
 	const onChange = (date) => {
 		const formatDates = date.map(item => ({date: (item.unix * 1000), ranges: []}));
 		dispatch(setDate(formatDates));
 		if (date.length) setIsNotValidDate(false);
 	};
 	const handlerBtnOnClick = () => {
+		dispatch(clearMonths())
 		if (dates.length) {
 			navigate("/timing");
+			const currentMonth = new DateObject(dates[0].date).month.name
+			dispatch(setCurrentMonth(currentMonth))
+			dates.forEach(item => {
+					dispatch(addMonth(`${new DateObject(item.date).month.name} ${new DateObject(item.date).year}`))
+			})
 			if(!currentDate || !isIncludesCurrentDate) {
-				dispatch(setCurrentDate(dates[0].date));
+				dispatch(setCurrentDate(`${dates[0].date}`));
 			}
 		} else {
 			setIsNotValidDate(true);
 		}
 	};
+	console.log(selectedMonths, 'hey');
 	return (
 		<>
 			<Typography textAlign="center"

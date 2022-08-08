@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {TimeTable} from "../../components/timingComponents/timeTable/TimeTable";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
 import {TimetableDesktop} from "../../components/timingComponents/timeTableDesktop/TimetableDesktop";
+import {MonthsPanel} from "../../components/timingComponents/monthsPanel/MonthsPanel";
 
 
 const Timing = React.memo(() => {
@@ -23,21 +24,19 @@ const Timing = React.memo(() => {
 				</Typography>
 				<Box className={s.settings_panel}>
 					<span>All day</span>
-					<span>Timezone: PBT</span>
+					<span>Timezone: <u>PDT</u></span>
 				</Box>
 			</Box>
 			{!matches && <DatesPanel/>}
-
-			   {matches ? <Stack direction="row"
-								 spacing={2}
-								 sx={{overflowX: 'auto'}}
-				   >{
-				dates.map(item => (
-					<TimetableDesktop key={item.date} date={item.date}/>
-				))}
+			{matches && <MonthsPanel/>}
+			{matches ? <Stack direction="row"
+							  spacing={2}
+				>{
+					dates.map(item => (
+						<TimetableDesktop key={item.date} date={item.date}/>
+					))}
 				</Stack>
-				:
-				dates.map(item => (
+				: dates.map(item => (
 					<TimeTable key={item.date} date={item.date}/>
 				))}
 			{!dates.length && <Typography textAlign="center"

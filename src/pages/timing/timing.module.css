@@ -2,7 +2,7 @@
 	display: flex;
 	justify-content: space-between;
 	color: #09CE69;
-	margin: 0px 10px 5px;
+	margin: 0 10px 5px;
 }
 .date {
 	font-weight: 400;
@@ -14,6 +14,13 @@
 	display: flex;
 	justify-content: space-between;
 	gap: 5px;
+	padding: 6px 10px;
+}
+.timetable_desktop {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	/*gap: 5px;*/
 	padding: 6px 10px;
 }
 .title {

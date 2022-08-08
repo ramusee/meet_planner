@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Typography} from "@mui/material";
+import {Box, Stack, Typography} from "@mui/material";
 import {TimetableList} from "../timeTable/timeTableList/TimetableList";
 import s from "../../../pages/timing/timing.module.css";
 import {DateObject} from "react-multi-date-picker";
@@ -15,7 +15,7 @@ const TimetableDesktop = React.memo(({date}) => {
 				<Typography className={s.date}>
 					{new DateObject(date).format("ddd D")}
 				</Typography>
-				<Box className={s.timetable}>
+				<Box>
 					<TimetableList hours={hours} date={date}/>
 				</Box>
 			</Box>

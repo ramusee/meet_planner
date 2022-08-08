@@ -3,4 +3,5 @@ body {
 	background-color: black;
 	font-family: "Roboto", sans-serif;
 	color: white;
+	box-sizing: border-box;
 }

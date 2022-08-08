@@ -1,16 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import './eventBlock.module.css';
-import {
-	getTime,
-	getClosestCoords,
-	getClosestRangesBottomCoords,
-	getClosestRangesTopCoords
-} from "../../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setRanges} from "../../../../../store/slices/mainSlice";
-import s from './eventBlock.module.css';
+import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
+import s from "../../timeTable/timeTableList/eventBlock/eventBlock.module.css";
+import {
+	getClosestDesktopRangesBottomCoords,
+	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
+} from "../../../../helpers/eventBlockHelperDesktop";
 
-const EventBlock = React.memo( ({listRef, date, hour}) => {
+const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
@@ -24,15 +21,15 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const refDelete = useRef(null);
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
 	let ranges = []
-	
+	console.log(ranges);
 	dates.forEach(item => {
 		if(item.date === date) {
 			ranges = item.ranges;
 		}
 	});
-	
+
 	//TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-	
+
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
@@ -44,24 +41,24 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 		let topElInList = topEl - listPosition.top;
 		let bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		if (!isChange) {
-			ranges.forEach(item => {
-				if (item.id === hour) {
-					setIsVisibleBlock(true);
-					setIsChange(true);
-					resizeableEl.style.top = `${item.top - topElInList}px`;
-					height = (item.bottom - item.top);
-					resizeableEl.style.height = `${height - 1}px`;
-					topElInList = item.top;
-					bottomElInList = item.bottom;
-					setTimeStart(getTime(listPosition.height, topElInList));
-					setTimeEnd(getTime(listPosition.height, bottomElInList));
-				}
-			});
-		}
+		// if (!isChange && date ===currentDate) {
+		// 	ranges.forEach(item => {
+		// 		if (item.id === hour) {
+		// 			setIsVisibleBlock(true);
+		// 			setIsChange(true);
+		// 			resizeableEl.style.top = `${item.top - topElInList}px`;
+		// 			height = (item.bottom - item.top);
+		// 			resizeableEl.style.height = `${height - 1}px`;
+		// 			topElInList = item.top;
+		// 			bottomElInList = item.bottom;
+		// 			setTimeStart(getTime(listPosition.height, topElInList));
+		// 			setTimeEnd(getTime(listPosition.height, bottomElInList));
+		// 		}
+		// 	});
+		// }
 
 		const onClickDeleteBtn = () => {
-			dispatch(deleteSlot({date: date, id: hour}));
+			dispatch(deleteSlot({date: currentDate, id: hour}));
 			setIsVisibleBlock(false);
 			setIsChange(false);
 			resizeableEl.style.top = '0px';
@@ -81,7 +78,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			if (topEl < listPosition.top) {
 				height = height + dy;
 			}
-			setTimeStart(getTime(listPosition.height, topElInList));
+			setTimeStart(getDesktopTime(listPosition.height, topElInList));
 			resizeableEl.style.height = `${height}px`;
 		};
 
@@ -90,8 +87,8 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			const topElInList = topEl - listPosition.top;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
-			let closestCoordsTop = getClosestCoords(listPosition.height, topElInList);
-			const closestCoordsBottom = getClosestCoords(listPosition.height, bottomElInList);
+			let closestCoordsTop = getDesktopClosestCoords(listPosition.height, topElInList);
+			const closestCoordsBottom = getDesktopClosestCoords(listPosition.height, bottomElInList);
 			if (topElInList < closestBorder) {
 				height = parseInt(styles.height) + (topElInList - closestBorder);
 				closestCoordsTop = closestBorder;
@@ -99,7 +96,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
 			resizeableEl.style.height = `${height}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setRanges({date: currentDate, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -111,7 +108,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			const styles = window.getComputedStyle(resizeableEl);
 			resizeableEl.style.bottom = styles.bottom;
 			resizeableEl.style.top = null;
-			closestBorder = getClosestRangesTopCoords(ranges, topElInList + 1, ampm);
+			closestBorder = getClosestDesktopRangesTopCoords(ranges, topElInList + 1);
 			document.addEventListener("pointermove", onPointerMoveTopResize);
 			document.addEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -129,7 +126,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			if (bottomEl > listPosition.bottom) {
 				height = height - dy;
 			}
-			setTimeEnd(getTime(listPosition.height, bottomElInList));
+			setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
 			resizeableEl.style.height = `${height}px`;
 		};
 
@@ -139,8 +136,8 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			const bottomElInList = bottomEl - listPosition.top;
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
-			const closestCoordsTop = getClosestCoords(listPosition.height, topElInList);
-			let closestCoordsBottom = getClosestCoords(listPosition.height, bottomElInList);
+			const closestCoordsTop = getDesktopClosestCoords(listPosition.height, topElInList);
+			let closestCoordsBottom = getDesktopClosestCoords(listPosition.height, bottomElInList);
 			if (bottomElInList > closestBorder) {
 				height = parseInt(styles.height) + (closestBorder - bottomElInList);
 				closestCoordsBottom = closestBorder;
@@ -148,7 +145,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
 			}
 			resizeableEl.style.height = `${height - 1}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setRanges({date: currentDate, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};
@@ -160,7 +157,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			const styles = window.getComputedStyle(resizeableEl);
 			resizeableEl.style.top = styles.top;
 			resizeableEl.style.bottom = null;
-			closestBorder = getClosestRangesBottomCoords(ranges, bottomElInList, ampm);
+			closestBorder = getClosestDesktopRangesBottomCoords(ranges, bottomElInList);
 			document.addEventListener("pointermove", onPointerMoveBottomResize);
 			document.addEventListener("pointerup", onPointerUpBottomResize);
 		};
@@ -172,8 +169,8 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 		resizerTop.addEventListener("pointerdown", onPointerDownTopResize);
 		resizerBottom.addEventListener("pointerdown", onPointerDownBottomResize);
 		deleteBtn.addEventListener("click", onClickDeleteBtn);
-		setTimeStart(getTime(listPosition.height, topElInList));
-		setTimeEnd(getTime(listPosition.height, bottomElInList));
+		setTimeStart(getDesktopTime(listPosition.height, topElInList));
+		setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
 		return () => {
 			resizerTop.removeEventListener("pointerdown", onPointerDownTopResize);
 			resizerBottom.removeEventListener("pointerdown", onPointerDownBottomResize);
@@ -211,4 +208,4 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	);
 });
 
-export {EventBlock};
+export {EventBlockDesktop};

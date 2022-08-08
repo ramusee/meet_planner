@@ -7,7 +7,7 @@ const Layout = () => {
 	return (
 		<>
 			<Header/>
-			<Container sx={{
+			<Container maxWidth="100%" sx={{
 				height: '100%',
 				px: 0,
 				display: 'flex',

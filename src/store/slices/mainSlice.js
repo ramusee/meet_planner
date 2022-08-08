@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {DateObject} from "react-multi-date-picker";
 
 const initialState = {
 	userName: '',
@@ -14,7 +13,9 @@ const initialState = {
 				ranges: [],
 			}
 		],
+		selectedMonths: [],
 		currentDate: '',
+		currentMonth: ''
 	},
 };
 
@@ -70,8 +71,28 @@ export const mainSlice = createSlice({
 		},
 		setCurrentDate(state, action) {
 			state.interface.currentDate = action.payload;
+		},
+		setCurrentMonth(state, action) {
+			state.interface.currentMonth = action.payload;
+		},
+		addMonth(state, action) {
+			if (!state.interface.selectedMonths.includes(action.payload)) {
+				state.interface.selectedMonths.push(action.payload);
+			}
+		},
+		clearMonths(state) {
+			state.interface.selectedMonths = [];
 		}
 	}
 });
 export default mainSlice.reducer;
-export const {setUserName, setRanges, deleteSlot, setDate, setCurrentDate} = mainSlice.actions;
+export const {
+	setUserName,
+	setRanges,
+	setCurrentMonth,
+	deleteSlot,
+	setDate,
+	setCurrentDate,
+	addMonth,
+	clearMonths
+} = mainSlice.actions;
