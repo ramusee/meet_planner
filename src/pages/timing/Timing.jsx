@@ -55,7 +55,8 @@ const Timing = React.memo(() => {
 			<Stack direction="row"
 				   width="100%"
 				   justifyContent="space-between"
-				   alignItems="center"
+				   alignItems="end"
+				   pt="10px"
 			>
 				<Button component={Link}
 						to="/date"
@@ -71,7 +72,6 @@ const Timing = React.memo(() => {
 				>
 					Next
 				</Button>}
-
 			</Stack>
 		</>
 	);

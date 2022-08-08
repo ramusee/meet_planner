@@ -29,7 +29,7 @@ const NamingForm = () => {
 			 sx={{
 				 display: 'flex',
 				 flexDirection: matches ? 'row' : 'column',
-				 alignItems: 'center',
+				 alignItems: 'end',
 				 gap: '20px'
 			 }}>
 			<TextField label="Your Name"
