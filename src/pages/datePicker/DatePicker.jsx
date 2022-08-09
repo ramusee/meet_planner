@@ -14,7 +14,7 @@ const DatePicker = () => {
 	const dispatch = useDispatch();
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
-	const selectedMonths = useSelector(state=> state.mainReducer.interface.selectedMonths)
+	// const selectedMonths = useSelector(state=> state.mainReducer.interface.selectedMonths)
 	const navigate = useNavigate();
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const isIncludesCurrentDate = dates.some(item => item.date === currentDate)
@@ -61,7 +61,7 @@ const DatePicker = () => {
 					value={valueDates}
 					onChange={onChange}
 					weekDays={weekDays}
-					className="green"
+					// className="green"
 					renderButton={(direction, handleClick) => (
 						<button className="calendar_arrow" onClick={handleClick}>
 							{direction === "right" ? "❱" : "❰"}
@@ -75,6 +75,7 @@ const DatePicker = () => {
 							width: '35px',
 							height: '35px',
 							fontSize: '18px',
+							backgroundColor: date.month.index === currentMonth.index ? "#000" : "#FFF"
 						};
 						if (isWeekend) props.style = {
 							...props.style,
@@ -82,7 +83,7 @@ const DatePicker = () => {
 						};
 						if (isSameDate(date, today)) props.style = {
 							...props.style,
-							color: '#ffffff',
+							color: '#09CE69',
 						};
 						return props;
 					}}
@@ -93,8 +94,8 @@ const DatePicker = () => {
 												   position: 'absolute',
 												   bottom: '0%',
 												   left: '27%',
-												   backgroundColor: "#1f1f1f",
-												   borderRadius: "6px"
+												   backgroundColor: '#1f1f1f',
+												   borderRadius: '6px'
 											   }}
 				>
 					Please, select dates

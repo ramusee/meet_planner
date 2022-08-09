@@ -48,7 +48,10 @@
 .rmdp-day span {
 	font-size: 18px;
 }
-
+.rmdp-day.rmdp-selected span:not(.highlight) {
+	box-shadow: 0 0 0 2px #09CE69;
+	/*background-color: #09CE69 !important;*/
+}
 .rmdp-wrapper  {
 	box-shadow: none !important;
 }

@@ -8,23 +8,23 @@ const times = [
 	'6:00', '6:30', '7:00', '7:30', '8:00', '8:30',
 	'9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '0:00'
 ];
+
 export function getDesktopTime(listHeight, coords) {
 	const halfHourHeight = listHeight / 49;
 	for (let i = 0; i < 48; i++) {
-		if (coords < halfHourHeight * (i+1)) {
+		if (coords < halfHourHeight * (i + 1)) {
 			return times[i];
 		}
 	}
 	return times[48];
 }
+
 export function getAmpm(listHeight, coords) {
-	const ampmSlot = listHeight / 2
-	for (let i = 0; i < 1; i++) {
-		if (coords < ampmSlot * (i+1)) {
-			return 'AM'
-		} else {
-			return 'PM'
-		}
+	const ampmSlot = listHeight / 2;
+	if (ampmSlot > coords) {
+		return 'AM';
+	} else {
+		return 'PM';
 	}
 }
 

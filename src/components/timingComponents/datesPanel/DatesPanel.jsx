@@ -22,7 +22,7 @@ const DatesPanel = React.memo(() => {
 		dispatch(setCurrentDate(date));
 	};
 	return (
-		<Stack px="10px" direction="row" spacing={1}
+		<Stack px="10px" direction="row" spacing={1} justifyContent="center"
 			   sx={{
 				   overflow: 'auto',
 			   }}
