@@ -29,19 +29,19 @@ const DatePicker = () => {
 		dispatch(clearMonths())
 		if (dates.length) {
 			navigate("/timing");
-			const currentMonth = new DateObject(dates[0].date).month.name
+			const currentMonth = `${new DateObject(dates[0].date).month.name} ${new DateObject(dates[0].date).year}`
 			dispatch(setCurrentMonth(currentMonth))
 			dates.forEach(item => {
 					dispatch(addMonth(`${new DateObject(item.date).month.name} ${new DateObject(item.date).year}`))
 			})
 			if(!currentDate || !isIncludesCurrentDate) {
-				dispatch(setCurrentDate(`${dates[0].date}`));
+				dispatch(setCurrentDate(dates[0].date));
 			}
 		} else {
 			setIsNotValidDate(true);
 		}
 	};
-	console.log(selectedMonths, 'hey');
+
 	return (
 		<>
 			<Typography textAlign="center"

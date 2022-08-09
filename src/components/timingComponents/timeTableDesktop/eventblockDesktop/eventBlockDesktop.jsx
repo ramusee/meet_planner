@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
 import s from "../../timeTable/timeTableList/eventBlock/eventBlock.module.css";
 import {
+	getAmpm,
 	getClosestDesktopRangesBottomCoords,
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
@@ -11,17 +12,17 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
+	const [ampmStart, setAmpmStart] = useState(null)
+	const [ampmEnd, setAmpmEnd] = useState(null)
 	const [isChange, setIsChange] = useState(false);
 	const dates = useSelector(state => state.mainReducer.interface.dates);
-	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
-	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
+	
 	let ranges = []
-	console.log(ranges);
 	dates.forEach(item => {
 		if(item.date === date) {
 			ranges = item.ranges;
@@ -41,29 +42,29 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		let topElInList = topEl - listPosition.top;
 		let bottomElInList = bottomEl - listPosition.top;
 		let closestBorder;
-		// if (!isChange && date ===currentDate) {
-		// 	ranges.forEach(item => {
-		// 		if (item.id === hour) {
-		// 			setIsVisibleBlock(true);
-		// 			setIsChange(true);
-		// 			resizeableEl.style.top = `${item.top - topElInList}px`;
-		// 			height = (item.bottom - item.top);
-		// 			resizeableEl.style.height = `${height - 1}px`;
-		// 			topElInList = item.top;
-		// 			bottomElInList = item.bottom;
-		// 			setTimeStart(getTime(listPosition.height, topElInList));
-		// 			setTimeEnd(getTime(listPosition.height, bottomElInList));
-		// 		}
-		// 	});
-		// }
+		if (!isChange) {
+			ranges.forEach(item => {
+				if (item.id === hour) {
+					setIsVisibleBlock(true);
+					setIsChange(true);
+					resizeableEl.style.top = `${item.top - topElInList}px`;
+					height = (item.bottom - item.top);
+					resizeableEl.style.height = `${height - 1}px`;
+					topElInList = item.top;
+					bottomElInList = item.bottom;
+					setTimeStart(getDesktopTime(listPosition.height, topElInList));
+					setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
+				}
+			});
+		}
 
 		const onClickDeleteBtn = () => {
-			dispatch(deleteSlot({date: currentDate, id: hour}));
+			dispatch(deleteSlot({date: date, id: hour}));
 			setIsVisibleBlock(false);
 			setIsChange(false);
 			resizeableEl.style.top = '0px';
 			resizeableEl.style.bottom = '0px';
-			resizeableEl.style.height = `${(listPosition.height / 12) - 1}px`;
+			resizeableEl.style.height = `${(listPosition.height / 24) - 1}px`;
 		};
 		// Top Resize
 		const onPointerMoveTopResize = (e) => {
@@ -79,6 +80,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = height + dy;
 			}
 			setTimeStart(getDesktopTime(listPosition.height, topElInList));
+			setAmpmStart(getAmpm(listPosition.height, topElInList))
 			resizeableEl.style.height = `${height}px`;
 		};
 
@@ -96,7 +98,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
 			resizeableEl.style.height = `${height}px`;
-			dispatch(setRanges({date: currentDate, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -127,6 +129,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = height - dy;
 			}
 			setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
+			setAmpmEnd(getAmpm(listPosition.height, bottomElInList))
 			resizeableEl.style.height = `${height}px`;
 		};
 
@@ -145,7 +148,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
 			}
 			resizeableEl.style.height = `${height - 1}px`;
-			dispatch(setRanges({date: currentDate, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};
@@ -169,6 +172,8 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		resizerTop.addEventListener("pointerdown", onPointerDownTopResize);
 		resizerBottom.addEventListener("pointerdown", onPointerDownBottomResize);
 		deleteBtn.addEventListener("click", onClickDeleteBtn);
+		setAmpmStart(getAmpm(listPosition.height, topElInList))
+		setAmpmEnd(getAmpm(listPosition.height, bottomElInList))
 		setTimeStart(getDesktopTime(listPosition.height, topElInList));
 		setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
 		return () => {
@@ -187,7 +192,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 					 setIsVisibleBlock(true);
 				 }}
 			>
-				<span className={s.event_block__time}>{`${timeStart} ${ampm}`}</span>
+				<span className={s.event_block__time}>{`${timeStart} ${ampmStart}`}</span>
 				<div ref={refTop}
 					 className={!isChange ? `${s.resizer} ${s.resizer_t}`
 						 : `${s.resizer} ${s.resizer_t} ${s.resizer_after_tap}`}>
@@ -196,7 +201,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 					 className={!isChange ? `${s.resizer} ${s.resizer_b}`
 						 : `${s.resizer} ${s.resizer_b} ${s.resizer_after_tap}`}>
 				</div>
-				<span className={s.event_block__time}>{`${timeEnd} ${ampm}`}</span>
+				<span className={s.event_block__time}>{`${timeEnd} ${ampmEnd}`}</span>
 				<button className={s.event_block__del}
 						ref={refDelete}
 						onPointerDown={(e) => e.stopPropagation()}

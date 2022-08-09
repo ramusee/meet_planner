@@ -18,8 +18,8 @@ const TimeTableItem = ({hour, listRef, date}) => {
 										  date={date}/>
 				:
 				<EventBlock listRef={listRef}
-							  hour={hour}
-							  date={date}
+							hour={hour}
+							date={date}
 				/>}
 		</li>
 	);

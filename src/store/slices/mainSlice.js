@@ -3,16 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
 	userName: '',
 	interface: {
-		dates: [
-			{
-				date: 1659989023000,
-				ranges: []
-			},
-			{
-				date: 1660075423000,
-				ranges: [],
-			}
-		],
+		dates: [],
 		selectedMonths: [],
 		currentDate: '',
 		currentMonth: ''

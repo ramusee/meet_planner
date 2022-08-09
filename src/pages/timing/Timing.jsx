@@ -8,11 +8,13 @@ import {TimeTable} from "../../components/timingComponents/timeTable/TimeTable";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
 import {TimetableDesktop} from "../../components/timingComponents/timeTableDesktop/TimetableDesktop";
 import {MonthsPanel} from "../../components/timingComponents/monthsPanel/MonthsPanel";
+import {DateObject} from "react-multi-date-picker";
 
 
 const Timing = React.memo(() => {
 	const matches = useMediaQuery('(min-width: 900px)');
 	const {dates} = useSelector(state => state.mainReducer.interface);
+	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth)
 	return (<>
 			<Box px="10px">
 				<Typography color="text.primary"
@@ -31,9 +33,8 @@ const Timing = React.memo(() => {
 			{matches && <MonthsPanel/>}
 			{matches ? <Stack direction="row"
 							  spacing={2}
-				>{
-					dates.map(item => (
-						<TimetableDesktop key={item.date} date={item.date}/>
+				>{dates.map(item => (
+						`${new DateObject(item.date).month.name} ${new DateObject(item.date).year}` === currentMonth && <TimetableDesktop key={item.date} date={item.date}/>
 					))}
 				</Stack>
 				: dates.map(item => (
