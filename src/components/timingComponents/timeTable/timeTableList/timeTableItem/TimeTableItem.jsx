@@ -2,7 +2,7 @@ import React from 'react';
 import {EventBlock} from "../eventBlock/EventBlock";
 import s from '../timetableList.module.css';
 import {useMediaQuery} from "@mui/material";
-import {EventBlockDesktop} from "../../../timeTableDesktop/eventBlockDesktop/EventBlockDesktop";
+import {EventBlockDesktop} from "../../../timeTableDesktop/eventblockDesktop/EventBlockDesktop";
 
 const TimeTableItem = ({hour, listRef, date}) => {
 	const matches = useMediaQuery('(min-width: 900px)');

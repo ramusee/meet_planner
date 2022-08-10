@@ -9,6 +9,7 @@ const MonthsPanel = () => {
 	const dispatch = useDispatch()
 	return (
 		<Stack direction="row"
+			   justifyContent="center"
 			   my="15px"
 			   spacing={3}
 		>
@@ -26,12 +27,12 @@ const MonthsPanel = () => {
 						   cursor: 'pointer',
 						   transition: 'all .3 ease-out'
 				}}>
-					<Typography variant={currentMonth === item ? "h5" : "body2"}
+					<Typography variant={currentMonth === item ? "h6" : "body2"}
 								component="span"
 								fontWeight="500">
 						{item.split(' ')[0]}
 					</Typography>
-					<Typography variant={currentMonth === item ? "h5" : "body2"}
+					<Typography variant={currentMonth === item ? "h6" : "body2"}
 								component="span"
 								fontWeight="300">
 						{item.slice(-4)}
