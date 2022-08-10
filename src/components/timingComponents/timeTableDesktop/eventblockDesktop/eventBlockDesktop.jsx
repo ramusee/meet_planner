@@ -29,7 +29,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		}
 	});
 
-	//TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
+	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 
 	useEffect(() => {
 		const resizeableEl = ref.current;
