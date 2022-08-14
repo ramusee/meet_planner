@@ -1,13 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {fetchMeetingCode} from "./actionCreators";
 
 const initialState = {
-	userName: '',
+	loading: false,
+	error: null,
 	interface: {
 		dates: [],
 		selectedMonths: [],
-		currentDate: '',
-		currentMonth: ''
+		currentDate: null,
+		currentMonth: null
 	},
+	apiData: {
+		code: 'link',
+		userName: '',
+	}
 };
 
 export const mainSlice = createSlice({
@@ -15,7 +21,7 @@ export const mainSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserName(state, action) {
-			state.userName = action.payload;
+			state.apiData.userName = action.payload;
 		},
 		setRanges(state, action) {
 			state.interface.dates.forEach(item => {
@@ -73,6 +79,21 @@ export const mainSlice = createSlice({
 		},
 		clearMonths(state) {
 			state.interface.selectedMonths = [];
+		}
+	},
+	extraReducers: {
+		[fetchMeetingCode.pending]: (state) => {
+			state.status = true;
+			state.error = null
+		},
+		[fetchMeetingCode.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.error = null;
+			state.apiData.code = action.payload
+		},
+		[fetchMeetingCode.rejected]: (state, action) => {
+			state.loading = false
+			state.error = action.payload
 		}
 	}
 });

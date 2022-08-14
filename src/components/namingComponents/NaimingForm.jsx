@@ -9,7 +9,7 @@ const NamingForm = () => {
 	const [inputValue, setInputValue] = useState('');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const matches = useMediaQuery('(min-width: 900px)');
+	const matches = useMediaQuery('(min-width: 990px)');
 
 	const onSubmit = (e) => {
 		e.preventDefault();

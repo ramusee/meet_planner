@@ -1,10 +1,10 @@
-import React from 'react';
-import {Button, IconButton, Stack, Typography} from "@mui/material";
+import React, {useState} from 'react';
+import {Button, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import {LinkBar} from "../linkBar/LinkBar";
 
 const HomeMobile = () => {
-
+	const [link, setLink] = useState('Link');
 	return (<>
 			<Stack mt="30px" width="100%" alignItems="center" spacing={3}>
 				<Stack color="text.primary">
@@ -18,21 +18,7 @@ const HomeMobile = () => {
 					<Typography variant="body2">2. Share the link and collect others</Typography>
 					<Typography variant="body2">3. Find matches and schedule meeting.</Typography>
 				</Stack>
-				<Stack direction="row"
-					   alignItems="center"
-					   justifyContent="space-between"
-					   sx={{
-						   padding: '8px 15px',
-						   backgroundColor: '#fff',
-						   borderRadius: '6px',
-					   }}>
-					<Typography mr="10px" variant="body1" color="primary" component="span" textAlign="center">
-						https://planing.msoft.team/a3djfg5
-					</Typography>
-					<IconButton color="primary" aria-label="replace link">
-						<ChangeCircleIcon fontSize="large"/>
-					</IconButton>
-				</Stack>
+			<LinkBar link={link} setLink={setLink}/>
 			</Stack>
 			<Stack spacing={2} width="100%">
 				<Button variant="contained" color="success" component={Link} to="date">

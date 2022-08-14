@@ -16,10 +16,10 @@
 	cursor: pointer;
 }
 
-.rmdp-year-picker > div {
+.rmdp-year-picker div {
 	background-color: black;
 }
-.rmdp-month-picker > div {
+.rmdp-month-picker div {
 	background-color: black;
 }
 .rmdp-year-picker span {
@@ -49,8 +49,14 @@
 	font-size: 18px;
 }
 .rmdp-day.rmdp-selected span:not(.highlight) {
+	background-color: black !important;
 	box-shadow: 0 0 0 2px #09CE69 !important;
-	/*background-color: #09CE69 !important;*/
+}
+.rmdp-day span:not(.highlight):hover {
+	background-color: black !important;
+}
+.rmdp-day.rmdp-today span {
+	background-color: black !important;
 }
 .rmdp-wrapper  {
 	box-shadow: none !important;

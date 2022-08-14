@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {setCurrentMonth} from "../../../store/slices/mainSlice";
 
-const MonthsPanel = () => {
+const MonthsPanel = memo(() => {
 	const selectedMonths = useSelector(state => state.mainReducer.interface.selectedMonths);
 	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
 	const dispatch = useDispatch()
@@ -41,6 +41,6 @@ const MonthsPanel = () => {
 			))}
 		</Stack>
 	);
-};
+});
 
 export {MonthsPanel};

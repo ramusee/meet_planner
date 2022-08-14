@@ -1,30 +1,29 @@
-import React, {useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Calendar, DateObject} from "react-multi-date-picker";
-import "react-multi-date-picker/styles/colors/green.css";
 import './datePicker.css';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {addMonth, clearMonths, setCurrentDate, setCurrentMonth, setDate} from "../../store/slices/mainSlice";
+import "react-multi-date-picker/styles/colors/green.css"
 
 const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
 
-const DatePicker = () => {
+const DatePicker = memo((callback, deps) => {
 	const [isNotValidDate, setIsNotValidDate] = useState(false);
 	const dispatch = useDispatch();
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
-	// const selectedMonths = useSelector(state=> state.mainReducer.interface.selectedMonths)
 	const navigate = useNavigate();
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const isIncludesCurrentDate = dates.some(item => item.date === currentDate)
-	const matches = useMediaQuery('(min-width: 900px)');
+	const matches = useMediaQuery('(min-width: 990px)');
 	
-	const onChange = (date) => {
+	const onChange = useCallback((date) => {
 		const formatDates = date.map(item => ({date: (item.unix * 1000), ranges: []}));
 		dispatch(setDate(formatDates));
 		if (date.length) setIsNotValidDate(false);
-	};
+	}, []);
 	const handlerBtnOnClick = () => {
 		dispatch(clearMonths())
 		if (dates.length) {
@@ -61,7 +60,6 @@ const DatePicker = () => {
 					value={valueDates}
 					onChange={onChange}
 					weekDays={weekDays}
-					// className="green"
 					renderButton={(direction, handleClick) => (
 						<button className="calendar_arrow" onClick={handleClick}>
 							{direction === "right" ? "❱" : "❰"}
@@ -121,6 +119,6 @@ const DatePicker = () => {
 			</Stack>
 		</>
 	);
-};
+});
 
 export {DatePicker};

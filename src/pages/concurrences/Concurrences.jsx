@@ -1,18 +1,19 @@
-import React from 'react';
-import {Avatar, Button, Container, Stack, Typography, useMediaQuery} from "@mui/material";
+import React, {memo, useState} from 'react';
+import {Alert, Avatar, Button, Container, Snackbar, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import googleIcon from "../../images/googleIcon.png";
+import {ShareButton} from "../../components/homeComponents/shareButton/ShareButton";
 
-const Concurrences = () => {
-	const userName = useSelector(state => state.mainReducer.userName);
-	const matches = useMediaQuery('(min-width: 900px)');
-
+const Concurrences = memo(() => {
+	const userName = useSelector(state => state.mainReducer.apiData.userName);
+	const matches = useMediaQuery('(min-width: 990px)');
+	
 	return (
 		<>
 			<Container maxWidth="xs">
 				<Typography textAlign="center"
-							variant={ matches? "h4" : "body2"}
+							variant={matches ? "h4" : "body2"}
 							fontWeight={matches ? "500" : "400"}
 							color="text.primary"
 							gutterBottom
@@ -95,10 +96,10 @@ const Concurrences = () => {
 				<Button variant="contained" color="success" component={Link} to="/date">
 					Fill up your slots
 				</Button>
-				<Button variant="contained" color="secondary">Share link</Button>
+				<ShareButton/>
 			</Stack>
 		</>
 	);
-};
+});
 
 export {Concurrences};

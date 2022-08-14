@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {EventBlock} from "../eventBlock/EventBlock";
 import s from '../timetableList.module.css';
 import {useMediaQuery} from "@mui/material";
 import {EventBlockDesktop} from "../../../timeTableDesktop/eventblockDesktop/EventBlockDesktop";
 
-const TimeTableItem = ({hour, listRef, date}) => {
+const TimeTableItem = memo(({hour, listRef, date}) => {
 	const matches = useMediaQuery('(min-width: 900px)');
 	
 	return (
@@ -23,6 +23,6 @@ const TimeTableItem = ({hour, listRef, date}) => {
 				/>}
 		</li>
 	);
-};
+});
 
 export {TimeTableItem};

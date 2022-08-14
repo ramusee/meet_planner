@@ -7,6 +7,7 @@ import {
 	getClosestDesktopRangesBottomCoords,
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
+import {DateObject} from "react-multi-date-picker";
 
 const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -21,16 +22,12 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
-	
 	let ranges = []
 	dates.forEach(item => {
 		if(item.date === date) {
 			ranges = item.ranges;
 		}
 	});
-
-	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-
 	useEffect(() => {
 		const resizeableEl = ref.current;
 		const styles = window.getComputedStyle(resizeableEl);
@@ -57,7 +54,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				}
 			});
 		}
-
+		
 		const onClickDeleteBtn = () => {
 			dispatch(deleteSlot({date: date, id: hour}));
 			setIsVisibleBlock(false);
@@ -83,7 +80,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			setAmpmStart(getAmpm(listPosition.height, topElInList))
 			resizeableEl.style.height = `${height}px`;
 		};
-
+		
 		const onPointerUpTopResize = () => {
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
@@ -102,7 +99,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
-
+		
 		const onPointerDownTopResize = (e) => {
 			y = e.pageY;
 			const topEl = ref.current.getBoundingClientRect().top;
@@ -114,7 +111,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			document.addEventListener("pointermove", onPointerMoveTopResize);
 			document.addEventListener("pointerup", onPointerUpTopResize);
 		};
-
+		
 		// Bottom resize
 		const onPointerMoveBottomResize = (e) => {
 			const dy = e.pageY - y;
@@ -132,7 +129,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			setAmpmEnd(getAmpm(listPosition.height, bottomElInList))
 			resizeableEl.style.height = `${height}px`;
 		};
-
+		
 		const onPointerUpBottomResize = () => {
 			setIsChange(true);
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
@@ -152,7 +149,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};
-
+		
 		const onPointerDownBottomResize = (e) => {
 			y = e.pageY;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
@@ -164,7 +161,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 			document.addEventListener("pointermove", onPointerMoveBottomResize);
 			document.addEventListener("pointerup", onPointerUpBottomResize);
 		};
-
+		
 		// added down listeners
 		const resizerTop = refTop.current;
 		const resizerBottom = refBottom.current;
@@ -183,7 +180,12 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		};
 		// eslint-disable-next-line
 	}, [ranges]);
-
+	
+	
+	
+	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
+	// console.log();
+	console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
 	return (
 		<div className={s.event_block}>
 			<div ref={ref}

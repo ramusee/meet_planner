@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import {TimeTableItem} from "./timeTableItem/TimeTableItem";
 import s from './timetableList.module.css'
 
-const TimetableList = ({hours, date}) => {
+const TimetableList = memo(({hours, date}) => {
 	useEffect(() => {
 		listRef.current.onpointerdown = () => {
 			return false;
@@ -22,6 +22,6 @@ const TimetableList = ({hours, date}) => {
 			))}
 		</ul>
 	);
-};
+});
 
 export {TimetableList};

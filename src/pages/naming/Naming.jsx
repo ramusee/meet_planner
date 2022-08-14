@@ -6,9 +6,9 @@ import {setUserName} from "../../store/slices/mainSlice";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
 
 const Naming = React.memo(() => {
-	const userName = useSelector(state => state.mainReducer.userName);
+	const userName = useSelector(state => state.mainReducer.apiData.userName);
 	const dispatch = useDispatch();
-	const matches = useMediaQuery('(min-width: 900px)');
+	const matches = useMediaQuery('(min-width: 990px)');
 
 	return (
 		<>

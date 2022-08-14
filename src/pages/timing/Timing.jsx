@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import s from './timing.module.css';
 import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
@@ -12,9 +12,9 @@ import {DateObject} from "react-multi-date-picker";
 
 
 const Timing = React.memo(() => {
-	const matches = useMediaQuery('(min-width: 900px)');
-	const {dates} = useSelector(state => state.mainReducer.interface);
-	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth)
+	const matches = useMediaQuery('(min-width: 990px)');
+	const dates = useSelector(state => state.mainReducer.interface.dates);
+	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
 	return (<>
 			<Box px="10px">
 				<Typography color="text.primary"
@@ -34,8 +34,9 @@ const Timing = React.memo(() => {
 			{matches ? <Stack direction="row"
 							  spacing={2}
 				>{dates.map(item => (
-						`${new DateObject(item.date).month.name} ${new DateObject(item.date).year}` === currentMonth && <TimetableDesktop key={item.date} date={item.date}/>
-					))}
+					`${new DateObject(item.date).month.name} ${new DateObject(item.date).year}` === currentMonth &&
+					<TimetableDesktop key={item.date} date={item.date}/>
+				))}
 				</Stack>
 				: dates.map(item => (
 					<TimeTable key={item.date} date={item.date}/>
