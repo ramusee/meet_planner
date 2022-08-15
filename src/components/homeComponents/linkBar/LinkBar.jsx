@@ -1,13 +1,11 @@
 import React from 'react';
 import {IconButton, Stack, Typography} from "@mui/material";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 const LinkBar = () => {
-	const code = useSelector(state=> state.mainReducer.apiData.code)
-	const dispatch = useDispatch()
+	const code = useSelector(state=> state.mainReducer.code)
 	const replaceCode = () => {
-	
 	}
 	return (
 		<Stack direction="row"

@@ -10,8 +10,8 @@ const MonthsPanel = memo(() => {
 	return (
 		<Stack direction="row"
 			   justifyContent="center"
-			   my="15px"
-			   spacing={3}
+			   spacing={1}
+			   mb="15px"
 		>
 			{selectedMonths.map(item => (
 				<Stack key={item}
@@ -21,7 +21,7 @@ const MonthsPanel = memo(() => {
 					   onClick={()=> dispatch(setCurrentMonth(item))}
 					   sx={{
 						   backgroundColor: currentMonth === item ? '#ffffff' : '#000000',
-						   padding: '10px',
+						   padding: '8px',
 						   color: currentMonth === item ? '#000000' : '#ffffff',
 						   borderRadius: '8px',
 						   cursor: 'pointer',

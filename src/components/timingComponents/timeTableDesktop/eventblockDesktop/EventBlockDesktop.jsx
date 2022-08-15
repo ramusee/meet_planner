@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
+import {addTimeRanges, deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
 import s from "../../timeTable/timeTableList/eventBlock/eventBlock.module.css";
 import {
 	getAmpm,
@@ -9,12 +9,12 @@ import {
 } from "../../../../helpers/eventBlockHelperDesktop";
 import {DateObject} from "react-multi-date-picker";
 
-const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
+const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
-	const [ampmStart, setAmpmStart] = useState(null)
-	const [ampmEnd, setAmpmEnd] = useState(null)
+	const [ampmStart, setAmpmStart] = useState(null);
+	const [ampmEnd, setAmpmEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const dispatch = useDispatch();
@@ -22,9 +22,9 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
-	let ranges = []
+	let ranges = [];
 	dates.forEach(item => {
-		if(item.date === date) {
+		if (item.date === date) {
 			ranges = item.ranges;
 		}
 	});
@@ -77,7 +77,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = height + dy;
 			}
 			setTimeStart(getDesktopTime(listPosition.height, topElInList));
-			setAmpmStart(getAmpm(listPosition.height, topElInList))
+			setAmpmStart(getAmpm(listPosition.height, topElInList));
 			resizeableEl.style.height = `${height}px`;
 		};
 		
@@ -126,7 +126,7 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 				height = height - dy;
 			}
 			setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
-			setAmpmEnd(getAmpm(listPosition.height, bottomElInList))
+			setAmpmEnd(getAmpm(listPosition.height, bottomElInList));
 			resizeableEl.style.height = `${height}px`;
 		};
 		
@@ -169,8 +169,8 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		resizerTop.addEventListener("pointerdown", onPointerDownTopResize);
 		resizerBottom.addEventListener("pointerdown", onPointerDownBottomResize);
 		deleteBtn.addEventListener("click", onClickDeleteBtn);
-		setAmpmStart(getAmpm(listPosition.height, topElInList))
-		setAmpmEnd(getAmpm(listPosition.height, bottomElInList))
+		setAmpmStart(getAmpm(listPosition.height, topElInList));
+		setAmpmEnd(getAmpm(listPosition.height, bottomElInList));
 		setTimeStart(getDesktopTime(listPosition.height, topElInList));
 		setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
 		return () => {
@@ -181,11 +181,23 @@ const EventBlockDesktop = React.memo( ({listRef, date, hour}) => {
 		// eslint-disable-next-line
 	}, [ranges]);
 	
-	
+	useEffect(() => {
+		
+		return () => {
+			if(isVisibleBlock) {
+				dispatch(addTimeRanges([
+					new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+					new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+				]));
+			}
+		};
+	}, [])
 	
 	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-	// console.log();
-	console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
+	
+	
+	// console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
+	
 	return (
 		<div className={s.event_block}>
 			<div ref={ref}

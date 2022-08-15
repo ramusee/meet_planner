@@ -1,12 +1,12 @@
-import React, {memo, useState} from 'react';
-import {Alert, Avatar, Button, Container, Snackbar, Stack, Typography, useMediaQuery} from "@mui/material";
+import React, {memo} from 'react';
+import {Avatar, Button, Container, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import googleIcon from "../../images/googleIcon.png";
 import {ShareButton} from "../../components/homeComponents/shareButton/ShareButton";
 
 const Concurrences = memo(() => {
-	const userName = useSelector(state => state.mainReducer.apiData.userName);
+	const userName = useSelector(state => state.mainReducer.userName);
 	const matches = useMediaQuery('(min-width: 990px)');
 	
 	return (

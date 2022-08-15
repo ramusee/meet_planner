@@ -16,7 +16,6 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
 	const dates = useSelector(state => state.mainReducer.interface.dates);
-	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);

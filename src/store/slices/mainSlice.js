@@ -1,7 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchMeetingCode} from "./actionCreators";
+import {fetchMeetingCode, fetchUsersRanges} from "./actionCreators";
 
 const initialState = {
+	userName: '',
+	code: 'link',
+	timeRanges: [],
 	loading: false,
 	error: null,
 	interface: {
@@ -11,9 +14,16 @@ const initialState = {
 		currentMonth: null
 	},
 	apiData: {
-		code: 'link',
-		userName: '',
+		fullConcurrences: [{
+			userNames: [],
+			range: []
+		},]
 	}
+};
+
+const setError = (state, action) => {
+	state.loading = false;
+	state.error = action.payload;
 };
 
 export const mainSlice = createSlice({
@@ -21,7 +31,7 @@ export const mainSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserName(state, action) {
-			state.apiData.userName = action.payload;
+			state.userName = action.payload;
 		},
 		setRanges(state, action) {
 			state.interface.dates.forEach(item => {
@@ -79,22 +89,32 @@ export const mainSlice = createSlice({
 		},
 		clearMonths(state) {
 			state.interface.selectedMonths = [];
+		},
+		addTimeRanges(state, action) {
+			state.timeRanges.push(action.payload)
 		}
 	},
 	extraReducers: {
-		[fetchMeetingCode.pending]: (state) => {
-			state.status = true;
-			state.error = null
-		},
 		[fetchMeetingCode.fulfilled]: (state, action) => {
 			state.loading = false;
 			state.error = null;
-			state.apiData.code = action.payload
+			state.code = action.payload;
 		},
-		[fetchMeetingCode.rejected]: (state, action) => {
-			state.loading = false
-			state.error = action.payload
-		}
+		[fetchMeetingCode.pending]: (state) => {
+			state.status = true;
+			state.error = null;
+		},
+		[fetchMeetingCode.rejected]: setError,
+		[fetchUsersRanges.pending]: (state) => {
+			state.status = true;
+			state.error = null;
+		},
+		[fetchUsersRanges.fulfilled]: (state, action) => {
+			state.loading = false;
+			state.error = null;
+			state.apiData.fullConcurrences = action.payload
+		},
+		[fetchUsersRanges.rejected]: setError,
 	}
 });
 export default mainSlice.reducer;
@@ -106,5 +126,6 @@ export const {
 	setDate,
 	setCurrentDate,
 	addMonth,
-	clearMonths
+	clearMonths,
+	addTimeRanges
 } = mainSlice.actions;

@@ -6,7 +6,7 @@ import {setUserName} from "../../store/slices/mainSlice";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
 
 const Naming = React.memo(() => {
-	const userName = useSelector(state => state.mainReducer.apiData.userName);
+	const userName = useSelector(state => state.mainReducer.userName);
 	const dispatch = useDispatch();
 	const matches = useMediaQuery('(min-width: 990px)');
 
@@ -40,7 +40,7 @@ const Naming = React.memo(() => {
 						variant="contained"
 						color="success"
 				>
-					Back
+					back
 				</Button>
 				{userName && <Button component={Link}
 									 to="/concurrences"

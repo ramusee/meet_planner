@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {Alert, Button, Snackbar, Stack, Typography} from "@mui/material";
+import React from 'react';
+import { Button, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
 import {Arrow, Circle} from "./ui";
 import {LinkBar} from "../linkBar/LinkBar";
-import {useSelector} from "react-redux";
 import {ShareButton} from "../shareButton/ShareButton";
 
 const HomeDesktop = () => {
@@ -39,7 +38,7 @@ const HomeDesktop = () => {
 						<Stack spacing={2} alignItems="center" height="170px" width="250px">
 							<Circle number={3}/>
 							<Typography variant="inherit" textAlign="center">
-								3. Find matches and schedule meeting.</Typography>
+								3. Find matches and schedule meeting</Typography>
 						</Stack>
 					</Stack>
 				</Stack>

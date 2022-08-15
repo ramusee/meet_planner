@@ -16,7 +16,7 @@ const HomeMobile = () => {
 					</Typography>
 					<Typography variant="body2">1. Fill up your slots</Typography>
 					<Typography variant="body2">2. Share the link and collect others</Typography>
-					<Typography variant="body2">3. Find matches and schedule meeting.</Typography>
+					<Typography variant="body2">3. Find matches and schedule meeting</Typography>
 				</Stack>
 			<LinkBar link={link} setLink={setLink}/>
 			</Stack>

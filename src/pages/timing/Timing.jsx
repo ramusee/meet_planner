@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import s from './timing.module.css';
 import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";

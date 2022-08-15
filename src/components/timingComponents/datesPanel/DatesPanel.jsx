@@ -13,7 +13,6 @@ const shortNameDay = {
 	Fri: 'F',
 	Sat: 'S',
 };
-
 const DatesPanel = React.memo(() => {
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
@@ -24,7 +23,8 @@ const DatesPanel = React.memo(() => {
 	return (
 		<Stack px="10px" direction="row" spacing={1} justifyContent="center"
 			   sx={{
-				   overflow: 'auto',
+				   minHeight: '50px',
+				   overflowX: 'auto',
 			   }}
 		>
 			{dates.map(item => (
@@ -40,7 +40,7 @@ const DatesPanel = React.memo(() => {
 							 display: 'flex',
 							 justifyContent: 'center',
 							 alignItems: 'center',
-							 backgroundColor: currentDate===item.date ? '#ffffff' : '#000000',
+							 backgroundColor: currentDate === item.date ? '#ffffff' : '#000000',
 							 borderRadius: '50px',
 							 height: '30px',
 							 width: '30px',
@@ -51,7 +51,7 @@ const DatesPanel = React.memo(() => {
 									fontWeight="500"
 									fontSize="16px"
 									sx={{
-										color: currentDate===item.date ? '#000000' : '#ffffff'
+										color: currentDate === item.date ? '#000000' : '#ffffff'
 									}}
 						>
 							{new DateObject(item.date).day}
@@ -59,7 +59,7 @@ const DatesPanel = React.memo(() => {
 					</Box>
 				</Stack>
 			))}
-
+		
 		</Stack>
 	);
 });
