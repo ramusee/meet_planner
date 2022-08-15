@@ -1,13 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addTimeRanges, deleteSlot, setRanges} from "../../../../store/slices/mainSlice";
+import {addTimeRanges, deleteSlot, setCoordsRanges} from "../../../../store/slices/mainSlice";
 import s from "../../timeTable/timeTableList/eventBlock/eventBlock.module.css";
 import {
 	getAmpm,
 	getClosestDesktopRangesBottomCoords,
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
-import {DateObject} from "react-multi-date-picker";
 
 const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -25,7 +24,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	let ranges = [];
 	dates.forEach(item => {
 		if (item.date === date) {
-			ranges = item.ranges;
+			if(item.coordsRanges) ranges = item.coordsRanges;
 		}
 	});
 	useEffect(() => {
@@ -95,7 +94,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
 			resizeableEl.style.height = `${height}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -145,7 +144,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
 			}
 			resizeableEl.style.height = `${height - 1}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};
@@ -181,20 +180,18 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		// eslint-disable-next-line
 	}, [ranges]);
 	
-	useEffect(() => {
-		
-		return () => {
-			if(isVisibleBlock) {
-				dispatch(addTimeRanges([
-					new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
-					new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
-				]));
-			}
-		};
-	}, [])
+	// useEffect(() => {
+	// 	return () => {
+	// 		if(isVisibleBlock) {
+	// 			dispatch(addTimeRanges([
+	// 				new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+	// 				new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+	// 			]));
+	// 		}
+	// 	};
+	// }, [])
 	
 	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-	
 	
 	// console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
 	

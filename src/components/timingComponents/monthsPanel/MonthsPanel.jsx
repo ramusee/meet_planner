@@ -21,7 +21,7 @@ const MonthsPanel = memo(() => {
 					   onClick={()=> dispatch(setCurrentMonth(item))}
 					   sx={{
 						   backgroundColor: currentMonth === item ? '#ffffff' : '#000000',
-						   padding: '8px',
+						   padding: '5px 8px',
 						   color: currentMonth === item ? '#000000' : '#ffffff',
 						   borderRadius: '8px',
 						   cursor: 'pointer',

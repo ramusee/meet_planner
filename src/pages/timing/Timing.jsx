@@ -15,6 +15,9 @@ const Timing = React.memo(() => {
 	const matches = useMediaQuery('(min-width: 990px)');
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
+	const handleNextButton = () => {
+	
+	}
 	return (<>
 			<Box px="10px">
 				<Typography color="text.primary"
@@ -70,6 +73,7 @@ const Timing = React.memo(() => {
 												   to="/naming"
 												   variant="contained"
 												   color="success"
+												   onClick={handleNextButton}
 				>
 					Next
 				</Button>}

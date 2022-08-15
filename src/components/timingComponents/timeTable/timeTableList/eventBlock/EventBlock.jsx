@@ -7,7 +7,7 @@ import {
 	getClosestRangesTopCoords
 } from "../../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setRanges} from "../../../../../store/slices/mainSlice";
+import {deleteSlot, setCoordsRanges} from "../../../../../store/slices/mainSlice";
 import s from './eventBlock.module.css';
 
 const EventBlock = React.memo( ({listRef, date, hour}) => {
@@ -98,7 +98,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
 			resizeableEl.style.height = `${height}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -147,7 +147,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
 			}
 			resizeableEl.style.height = `${height - 1}px`;
-			dispatch(setRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};

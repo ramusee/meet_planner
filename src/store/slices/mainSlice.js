@@ -5,7 +5,8 @@ const initialState = {
 	userName: '',
 	code: 'link',
 	timeRanges: [],
-	loading: false,
+	isLoadTimeRanges: false,
+	isLoading: false,
 	error: null,
 	interface: {
 		dates: [],
@@ -22,7 +23,7 @@ const initialState = {
 };
 
 const setError = (state, action) => {
-	state.loading = false;
+	state.isLoading = false;
 	state.error = action.payload;
 };
 
@@ -33,13 +34,13 @@ export const mainSlice = createSlice({
 		setUserName(state, action) {
 			state.userName = action.payload;
 		},
-		setRanges(state, action) {
+		setCoordsRanges(state, action) {
 			state.interface.dates.forEach(item => {
 				if (item.date === action.payload.date) {
-					if (item.ranges.some(range =>
+					if (item.coordsRanges.some(range =>
 						range.id === action.payload.id
 					)) {
-						item.ranges = item.ranges.map(
+						item.coordsRanges = item.coordsRanges.map(
 							range => {
 								if (range.id === action.payload.id) {
 									return {
@@ -52,7 +53,7 @@ export const mainSlice = createSlice({
 							}
 						);
 					} else {
-						item.ranges.push({
+						item.coordsRanges.push({
 							id: action.payload.id,
 							top: action.payload.top,
 							bottom: action.payload.bottom
@@ -67,7 +68,7 @@ export const mainSlice = createSlice({
 				if (item.date === action.payload.date) {
 					return {
 						...item,
-						ranges: item.ranges.filter(range => range.id !== action.payload.id)
+						coordsRanges: item.coordsRanges.filter(range => range.id !== action.payload.id)
 					};
 				}
 				return item;
@@ -82,35 +83,34 @@ export const mainSlice = createSlice({
 		setCurrentMonth(state, action) {
 			state.interface.currentMonth = action.payload;
 		},
-		addMonth(state, action) {
-			if (!state.interface.selectedMonths.includes(action.payload)) {
-				state.interface.selectedMonths.push(action.payload);
-			}
+		setMonths(state, action) {
+				state.interface.selectedMonths = action.payload
 		},
 		clearMonths(state) {
 			state.interface.selectedMonths = [];
 		},
 		addTimeRanges(state, action) {
 			state.timeRanges.push(action.payload)
-		}
+		},
+		setIs
 	},
 	extraReducers: {
 		[fetchMeetingCode.fulfilled]: (state, action) => {
-			state.loading = false;
+			state.isLoading = false;
 			state.error = null;
 			state.code = action.payload;
 		},
 		[fetchMeetingCode.pending]: (state) => {
-			state.status = true;
+			state.isLoading = true;
 			state.error = null;
 		},
 		[fetchMeetingCode.rejected]: setError,
 		[fetchUsersRanges.pending]: (state) => {
-			state.status = true;
+			state.isLoading = true;
 			state.error = null;
 		},
 		[fetchUsersRanges.fulfilled]: (state, action) => {
-			state.loading = false;
+			state.isLoading = false;
 			state.error = null;
 			state.apiData.fullConcurrences = action.payload
 		},
@@ -120,12 +120,12 @@ export const mainSlice = createSlice({
 export default mainSlice.reducer;
 export const {
 	setUserName,
-	setRanges,
+	setCoordsRanges,
 	setCurrentMonth,
 	deleteSlot,
 	setDate,
 	setCurrentDate,
-	addMonth,
+	setMonths,
 	clearMonths,
 	addTimeRanges
 } = mainSlice.actions;
