@@ -7,6 +7,7 @@ import {
 	getClosestDesktopRangesBottomCoords,
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
+import {DateObject} from "react-multi-date-picker";
 
 const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -16,6 +17,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [ampmEnd, setAmpmEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
 	const dates = useSelector(state => state.mainReducer.interface.dates);
+	const isLoadTimeRanges = useSelector(state => state.mainReducer.isLoadTimeRanges);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);
@@ -190,7 +192,12 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	// 		}
 	// 	};
 	// }, [])
-	
+	if(isLoadTimeRanges) {
+		dispatch(addTimeRanges([
+						new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+						new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+					]));
+	}
 	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 	
 	// console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));

@@ -3,20 +3,22 @@ import s from './timing.module.css';
 import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link} from "react-router-dom";
 import {DatesPanel} from "../../components/timingComponents/datesPanel/DatesPanel";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TimeTable} from "../../components/timingComponents/timeTable/TimeTable";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
 import {TimetableDesktop} from "../../components/timingComponents/timeTableDesktop/TimetableDesktop";
 import {MonthsPanel} from "../../components/timingComponents/monthsPanel/MonthsPanel";
 import {DateObject} from "react-multi-date-picker";
+import {setIsLoadTimeRanges} from "../../store/slices/mainSlice";
 
 
 const Timing = React.memo(() => {
 	const matches = useMediaQuery('(min-width: 990px)');
 	const dates = useSelector(state => state.mainReducer.interface.dates);
 	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
+	const dispatch = useDispatch()
 	const handleNextButton = () => {
-	
+	dispatch(setIsLoadTimeRanges())
 	}
 	return (<>
 			<Box px="10px">

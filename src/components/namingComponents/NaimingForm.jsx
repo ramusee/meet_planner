@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, TextField, useMediaQuery} from "@mui/material";
-import {setUserName} from "../../store/slices/mainSlice";
+import {setIsLoadTimeRanges, setUserName} from "../../store/slices/mainSlice";
 import {upperLetter} from "../../helpers/upperLetter";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -13,6 +13,7 @@ const NamingForm = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+		if(matches) dispatch(setIsLoadTimeRanges())
 		if (!inputValue) return;
 		dispatch(setUserName(upperLetter(inputValue)));
 		setInputValue('');

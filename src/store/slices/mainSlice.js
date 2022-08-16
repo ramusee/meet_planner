@@ -92,7 +92,9 @@ export const mainSlice = createSlice({
 		addTimeRanges(state, action) {
 			state.timeRanges.push(action.payload)
 		},
-		setIs
+		setIsLoadTimeRanges(state) {
+			state.isLoadTimeRanges = true
+		}
 	},
 	extraReducers: {
 		[fetchMeetingCode.fulfilled]: (state, action) => {
@@ -124,6 +126,7 @@ export const {
 	setCurrentMonth,
 	deleteSlot,
 	setDate,
+	setIsLoadTimeRanges,
 	setCurrentDate,
 	setMonths,
 	clearMonths,
