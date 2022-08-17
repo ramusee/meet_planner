@@ -23,10 +23,9 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const refDelete = useRef(null);
 	const ampm = hour === 'Noon' ? 'PM' : hour.slice(-2);
 	let ranges = []
-	
 	dates.forEach(item => {
 		if(item.date === date) {
-			ranges = item.ranges;
+			ranges = item.coordsRanges;
 		}
 	});
 	
