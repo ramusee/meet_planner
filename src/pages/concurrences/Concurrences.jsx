@@ -31,7 +31,7 @@ const Concurrences = memo(() => {
 					<Typography variant="body2"
 								color="text.primary"
 					>
-						Timezone: PDT
+						Timezone: <u>PDT</u>
 					</Typography>
 				</Stack>
 				<Stack direction="row"

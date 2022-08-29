@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchMeetingCode, fetchUsersRanges} from "./actionCreators";
+import {setError, setPending} from "./helpers";
 
 const initialState = {
 	userName: '',
@@ -22,10 +23,6 @@ const initialState = {
 	}
 };
 
-const setError = (state, action) => {
-	state.isLoading = false;
-	state.error = action.payload;
-};
 
 export const mainSlice = createSlice({
 	name: 'main',
@@ -84,16 +81,16 @@ export const mainSlice = createSlice({
 			state.interface.currentMonth = action.payload;
 		},
 		setMonths(state, action) {
-				state.interface.selectedMonths = action.payload
+			state.interface.selectedMonths = action.payload;
 		},
 		clearMonths(state) {
 			state.interface.selectedMonths = [];
 		},
 		addTimeRanges(state, action) {
-			state.timeRanges.push(action.payload)
+			state.timeRanges.push(action.payload);
 		},
 		setIsLoadTimeRanges(state) {
-			state.isLoadTimeRanges = true
+			state.isLoadTimeRanges = true;
 		}
 	},
 	extraReducers: {
@@ -102,20 +99,15 @@ export const mainSlice = createSlice({
 			state.error = null;
 			state.code = action.payload;
 		},
-		[fetchMeetingCode.pending]: (state) => {
-			state.isLoading = true;
-			state.error = null;
-		},
+		[fetchMeetingCode.pending]: setPending,
 		[fetchMeetingCode.rejected]: setError,
-		[fetchUsersRanges.pending]: (state) => {
-			state.isLoading = true;
-			state.error = null;
-		},
+		
 		[fetchUsersRanges.fulfilled]: (state, action) => {
 			state.isLoading = false;
 			state.error = null;
-			state.apiData.fullConcurrences = action.payload
+			state.apiData.fullConcurrences = action.payload;
 		},
+		[fetchUsersRanges.pending]: setPending,
 		[fetchUsersRanges.rejected]: setError,
 	}
 });

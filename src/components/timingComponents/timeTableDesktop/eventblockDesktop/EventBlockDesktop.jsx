@@ -16,7 +16,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [ampmStart, setAmpmStart] = useState(null);
 	const [ampmEnd, setAmpmEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
-	const dates = useSelector(state => state.mainReducer.interface.dates);
+	const datesInterface = useSelector(state => state.mainReducer.interface.dates);
 	const isLoadTimeRanges = useSelector(state => state.mainReducer.isLoadTimeRanges);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
@@ -24,9 +24,9 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
 	let ranges = [];
-	dates.forEach(item => {
+	datesInterface.forEach(item => {
 		if (item.date === date) {
-			if(item.coordsRanges) ranges = item.coordsRanges;
+			if (item.coordsRanges) ranges = item.coordsRanges;
 		}
 	});
 	useEffect(() => {
@@ -192,15 +192,15 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	// 		}
 	// 	};
 	// }, [])
-	if(isLoadTimeRanges) {
+	if (isLoadTimeRanges) {
 		dispatch(addTimeRanges([
-						new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
-						new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
-					]));
+			new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+			new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+		]));
 	}
 	// TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 	
-	// console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
+	console.log(new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`));
 	
 	return (
 		<div className={s.event_block}>
@@ -224,8 +224,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 						ref={refDelete}
 						onPointerDown={(e) => e.stopPropagation()}
 						disabled={!isVisibleBlock}
-				>×
-				</button>
+				>×</button>
 			</div>
 		</div>
 	);

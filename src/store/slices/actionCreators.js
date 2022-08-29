@@ -1,6 +1,8 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL
+
 export const fetchMeetingCode = createAsyncThunk(
 	'main/fetchCode',
 	async function (_, {rejectWithValue}) {
