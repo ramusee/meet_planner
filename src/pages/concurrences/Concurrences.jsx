@@ -26,7 +26,7 @@ const Concurrences = memo(() => {
 					<Typography variant="body2"
 								color="text.primary"
 					>
-						Full Concurrence
+						Full Concurrences
 					</Typography>
 					<Typography variant="body2"
 								color="text.primary"
@@ -60,38 +60,38 @@ const Concurrences = memo(() => {
 					</Stack>
 				</Stack>
 			</Container>
-			<Container maxWidth="xs">
-				<Typography color="text.primary"
-							variant="body2"
-				>
-					Part concurrence
-				</Typography>
-				<Stack direction="row"
-					   justifyContent="space-between"
-					   mt="10px"
-					   p="10px"
-					   sx={{
-						   border: "1px solid grey",
-						   borderRadius: "10px",
-					   }}
-				>
-					<Stack direction="row"
-						   justifyContent="space-between"
-						   width="100%"
-					>
-						<Typography color="text.primary">{userName || 'name'}</Typography>
-						<Stack alignItems="center">
-							<Avatar alt="google calendar icon"
-									variant="rounded"
-									sx={{
-										width: "40px"
-									}}
-									src={googleIcon}/>
-							<Typography color="text.primary" fontWeight="500">Schedule</Typography>
-						</Stack>
-					</Stack>
-				</Stack>
-			</Container>
+			{/*<Container maxWidth="xs">*/}
+			{/*	<Typography color="text.primary"*/}
+			{/*				variant="body2"*/}
+			{/*	>*/}
+			{/*		Part concurrence*/}
+			{/*	</Typography>*/}
+			{/*	<Stack direction="row"*/}
+			{/*		   justifyContent="space-between"*/}
+			{/*		   mt="10px"*/}
+			{/*		   p="10px"*/}
+			{/*		   sx={{*/}
+			{/*			   border: "1px solid grey",*/}
+			{/*			   borderRadius: "10px",*/}
+			{/*		   }}*/}
+			{/*	>*/}
+			{/*		<Stack direction="row"*/}
+			{/*			   justifyContent="space-between"*/}
+			{/*			   width="100%"*/}
+			{/*		>*/}
+			{/*			<Typography color="text.primary">{userName || 'name'}</Typography>*/}
+			{/*			<Stack alignItems="center">*/}
+			{/*				<Avatar alt="google calendar icon"*/}
+			{/*						variant="rounded"*/}
+			{/*						sx={{*/}
+			{/*							width: "40px"*/}
+			{/*						}}*/}
+			{/*						src={googleIcon}/>*/}
+			{/*				<Typography color="text.primary" fontWeight="500">Schedule</Typography>*/}
+			{/*			</Stack>*/}
+			{/*		</Stack>*/}
+			{/*	</Stack>*/}
+			{/*</Container>*/}
 			<Stack margin="0 auto" maxWidth="400px" spacing={2} width="100%">
 				<Button variant="contained" color="success" component={Link} to="/date">
 					Fill up your slots
