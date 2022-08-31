@@ -13,8 +13,12 @@ const NamingForm = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if(matches) dispatch(setIsLoadTimeRanges())
-		if (!inputValue) return;
+		if(matches) {
+			dispatch(setIsLoadTimeRanges());
+		}
+		if (!inputValue) {
+			return;
+		}
 		dispatch(setUserName(upperLetter(inputValue)));
 		setInputValue('');
 		navigate("/concurrences");

@@ -18,7 +18,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [ampmStart, setAmpmStart] = useState(null);
 	const [ampmEnd, setAmpmEnd] = useState(null);
-	const [isChange, setIsChange] = useState(false);
+	// const [isChange, setIsChange] = useState(false);
 	const datesInterface = useSelector(state => state.mainReducer.interface.dates);
 	const isLoadTimeRanges = useSelector(state => state.mainReducer.isLoadTimeRanges);
 	const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
+	
 	let ranges = [];
 	datesInterface.forEach(item => {
 		if (item.date === date) {
@@ -61,7 +62,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		const onClickDeleteBtn = () => {
 			dispatch(deleteSlot({date: date, id: hour}));
 			setIsVisibleBlock(false);
-			setIsChange(false);
+			// setIsChange(false);
 			resizeableEl.style.top = '0px';
 			resizeableEl.style.bottom = '0px';
 			resizeableEl.style.height = `${(listPosition.height / 24) - 1}px`;
@@ -85,7 +86,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerUpTopResize = () => {
-			setIsChange(false);
+			// setIsChange(false);
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
@@ -105,7 +106,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerDownTopResize = (e) => {
-			setIsChange(true);
+			// setIsChange(true);
 			y = e.pageY;
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
@@ -136,7 +137,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerUpBottomResize = () => {
-			setIsChange(false);
+			// setIsChange(false);
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
 			const topEl = ref.current.getBoundingClientRect().top;
@@ -156,7 +157,7 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerDownBottomResize = (e) => {
-			setIsChange(true);
+			// setIsChange(true);
 			y = e.pageY;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
@@ -188,12 +189,12 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	}, [ranges]);
 	
 	
-	if(isVisibleBlock && !isChange) {
-		console.log([
-			new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
-			new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
-		]);
-	}
+	// if(isVisibleBlock) {
+	// 	console.log([
+	// 		new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+	// 		new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+	// 	]);
+	// }
 	
 	if (isLoadTimeRanges) {
 		dispatch(addTimeRanges([
