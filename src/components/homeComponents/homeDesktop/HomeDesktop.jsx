@@ -6,7 +6,8 @@ import {LinkBar} from "../linkBar/LinkBar";
 import {ShareButton} from "../shareButton/ShareButton";
 
 const HomeDesktop = () => {
-	
+
+
 		return (<>
 				<Stack my="40px" width="100%" alignItems="center" spacing={3}>
 					<Typography textAlign="center"

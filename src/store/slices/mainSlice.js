@@ -92,6 +92,9 @@ export const mainSlice = createSlice({
 		},
 		setIsLoadTimeRanges(state) {
 			state.isLoadTimeRanges = true;
+		},
+		setCode(state, action) {
+			state.code = action.payload
 		}
 	},
 	extraReducers: {
@@ -123,5 +126,6 @@ export const {
 	setCurrentDate,
 	setMonths,
 	clearMonths,
+	setCode,
 	addTimeRanges
 } = mainSlice.actions;

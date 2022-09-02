@@ -8,9 +8,10 @@ import {
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
 import {DateObject} from "react-multi-date-picker";
+import {selectDates} from "../../../../store/slices/selectors";
 
 //TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-//TODO скорректировать isChange
+//TODO починить селекторы
 
 const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -18,15 +19,14 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [ampmStart, setAmpmStart] = useState(null);
 	const [ampmEnd, setAmpmEnd] = useState(null);
-	// const [isChange, setIsChange] = useState(false);
-	const datesInterface = useSelector(state => state.mainReducer.interface.dates);
+	const datesInterface = useSelector(selectDates);
 	const isLoadTimeRanges = useSelector(state => state.mainReducer.isLoadTimeRanges);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
-	
+
 	let ranges = [];
 	datesInterface.forEach(item => {
 		if (item.date === date) {
@@ -62,11 +62,11 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		const onClickDeleteBtn = () => {
 			dispatch(deleteSlot({date: date, id: hour}));
 			setIsVisibleBlock(false);
-			// setIsChange(false);
 			resizeableEl.style.top = '0px';
 			resizeableEl.style.bottom = '0px';
 			resizeableEl.style.height = `${(listPosition.height / 24) - 1}px`;
 		};
+		
 		// Top Resize
 		const onPointerMoveTopResize = (e) => {
 			const dy = e.pageY - y;
@@ -86,7 +86,6 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerUpTopResize = () => {
-			// setIsChange(false);
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
@@ -106,7 +105,6 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerDownTopResize = (e) => {
-			// setIsChange(true);
 			y = e.pageY;
 			const topEl = ref.current.getBoundingClientRect().top;
 			const topElInList = topEl - listPosition.top;
@@ -137,7 +135,6 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerUpBottomResize = () => {
-			// setIsChange(false);
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
 			const topEl = ref.current.getBoundingClientRect().top;
@@ -157,7 +154,6 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		
 		const onPointerDownBottomResize = (e) => {
-			// setIsChange(true);
 			y = e.pageY;
 			const bottomEl = ref.current.getBoundingClientRect().bottom;
 			const bottomElInList = bottomEl - listPosition.top;
@@ -198,8 +194,10 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 	
 	if (isLoadTimeRanges) {
 		dispatch(addTimeRanges([
-			new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
-			new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+			{
+				lower: new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
+				upper: new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
+			}
 		]));
 	}
 	
@@ -226,7 +224,8 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 						ref={refDelete}
 						onPointerDown={(e) => e.stopPropagation()}
 						disabled={!isVisibleBlock}
-				>×</button>
+				>×
+				</button>
 			</div>
 		</div>
 	);

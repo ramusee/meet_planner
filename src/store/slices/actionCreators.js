@@ -1,13 +1,15 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {setCode} from "./mainSlice";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchMeetingCode = createAsyncThunk(
 	'main/fetchCode',
-	async function (_, {rejectWithValue}) {
+	async function (_, {rejectWithValue, dispatch}) {
 		try {
 			const response = await axios.get(`${API_URL}/`);
+			dispatch(setCode(response.data.code))
 			if (!response.ok) {
 				throw new Error('Server error');
 			}
