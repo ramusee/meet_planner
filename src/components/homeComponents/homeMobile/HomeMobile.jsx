@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Stack, Typography} from "@mui/material";
 import {Link} from 'react-router-dom';
 import {LinkBar} from "../linkBar/LinkBar";
 
 const HomeMobile = () => {
-	const [link, setLink] = useState('Link');
+	
 	return (<>
 			<Stack mt="30px" width="100%" alignItems="center" spacing={3}>
 				<Stack color="text.primary">
@@ -18,7 +18,7 @@ const HomeMobile = () => {
 					<Typography variant="body2">2. Share the link and collect others</Typography>
 					<Typography variant="body2">3. Find matches and schedule meeting</Typography>
 				</Stack>
-			<LinkBar link={link} setLink={setLink}/>
+			<LinkBar/>
 			</Stack>
 			<Stack spacing={2} width="100%">
 				<Button variant="contained" color="success" component={Link} to="date">

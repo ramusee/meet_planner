@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
 import {Alert, Button, Snackbar} from "@mui/material";
+import {selectCode} from "../../../store/slices/selectors";
 
 const ShareButton = () => {
 	const [openSnackbar, setOpenSnackbar] = useState(false);
-	const code = useSelector(state=> state.mainReducer.apiData.code)
+	const code = useSelector(selectCode)
 	const handleCopy = () => {
 		navigator.clipboard.writeText(`http://planing.msoft.team/${code}`);
 		setOpenSnackbar(true)

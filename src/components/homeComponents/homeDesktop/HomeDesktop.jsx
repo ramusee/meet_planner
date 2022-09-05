@@ -6,8 +6,6 @@ import {LinkBar} from "../linkBar/LinkBar";
 import {ShareButton} from "../shareButton/ShareButton";
 
 const HomeDesktop = () => {
-
-
 		return (<>
 				<Stack my="40px" width="100%" alignItems="center" spacing={3}>
 					<Typography textAlign="center"
@@ -45,7 +43,7 @@ const HomeDesktop = () => {
 				</Stack>
 				<Stack flexGrow="1" alignItems="center">
 					<LinkBar />
-					<Stack spacing={2} mt="20px" width="100%" maxWidth="350px" alignItems="center">
+					<Stack spacing={2} mt="20px" width="100%" maxWidth="365px" alignItems="center">
 						<Button variant="contained"
 								color="success"
 								component={Link}
@@ -57,7 +55,6 @@ const HomeDesktop = () => {
 						<ShareButton/>
 					</Stack>
 				</Stack>
-				
 			</>
 		);
 	};

@@ -1,30 +1,32 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {setCode} from "./mainSlice";
+import {getApi} from "../../api/api";
+import {saveCurrentCode} from "../../helpers/localStorage";
 
-const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchMeetingCode = createAsyncThunk(
-	'main/fetchCode',
-	async function (_, {rejectWithValue, dispatch}) {
+	'main/fetchMeetingCode',
+	async function (_, {rejectWithValue}) {
 		try {
-			const response = await axios.get(`${API_URL}/`);
-			dispatch(setCode(response.data.code))
-			if (!response.ok) {
+			const response = await axios.get(getApi());
+			const code = response.data.code
+			saveCurrentCode(code)
+			if (response.status !== 200) {
 				throw new Error('Server error');
 			}
+			return code
 		} catch (error) {
+			console.log(error);
 			return rejectWithValue(error.message);
 		}
-		
 	}
 );
 export const fetchUsersRanges = createAsyncThunk(
 	'main/fetchUserRanges',
-	async function (code, {rejectWithValue, dispatch}) {
+	async function (code, {rejectWithValue}) {
 		try {
-			const response = await axios.get(`${API_URL}/${code}`);
-			if (!response.ok) {
+			const response = await axios.get(getApi(code));
+			if (response.status !== 200) {
 				throw new Error('Can\'t get ranges. Server Error');
 			}
 		} catch (error) {
@@ -34,14 +36,14 @@ export const fetchUsersRanges = createAsyncThunk(
 );
 export const postRanges = createAsyncThunk(
 	'main/postRanges',
-	async function ({userName, userRanges}, {dispatch, rejectWithValue, getState}) {
+	async function ({ userName, userRanges}, {rejectWithValue, getState}) {
 		try {
 			const code = getState().mainReducer.code;
-			const response = await axios.post(`${API_URL}/${code}`, {
+			const response = await axios.post(getApi(code), {
 				username: userName,
 				user_ranges: userRanges
 			});
-			if (!response.ok) {
+			if (response.status !== 200) {
 				throw new Error('Can\'t add time-ranges. Server Error');
 			}
 		} catch (error) {

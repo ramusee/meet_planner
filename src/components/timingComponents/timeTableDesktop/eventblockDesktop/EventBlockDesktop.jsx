@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addTimeRanges, deleteSlot, setCoordsRanges} from "../../../../store/slices/mainSlice";
+import {addTimeRanges, deleteSlot, setCoordsRanges, setIsLoadTimeRanges} from "../../../../store/slices/mainSlice";
 import s from "../../timeTable/timeTableList/eventBlock/eventBlock.module.css";
 import {
 	getAmpm,
@@ -8,25 +8,25 @@ import {
 	getClosestDesktopRangesTopCoords, getDesktopClosestCoords, getDesktopTime
 } from "../../../../helpers/eventBlockHelperDesktop";
 import {DateObject} from "react-multi-date-picker";
-import {selectDates} from "../../../../store/slices/selectors";
+import {selectDates, selectIsLoadTimeRanges} from "../../../../store/slices/selectors";
 
 //TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 //TODO починить селекторы
 
-const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
+const EventBlockDesktop = ({listRef, date, hour}) => {
 	const [isVisibleBlock, setIsVisibleBlock] = useState(false);
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [ampmStart, setAmpmStart] = useState(null);
 	const [ampmEnd, setAmpmEnd] = useState(null);
 	const datesInterface = useSelector(selectDates);
-	const isLoadTimeRanges = useSelector(state => state.mainReducer.isLoadTimeRanges);
+	const isLoadTimeRanges = useSelector(selectIsLoadTimeRanges);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);
 	const refBottom = useRef(null);
 	const refDelete = useRef(null);
-
+	
 	let ranges = [];
 	datesInterface.forEach(item => {
 		if (item.date === date) {
@@ -183,24 +183,28 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 		};
 		// eslint-disable-next-line
 	}, [ranges]);
+	useEffect(() => {
+		if (isVisibleBlock && isLoadTimeRanges) {
+			dispatch(addTimeRanges(
+				{
+					lower: new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`).toISOString(),
+					upper: new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`).toISOString(),
+				}
+			));
+		}
+		return ()=> {
+			if(isVisibleBlock) {
+				dispatch(setIsLoadTimeRanges(false));
+			}
+		}
+	}, [isLoadTimeRanges]);
 	
-	
-	// if(isVisibleBlock) {
+	// if(isVisibleBlock && isLoadTimeRanges) {
 	// 	console.log([
 	// 		new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
 	// 		new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
 	// 	]);
 	// }
-	
-	if (isLoadTimeRanges) {
-		dispatch(addTimeRanges([
-			{
-				lower: new Date(`${timeStart} ${ampmStart} ${new DateObject(date).format()}`),
-				upper: new Date(`${timeEnd} ${ampmEnd} ${new DateObject(date).format()}`),
-			}
-		]));
-	}
-	
 	
 	return (
 		<div className={s.event_block}>
@@ -229,6 +233,6 @@ const EventBlockDesktop = React.memo(({listRef, date, hour}) => {
 			</div>
 		</div>
 	);
-});
+};
 
 export {EventBlockDesktop};

@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, TextField, useMediaQuery} from "@mui/material";
 import {setIsLoadTimeRanges, setUserName} from "../../store/slices/mainSlice";
 import {upperLetter} from "../../helpers/upperLetter";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {selectIsLoadTimeRanges} from "../../store/slices/selectors";
 
 const NamingForm = () => {
 	const [inputValue, setInputValue] = useState('');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const timeRanges = useSelector(selectIsLoadTimeRanges)
+	const isLoadTimeRanges = useSelector(setIsLoadTimeRanges)
 	const matches = useMediaQuery('(min-width: 990px)');
-
+	
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if(matches) {
-			dispatch(setIsLoadTimeRanges());
-		}
 		if (!inputValue) {
 			return;
 		}
+		dispatch(setIsLoadTimeRanges(true))
 		dispatch(setUserName(upperLetter(inputValue)));
 		setInputValue('');
-		navigate("/concurrences");
 	};
 	const onChangeInputValue = (e) => {
 		setInputValue(e.target.value);

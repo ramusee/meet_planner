@@ -1,14 +1,20 @@
 import React from 'react';
 import {Button, Stack, Typography, useMediaQuery} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserName} from "../../store/slices/mainSlice";
 import {NamingForm} from "../../components/namingComponents/NaimingForm";
+import {selectUserName} from "../../store/slices/selectors";
 
-const Naming = React.memo(() => {
-	const userName = useSelector(state => state.mainReducer.userName);
+const Naming = () => {
+	const userName = useSelector(selectUserName);
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 	const matches = useMediaQuery('(min-width: 990px)');
+	
+	const handleNextBtn = () => {
+		navigate('/concurrences')
+	}
 
 	return (
 		<>
@@ -42,16 +48,15 @@ const Naming = React.memo(() => {
 				>
 					back
 				</Button>
-				{userName && <Button component={Link}
-									 to="/concurrences"
-									 variant="contained"
+				{userName && <Button variant="contained"
 									 color="success"
+									 onClick={handleNextBtn}
 				>
 					next
 				</Button>}
 			</Stack>
 		</>
 	)
-});
+};
 
 export {Naming};

@@ -2,10 +2,11 @@ import {createSlice} from "@reduxjs/toolkit";
 
 import {fetchMeetingCode, fetchUsersRanges} from "./actionCreators";
 import {setError, setPending} from "./helpers";
+import {getCurrentCode} from "../../helpers/localStorage";
 
 const initialState = {
 	userName: '',
-	code: 'link',
+	code: getCurrentCode(),
 	timeRanges: [],
 	isLoadTimeRanges: false,
 	isLoading: false,
@@ -23,7 +24,6 @@ const initialState = {
 		},]
 	}
 };
-
 
 export const mainSlice = createSlice({
 	name: 'main',
@@ -84,18 +84,12 @@ export const mainSlice = createSlice({
 		setMonths(state, action) {
 			state.interface.selectedMonths = action.payload;
 		},
-		clearMonths(state) {
-			state.interface.selectedMonths = [];
-		},
 		addTimeRanges(state, action) {
 			state.timeRanges.push(action.payload);
 		},
-		setIsLoadTimeRanges(state) {
-			state.isLoadTimeRanges = true;
+		setIsLoadTimeRanges(state, action) {
+			state.isLoadTimeRanges = action.payload;
 		},
-		setCode(state, action) {
-			state.code = action.payload
-		}
 	},
 	extraReducers: {
 		[fetchMeetingCode.fulfilled]: (state, action) => {
@@ -125,7 +119,5 @@ export const {
 	setIsLoadTimeRanges,
 	setCurrentDate,
 	setMonths,
-	clearMonths,
-	setCode,
 	addTimeRanges
 } = mainSlice.actions;
