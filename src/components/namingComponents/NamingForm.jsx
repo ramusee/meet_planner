@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Box, Button, TextField, useMediaQuery} from "@mui/material";
-import {setIsLoadTimeRanges, setUserName} from "../../store/slices/datesSlice";
+import {setIsLoadTimeRanges, setUserName} from "../../store/slices/mainSlice";
 import {upperLetter} from "../../helpers/upperLetter";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";

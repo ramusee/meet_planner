@@ -4,9 +4,9 @@ import {DateObject} from "react-multi-date-picker";
 import './datePicker.css';
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setMonths, setCurrentDate, setCurrentMonth, setDate} from "../../store/slices/mainSlice";
+import {setMonths, setCurrentDate, setCurrentMonth} from "../../store/slices/datesSlice";
 import "react-multi-date-picker/styles/colors/green.css";
-import {selectCurrentDate, selectDates} from "../../store/slices/selectors";
+import {selectCurrentDate, selectDates} from "../../store/selectors";
 import {CalendarLib} from "../../components/calendarLib/CalendarLib";
 
 function getSelectedMonths(dates) {

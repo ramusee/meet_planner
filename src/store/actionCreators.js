@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {getApi} from "../../api/api";
-import {saveCurrentCode} from "../../helpers/localStorage";
+import {getApi} from "../api/api";
+import {saveCurrentCode} from "../helpers/localStorage";
 
 
 export const fetchMeetingCode = createAsyncThunk(

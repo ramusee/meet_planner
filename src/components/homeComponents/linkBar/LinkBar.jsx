@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {Box, CircularProgress, IconButton, Stack, Typography} from "@mui/material";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCode, selectError, selectIsLoading} from "../../../store/slices/selectors";
-import {fetchMeetingCode} from "../../../store/slices/actionCreators";
+import {selectCode, selectError, selectIsLoading} from "../../../store/selectors";
+import {fetchMeetingCode} from "../../../store/actionCreators";
 
 
 const LinkBar = () => {

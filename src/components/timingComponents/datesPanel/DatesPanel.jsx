@@ -1,8 +1,11 @@
 import React from 'react';
+
 import {Box, Stack, Typography} from "@mui/material";
 import {DateObject} from "react-multi-date-picker";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentDate} from "../../../store/slices/mainSlice";
+
+import {setCurrentDate} from "../../../store/slices/datesSlice";
+import {selectCurrentDate, selectDates} from "../../../store/selectors";
 
 const shortNameDay = {
 	Sun: 'S',
@@ -13,9 +16,9 @@ const shortNameDay = {
 	Fri: 'F',
 	Sat: 'S',
 };
-const DatesPanel = React.memo(() => {
-	const dates = useSelector(state => state.mainReducer.interface.dates);
-	const currentDate = useSelector(state => state.mainReducer.interface.currentDate);
+const DatesPanel =() => {
+	const dates = useSelector(selectDates);
+	const currentDate = useSelector(selectCurrentDate);
 	const dispatch = useDispatch();
 	const handlerDateClick = (date) => {
 		dispatch(setCurrentDate(date));
@@ -62,6 +65,6 @@ const DatesPanel = React.memo(() => {
 		
 		</Stack>
 	);
-});
+};
 
 export {DatesPanel};

@@ -1,24 +1,29 @@
 import React from 'react';
-import s from './timing.module.css';
-import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
-import {Link} from "react-router-dom";
-import {DatesPanel} from "../../components/timingComponents/datesPanel/DatesPanel";
 import {useDispatch, useSelector} from "react-redux";
+
+import {DateObject} from "react-multi-date-picker";
+import {Link} from "react-router-dom";
+
+import {DatesPanel} from "../../components/timingComponents/datesPanel/DatesPanel";
+import {NamingForm} from "../../components/namingComponents/NamingForm";
+
 import {TimeTable} from "../../components/timingComponents/timeTable/TimeTable";
-import {NamingForm} from "../../components/namingComponents/NaimingForm";
 import {TimetableDesktop} from "../../components/timingComponents/timeTableDesktop/TimetableDesktop";
 import {MonthsPanel} from "../../components/timingComponents/monthsPanel/MonthsPanel";
-import {DateObject} from "react-multi-date-picker";
+
 import {setIsLoadTimeRanges} from "../../store/slices/mainSlice";
+import { selectCurrentMonth, selectDates} from "../../store/selectors";
 
+import {Box, Button, Stack, Typography, useMediaQuery} from "@mui/material";
+import s from './timing.module.css';
 
-const Timing = React.memo(() => {
+const Timing = () => {
 	const matches = useMediaQuery('(min-width: 990px)');
-	const dates = useSelector(state => state.mainReducer.interface.dates);
-	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
+	const dates = useSelector(selectDates);
+	const currentMonth = useSelector(selectCurrentMonth);
 	const dispatch = useDispatch()
 	const handleNextButton = () => {
-	dispatch(setIsLoadTimeRanges())
+		dispatch(setIsLoadTimeRanges(true))
 	}
 	return (<>
 			<Box px="10px">
@@ -82,6 +87,6 @@ const Timing = React.memo(() => {
 			</Stack>
 		</>
 	);
-});
+};
 
 export {Timing};

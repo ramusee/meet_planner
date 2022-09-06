@@ -1,11 +1,12 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {Box, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentMonth} from "../../../store/slices/mainSlice";
+import {setCurrentMonth} from "../../../store/slices/datesSlice";
+import {selectCurrentMonth, selectMonths} from "../../../store/selectors";
 
-const MonthsPanel = memo(() => {
-	const selectedMonths = useSelector(state => state.mainReducer.interface.selectedMonths);
-	const currentMonth = useSelector(state => state.mainReducer.interface.currentMonth);
+const MonthsPanel =() => {
+	const selectedMonths = useSelector(selectMonths);
+	const currentMonth = useSelector(selectCurrentMonth);
 	const dispatch = useDispatch();
 	return (
 		<Stack direction="row"
@@ -42,6 +43,6 @@ const MonthsPanel = memo(() => {
 			))}
 		</Stack>
 	);
-});
+};
 
 export {MonthsPanel};

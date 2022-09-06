@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+
 import './eventBlock.module.css';
 import {
 	getTime,
@@ -7,7 +8,9 @@ import {
 	getClosestRangesTopCoords
 } from "../../../../../helpers/eventBlockHelper";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteSlot, setCoordsRanges} from "../../../../../store/slices/mainSlice";
+import {deleteSlot, setCoordsRanges} from "../../../../../store/slices/datesSlice";
+import {selectDates} from "../../../../../store/selectors";
+
 import s from './eventBlock.module.css';
 
 //TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
@@ -17,7 +20,7 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 	const [timeStart, setTimeStart] = useState(null);
 	const [timeEnd, setTimeEnd] = useState(null);
 	const [isChange, setIsChange] = useState(false);
-	const dates = useSelector(state => state.mainReducer.interface.dates);
+	const dates = useSelector(selectDates);
 	const dispatch = useDispatch();
 	const ref = useRef(null);
 	const refTop = useRef(null);
@@ -30,7 +33,6 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 			ranges = item.coordsRanges;
 		}
 	});
-	
 	
 	useEffect(() => {
 		const resizeableEl = ref.current;
@@ -98,7 +100,13 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (topElInList - closestCoordsTop);
 			}
 			resizeableEl.style.height = `${height}px`;
-			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({
+				date: date,
+				id: hour,
+				timeStart: `${getTime(listPosition.height, closestCoordsTop)} ${ampm}`,
+				timeEnd: `${getTime(listPosition.height, closestCoordsBottom)} ${ampm}`,
+				top: closestCoordsTop,
+				bottom: closestCoordsBottom}));
 			document.removeEventListener("pointermove", onPointerMoveTopResize);
 			document.removeEventListener("pointerup", onPointerUpTopResize);
 		};
@@ -147,7 +155,14 @@ const EventBlock = React.memo( ({listRef, date, hour}) => {
 				height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
 			}
 			resizeableEl.style.height = `${height - 1}px`;
-			dispatch(setCoordsRanges({date: date, id: hour, top: closestCoordsTop, bottom: closestCoordsBottom}));
+			dispatch(setCoordsRanges({
+				date: date,
+				id: hour,
+				timeStart: `${getTime(listPosition.height, closestCoordsTop)} ${ampm}`,
+				timeEnd: `${getTime(listPosition.height, closestCoordsBottom)} ${ampm}`,
+				top: closestCoordsTop,
+				bottom: closestCoordsBottom,
+			}));
 			document.removeEventListener("pointermove", onPointerMoveBottomResize);
 			document.removeEventListener("pointerup", onPointerUpBottomResize);
 		};

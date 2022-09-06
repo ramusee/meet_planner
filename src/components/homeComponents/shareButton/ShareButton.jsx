@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useSelector} from "react-redux";
 import {Alert, Button, Snackbar} from "@mui/material";
-import {selectCode} from "../../../store/slices/selectors";
+import {selectCode} from "../../../store/selectors";
 
 const ShareButton = () => {
 	const [openSnackbar, setOpenSnackbar] = useState(false);

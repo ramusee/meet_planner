@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import {Calendar, DateObject} from "react-multi-date-picker";
-import {setDate} from "../../store/slices/mainSlice";
+import {setDates} from "../../store/slices/datesSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {selectDates} from "../../store/slices/selectors";
+import {selectDates} from "../../store/selectors";
 
 const weekDays = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -13,7 +13,7 @@ const CalendarLib = ({setIsNotValidDate}) => {
 	const valueDates = dates.map(item => new DateObject(item.date));
 	const onChange = useCallback((date) => {
 		const formatDates = date.map(item => ({date: (item.unix * 1000), coordsRanges: []}));
-		dispatch(setDate(formatDates));
+		dispatch(setDates(formatDates));
 		if (date.length) setIsNotValidDate(false);
 	}, []);
 	return (

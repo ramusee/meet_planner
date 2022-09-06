@@ -3,8 +3,8 @@ import {Button, Stack, Typography, useMediaQuery} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setUserName} from "../../store/slices/mainSlice";
-import {NamingForm} from "../../components/namingComponents/NaimingForm";
-import {selectUserName} from "../../store/slices/selectors";
+import {NamingForm} from "../../components/namingComponents/NamingForm";
+import {selectUserName} from "../../store/selectors";
 
 const Naming = () => {
 	const userName = useSelector(selectUserName);

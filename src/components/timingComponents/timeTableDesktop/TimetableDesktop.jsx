@@ -9,7 +9,8 @@ const hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM',
 	'Noon', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM',
 	'7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
 
-const TimetableDesktop = React.memo(({date}) => {
+const TimetableDesktop =({date}) => {
+	
 	return (
 			<Box sx={{minWidth: '200px'}}>
 				<Typography className={s.date}>
@@ -20,6 +21,6 @@ const TimetableDesktop = React.memo(({date}) => {
 				</Box>
 			</Box>
 	);
-});
+};
 
 export {TimetableDesktop};

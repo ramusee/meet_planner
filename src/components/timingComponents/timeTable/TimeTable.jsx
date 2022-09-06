@@ -1,9 +1,13 @@
 import React from 'react';
-import {Box, Typography} from "@mui/material";
-import s from "../../../pages/timing/timing.module.css";
-import {DateObject} from "react-multi-date-picker";
-import {TimetableList} from "./timeTableList/TimetableList";
 import {useSelector} from "react-redux";
+
+import {Box, Typography} from "@mui/material";
+import {DateObject} from "react-multi-date-picker";
+
+import {TimetableList} from "./timeTableList/TimetableList";
+import {selectCurrentDate} from "../../../store/selectors";
+
+import s from "../../../pages/timing/timing.module.css";
 
 const hoursAM = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM',
 	'5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM'];
@@ -12,7 +16,9 @@ const hoursPM = ['Noon', '1 PM', '2 PM', '3 PM', '4 PM',
 ];
 
 const TimeTable = React.memo( ({date}) => {
-	const currentDate = useSelector(state => state.mainReducer.interface.currentDate)
+	
+	const currentDate = useSelector(selectCurrentDate)
+	
 	return (
 		currentDate === date ? <Box>
 			<Typography className={s.date}>
