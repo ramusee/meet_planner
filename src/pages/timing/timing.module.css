@@ -4,24 +4,28 @@
 	color: #09CE69;
 	margin: 0 10px 5px;
 }
+
 .date {
 	font-weight: 400;
 	font-size: 16px;
 	text-align: center;
 	margin-bottom: 5px;
 }
+
 .timetable {
 	display: flex;
 	justify-content: space-between;
 	gap: 5px;
 	padding: 6px 10px;
 }
+
 .timetable_desktop {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 6px 10px;
 }
+
 .title {
 	display: block;
 	width: 100%;
@@ -34,17 +38,21 @@
 	.settings_panel {
 		font-size: 12px;
 	}
+	
 	.title {
 		font-size: 12px;
 	}
+	
 	.date {
 		font-size: 10px;
 	}
 }
-@media screen and (min-width: 375px) and (max-width: 390px)  {
+
+@media screen and (min-width: 375px) and (max-width: 390px) {
 	.title {
 		font-size: 12px;
 	}
+	
 	.settings_panel {
 		font-size: 14px;
 	}

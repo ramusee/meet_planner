@@ -19,27 +19,34 @@
 .rmdp-year-picker div {
 	background-color: black;
 }
+
 .rmdp-month-picker div {
 	background-color: black;
 }
+
 .rmdp-year-picker span {
 	color: white;
 }
+
 .rmdp-month-picker span {
 	color: white;
 }
+
 .rmdp-day-picker > div > div {
 	margin-top: 20px;
 }
+
 .rmdp-week:first-child {
 	background-color: #151515;
 	border-radius: 8px;
 	font-size: 18px;
 }
+
 .rmdp-week > div {
 	width: 38px;
 	color: white;
 }
+
 .rmdp-header-values > span {
 	font-size: 18px;
 	color: white;
@@ -48,17 +55,21 @@
 .rmdp-day span {
 	font-size: 18px;
 }
+
 .rmdp-day.rmdp-selected span:not(.highlight) {
 	background-color: black !important;
 	box-shadow: 0 0 0 2px #09CE69 !important;
 }
+
 .rmdp-day span:not(.highlight):hover {
 	background-color: black !important;
 }
+
 .rmdp-day.rmdp-today span {
 	background-color: black !important;
 }
-.rmdp-wrapper  {
+
+.rmdp-wrapper {
 	box-shadow: none !important;
 }
 

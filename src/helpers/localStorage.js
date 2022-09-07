@@ -1,7 +1,7 @@
-export const saveCurrentCode = (code) => {
-	localStorage.setItem('currentCode', code);
+export const saveMeetingCode = code => {
+  localStorage.setItem('meetingCode', code);
 };
 
-export const getCurrentCode = () => {
-	return localStorage.getItem('currentCode') || '';
+export const getMeetingCode = () => {
+  return localStorage.getItem('meetingCode') || '';
 };
