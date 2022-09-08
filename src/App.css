@@ -1,15 +1,15 @@
 .app {
-	height: 620px;
+    height: 620px;
 }
 
 @media screen and (min-width: 375px) and (max-width: 390px) {
-	.app {
-		height: 560px;
-	}
+    .app {
+        height: 560px;
+    }
 }
 
 @media screen and (min-width: 300px) and (max-width: 374px) {
-	.app {
-		height: 510px;
-	}
+    .app {
+        height: 510px;
+    }
 }

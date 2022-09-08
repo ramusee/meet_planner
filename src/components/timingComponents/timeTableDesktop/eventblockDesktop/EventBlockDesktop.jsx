@@ -19,7 +19,7 @@ import { DateObject } from 'react-multi-date-picker';
 
 //TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 
-const EventBlockDesktop = React.memo(({ listRef, date, hour }) => {
+const EventBlockDesktop = ({ listRef, date, hour }) => {
   const [isVisibleBlock, setIsVisibleBlock] = useState(false);
   const [timeStart, setTimeStart] = useState(null);
   const [timeEnd, setTimeEnd] = useState(null);
@@ -32,10 +32,10 @@ const EventBlockDesktop = React.memo(({ listRef, date, hour }) => {
   const refDelete = useRef(null);
 
   const ranges = useMemo(() => getRanges(dates, date), [dates]);
-  console.log(
-    new Date(`${new DateObject(date).format()} ${timeStart}`),
-    new Date(`${new DateObject(date).format()} ${timeEnd}`),
-  );
+  // console.log(
+  //   new Date(`${new DateObject(date).format()} ${timeStart}`),
+  //   new Date(`${new DateObject(date).format()} ${timeEnd}`),
+  // );
   useEffect(() => {
     const resizeableEl = ref.current;
     const styles = window.getComputedStyle(resizeableEl);
@@ -88,9 +88,9 @@ const EventBlockDesktop = React.memo(({ listRef, date, hour }) => {
     };
 
     const onPointerUpTopResize = () => {
-      const topEl = ref.current.getBoundingClientRect().top;
+      const topEl = ref.current.getBoundingClientRect().top + window.scrollY;
+      const bottomEl = ref.current.getBoundingClientRect().bottom + window.scrollY;
       const topElInList = topEl - listPosition.top;
-      const bottomEl = ref.current.getBoundingClientRect().bottom;
       const bottomElInList = bottomEl - listPosition.top;
       let closestCoordsTop = getDesktopClosestCoords(listPosition.height, topElInList);
       const closestCoordsBottom = getDesktopClosestCoords(listPosition.height, bottomElInList);
@@ -145,9 +145,10 @@ const EventBlockDesktop = React.memo(({ listRef, date, hour }) => {
     };
 
     const onPointerUpBottomResize = () => {
-      const bottomEl = ref.current.getBoundingClientRect().bottom;
+      const bottomEl = ref.current.getBoundingClientRect().bottom + window.scrollY;
+      const topEl = ref.current.getBoundingClientRect().top + window.scrollY;
+      console.log(window.scrollY);
       const bottomElInList = bottomEl - listPosition.top;
-      const topEl = ref.current.getBoundingClientRect().top;
       const topElInList = topEl - listPosition.top;
       const closestCoordsTop = getDesktopClosestCoords(listPosition.height, topElInList);
       let closestCoordsBottom = getDesktopClosestCoords(listPosition.height, bottomElInList);
@@ -239,6 +240,6 @@ const EventBlockDesktop = React.memo(({ listRef, date, hour }) => {
       </div>
     </div>
   );
-});
+};
 
 export { EventBlockDesktop };
