@@ -23,9 +23,6 @@ export const mainSlice = createSlice({
     setIsLoadTimeRanges(state, action) {
       state.isLoadTimeRanges = action.payload;
     },
-    addTimeRanges(state, action) {
-      state.timeRanges.push(action.payload);
-    },
   },
   extraReducers: {
     [fetchMeetingCode.fulfilled]: (state, action) => {
@@ -38,4 +35,4 @@ export const mainSlice = createSlice({
   },
 });
 export default mainSlice.reducer;
-export const { setUserName, setIsLoadTimeRanges, addTimeRanges } = mainSlice.actions;
+export const { setUserName, setIsLoadTimeRanges } = mainSlice.actions;

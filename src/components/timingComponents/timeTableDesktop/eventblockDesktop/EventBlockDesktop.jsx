@@ -2,8 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteSlot, setCoordsRanges } from '../../../../store/slices/datesSlice';
-import { addTimeRanges, setIsLoadTimeRanges } from '../../../../store/slices/mainSlice';
-import { selectDates, selectIsLoadTimeRanges } from '../../../../store/selectors';
+import { selectDates } from '../../../../store/selectors';
 
 import {
   getClosestDesktopRangesBottomCoords,
@@ -15,8 +14,6 @@ import { getRanges } from '../../../../helpers/eventBlockHelpers';
 
 import s from '../../timeTable/timeTableList/eventBlock/eventBlock.module.css';
 
-import { DateObject } from 'react-multi-date-picker';
-
 //TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
 
 const EventBlockDesktop = ({ listRef, date, hour }) => {
@@ -24,7 +21,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
   const [timeStart, setTimeStart] = useState(null);
   const [timeEnd, setTimeEnd] = useState(null);
   const dates = useSelector(selectDates);
-  // const isLoadTimeRanges = useSelector(selectIsLoadTimeRanges);
   const dispatch = useDispatch();
   const ref = useRef(null);
   const refTop = useRef(null);
@@ -32,10 +28,7 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
   const refDelete = useRef(null);
 
   const ranges = useMemo(() => getRanges(dates, date), [dates]);
-  // console.log(
-  //   new Date(`${new DateObject(date).format()} ${timeStart}`),
-  //   new Date(`${new DateObject(date).format()} ${timeEnd}`),
-  // );
+
   useEffect(() => {
     const resizeableEl = ref.current;
     const styles = window.getComputedStyle(resizeableEl);
@@ -105,8 +98,8 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
         setCoordsRanges({
           date: date,
           id: hour,
-          timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}}`,
-          timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}}`,
+          timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}`,
+          timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}`,
           top: closestCoordsTop,
           bottom: closestCoordsBottom,
         }),
@@ -147,7 +140,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
     const onPointerUpBottomResize = () => {
       const bottomEl = ref.current.getBoundingClientRect().bottom + window.scrollY;
       const topEl = ref.current.getBoundingClientRect().top + window.scrollY;
-      console.log(window.scrollY);
       const bottomElInList = bottomEl - listPosition.top;
       const topElInList = topEl - listPosition.top;
       const closestCoordsTop = getDesktopClosestCoords(listPosition.height, topElInList);

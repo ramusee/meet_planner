@@ -4,16 +4,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserName } from '../../store/slices/mainSlice';
 import { NamingForm } from '../../components/namingComponents/NamingForm';
-import { selectUserName } from '../../store/selectors';
+import { selectCode, selectUserName } from '../../store/selectors';
 
 const Naming = () => {
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width: 990px)');
+  const meetingCode = useSelector(selectCode);
 
   const handleNextBtn = () => {
-    navigate('/concurrences');
+    navigate(`${meetingCode}`);
   };
 
   return (

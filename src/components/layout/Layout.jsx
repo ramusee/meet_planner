@@ -1,6 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+
 import { Header } from '../header/Header';
+
 import { Container } from '@mui/material';
 
 const Layout = () => {
@@ -23,4 +25,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export { Layout };

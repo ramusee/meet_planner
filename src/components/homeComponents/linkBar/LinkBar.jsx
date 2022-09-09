@@ -10,13 +10,13 @@ const LinkBar = () => {
     if (!code) {
       dispatch(fetchMeetingCode());
     }
-  }, []);
+  }, [code]);
 
   const dispatch = useDispatch();
   const code = useSelector(selectCode);
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const link = `http://planing.msoft.team/${code}`;
+  const link = `https://planing.msoft.team/${code}`;
 
   const replaceCode = () => {
     dispatch(fetchMeetingCode());
@@ -45,14 +45,7 @@ const LinkBar = () => {
         </Typography>
       )}
       {isLoading && (
-        // 	<Typography mr="10px" variant="body1" color="primary" component="span" textAlign="center">
-        // 	{'link is generated...'}
-        // </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-          }}
-        >
+        <Box sx={{ display: 'flex' }}>
           <CircularProgress size={20} />
         </Box>
       )}

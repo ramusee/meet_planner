@@ -1,7 +1,10 @@
 import React from 'react';
-import { Button, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+
 import { LinkBar } from '../linkBar/LinkBar';
+import { ShareButton } from '../shareButton/ShareButton';
+
+import { Button, Stack, Typography } from '@mui/material';
 
 const HomeMobile = () => {
   return (
@@ -21,9 +24,7 @@ const HomeMobile = () => {
         <Button variant="contained" color="success" component={Link} to="date">
           Fill up your slots
         </Button>
-        <Button variant="contained" color="secondary">
-          Share/Copy link
-        </Button>
+        <ShareButton />
       </Stack>
     </>
   );

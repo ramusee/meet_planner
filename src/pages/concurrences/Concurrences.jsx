@@ -1,11 +1,14 @@
-import React, { memo } from 'react';
-import { Avatar, Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React from 'react';
+
 import { useSelector } from 'react-redux';
-import googleIcon from '../../images/googleIcon.png';
+import { Link } from 'react-router-dom';
+
 import { ShareButton } from '../../components/homeComponents/shareButton/ShareButton';
 
-const Concurrences = memo(() => {
+import { Avatar, Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
+import googleIcon from '../../images/googleIcon.png';
+
+const Concurrences = () => {
   const userName = useSelector(state => state.mainReducer.userName);
   const matches = useMediaQuery('(min-width: 990px)');
 
@@ -97,6 +100,6 @@ const Concurrences = memo(() => {
       </Stack>
     </>
   );
-});
+};
 
 export { Concurrences };
