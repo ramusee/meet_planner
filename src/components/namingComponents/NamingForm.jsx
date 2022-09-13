@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Box, Button, TextField, useMediaQuery } from '@mui/material';
-import { setIsLoadTimeRanges, setUserName } from '../../store/slices/mainSlice';
-import { selectCode, selectDates, selectIsLoadTimeRanges } from '../../store/selectors';
+import { setUserName } from '../../store/slices/mainSlice';
+import { selectCode, selectDates } from '../../store/selectors';
+import { postTimeRanges } from '../../store/actionCreators';
 
 import { upperLetter } from '../../helpers/upperLetter';
 import { getTimeRanges } from '../../helpers/getTimeRanges';
@@ -15,9 +16,7 @@ const NamingForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dates = useSelector(selectDates);
-  const timeRanges = useSelector(selectIsLoadTimeRanges);
   const meetingCode = useSelector(selectCode);
-  const isLoadTimeRanges = useSelector(setIsLoadTimeRanges);
   const matches = useMediaQuery('(min-width: 990px)');
 
   const onSubmit = e => {
@@ -25,9 +24,8 @@ const NamingForm = () => {
     if (!inputValue) {
       return;
     }
-    console.log(getTimeRanges(dates));
-    dispatch(setIsLoadTimeRanges(true));
     dispatch(setUserName(upperLetter(inputValue)));
+    dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
     setInputValue('');
     navigate(`/${meetingCode}`);
   };

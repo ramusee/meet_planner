@@ -1,5 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { getApi } from '../api/api';
 import { saveMeetingCode } from '../helpers/localStorage';
 
@@ -8,41 +9,44 @@ export const fetchMeetingCode = createAsyncThunk(
   async function (_, { rejectWithValue }) {
     try {
       const response = await axios.get(getApi());
-      const code = response.data.code;
-      saveMeetingCode(code);
-      if (response.status !== 200) {
+      if (response.status >= 400) {
         throw new Error('Server error');
       }
-      return code;
+      const meetingCode = response.data.code;
+      saveMeetingCode(meetingCode);
+      return meetingCode;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   },
 );
-export const fetchUsersRanges = createAsyncThunk(
-  'main/fetchUserRanges',
-  async function (code, { rejectWithValue }) {
+export const fetchMeetingConcurrences = createAsyncThunk(
+  'main/fetchMeetingConcurrences',
+  async function (_, { rejectWithValue, getState }) {
     try {
-      const response = await axios.get(getApi(code));
-      if (response.status !== 200) {
+      const meetingCode = getState().mainReducer.meetingCode;
+      const response = await axios.get(getApi(`meeting/${meetingCode}`));
+      if (response.status >= 400) {
         throw new Error("Can't get ranges. Server Error");
       }
+      return response.data.user_ranges;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   },
 );
-export const postRanges = createAsyncThunk(
-  'main/postRanges',
+export const postTimeRanges = createAsyncThunk(
+  'main/postTimeRanges',
   async function ({ userName, userRanges }, { rejectWithValue, getState }) {
     try {
-      const code = getState().mainReducer.code;
-      const response = await axios.post(getApi(code), {
+      const meetingCode = getState().mainReducer.meetingCode;
+      const data = {
         username: userName,
         user_ranges: userRanges,
-      });
-      if (response.status !== 200) {
+      };
+      const response = await axios.post(getApi(`${meetingCode}/`), data);
+      console.log(response);
+      if (response.status >= 400) {
         throw new Error("Can't add time-ranges. Server Error");
       }
     } catch (error) {

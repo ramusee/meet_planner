@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ShareButton } from '../../components/homeComponents/shareButton/ShareButton';
 
-import { Avatar, Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
-import googleIcon from '../../images/googleIcon.png';
+import { selectError, selectFullConcurrences, selectIsLoading } from '../../store/selectors';
+
+import { Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
+
+import { fetchMeetingConcurrences } from '../../store/actionCreators';
+import { ConcurrencesList } from '../../components/concurrencesComponents/concurrencesList';
 
 const Concurrences = () => {
-  const userName = useSelector(state => state.mainReducer.userName);
+  useEffect(() => {
+    if (!isLoading && !error) {
+      dispatch(fetchMeetingConcurrences());
+    }
+  }, []);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
   const matches = useMediaQuery('(min-width: 990px)');
+  const fullConcurrences = useSelector(selectFullConcurrences);
 
   return (
     <>
@@ -24,74 +37,9 @@ const Concurrences = () => {
         >
           Concurrences
         </Typography>
-        <Stack direction="row" justifyContent="space-between">
-          <Typography variant="body2" color="text.primary">
-            Full Concurrences
-          </Typography>
-          <Typography variant="body2" color="text.primary">
-            Timezone: <u>PDT</u>
-          </Typography>
-        </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          mt="10px"
-          p="10px"
-          sx={{
-            border: '1px solid grey',
-            borderRadius: '10px',
-          }}
-        >
-          <Stack direction="row" justifyContent="space-between" width="100%">
-            <Typography color="text.primary">{userName || 'name'}</Typography>
-            <Stack alignItems="center">
-              <Avatar
-                alt="google calendar icon"
-                variant="rounded"
-                sx={{
-                  width: '40px',
-                }}
-                src={googleIcon}
-              />
-              <Typography color="text.primary" fontWeight="500">
-                Schedule
-              </Typography>
-            </Stack>
-          </Stack>
-        </Stack>
+        <ConcurrencesList concurrences={fullConcurrences} type={'Full Concurrences'} />
+        <ConcurrencesList concurrences={[]} type={'Part Concurrences'} />
       </Container>
-      {/*<Container maxWidth="xs">*/}
-      {/*	<Typography color="text.primary"*/}
-      {/*				variant="body2"*/}
-      {/*	>*/}
-      {/*		Part concurrence*/}
-      {/*	</Typography>*/}
-      {/*	<Stack direction="row"*/}
-      {/*		   justifyContent="space-between"*/}
-      {/*		   mt="10px"*/}
-      {/*		   p="10px"*/}
-      {/*		   sx={{*/}
-      {/*			   border: "1px solid grey",*/}
-      {/*			   borderRadius: "10px",*/}
-      {/*		   }}*/}
-      {/*	>*/}
-      {/*		<Stack direction="row"*/}
-      {/*			   justifyContent="space-between"*/}
-      {/*			   width="100%"*/}
-      {/*		>*/}
-      {/*			<Typography color="text.primary">{userName || 'name'}</Typography>*/}
-      {/*			<Stack alignItems="center">*/}
-      {/*				<Avatar alt="google calendar icon"*/}
-      {/*						variant="rounded"*/}
-      {/*						sx={{*/}
-      {/*							width: "40px"*/}
-      {/*						}}*/}
-      {/*						src={googleIcon}/>*/}
-      {/*				<Typography color="text.primary" fontWeight="500">Schedule</Typography>*/}
-      {/*			</Stack>*/}
-      {/*		</Stack>*/}
-      {/*	</Stack>*/}
-      {/*</Container>*/}
       <Stack margin="0 auto" maxWidth="400px" spacing={2} width="100%">
         <Button variant="contained" color="success" component={Link} to="/date">
           Fill up your slots

@@ -1,14 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsersRanges } from '../actionCreators';
+import { fetchMeetingConcurrences } from '../actionCreators';
 import { setError, setPending } from '../helpers';
 
 const initialState = {
-  fullConcurrences: [
-    {
-      userNames: [],
-      range: [],
-    },
-  ],
+  fullConcurrences: [],
+  partConcurrences: [],
 };
 
 export const concurrencesSlice = createSlice({
@@ -16,13 +12,13 @@ export const concurrencesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchUsersRanges.fulfilled]: (state, action) => {
+    [fetchMeetingConcurrences.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.fullConcurrences = action.payload;
     },
-    [fetchUsersRanges.pending]: setPending,
-    [fetchUsersRanges.rejected]: setError,
+    [fetchMeetingConcurrences.pending]: setPending,
+    [fetchMeetingConcurrences.rejected]: setError,
   },
 });
 export default concurrencesSlice.reducer;

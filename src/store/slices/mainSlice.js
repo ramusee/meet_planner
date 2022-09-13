@@ -6,9 +6,7 @@ import { getMeetingCode } from '../../helpers/localStorage';
 
 const initialState = {
   userName: '',
-  code: getMeetingCode(),
-  timeRanges: [],
-  isLoadTimeRanges: false,
+  meetingCode: getMeetingCode(),
   isLoading: false,
   error: null,
 };
@@ -20,19 +18,16 @@ export const mainSlice = createSlice({
     setUserName(state, action) {
       state.userName = action.payload;
     },
-    setIsLoadTimeRanges(state, action) {
-      state.isLoadTimeRanges = action.payload;
-    },
   },
   extraReducers: {
     [fetchMeetingCode.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.error = null;
-      state.code = action.payload;
+      state.meetingCode = action.payload;
     },
     [fetchMeetingCode.pending]: setPending,
     [fetchMeetingCode.rejected]: setError,
   },
 });
 export default mainSlice.reducer;
-export const { setUserName, setIsLoadTimeRanges } = mainSlice.actions;
+export const { setUserName } = mainSlice.actions;

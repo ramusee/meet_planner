@@ -3,8 +3,7 @@ import { DateObject } from 'react-multi-date-picker';
 export function getTimeRanges(dates) {
   const timeRanges = [];
   dates.forEach(item => {
-    // new Date(`${new DateObject(item.date).format()}`);
-    item.coordsRanges.map(range => {
+    item.coordsRanges.forEach(range => {
       timeRanges.push(getRangeObj(item.date, range.timeStart, range.timeEnd));
     });
   });
