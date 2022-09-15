@@ -14,8 +14,6 @@ import { selectDates } from '../../../../../store/selectors';
 
 import s from './eventBlock.module.css';
 
-//TODO убрать наслоение при нажатии на слот, когда полчаса уже занято другим слотом
-
 const EventBlock = React.memo(({ listRef, date, hour }) => {
   const [isVisibleBlock, setIsVisibleBlock] = useState(false);
   const [timeStart, setTimeStart] = useState(null);
@@ -52,8 +50,8 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
           resizeableEl.style.height = `${height - 1}px`;
           topElInList = item.top;
           bottomElInList = item.bottom;
-          setTimeStart(getTime(listPosition.height, topElInList));
-          setTimeEnd(getTime(listPosition.height, bottomElInList));
+          setTimeStart(getTime(listPosition.height, topElInList, ampm));
+          setTimeEnd(getTime(listPosition.height, bottomElInList, ampm));
         }
       });
     }
@@ -79,7 +77,7 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
       if (topEl < listPosition.top) {
         height = height + dy;
       }
-      setTimeStart(getTime(listPosition.height, topElInList));
+      setTimeStart(getTime(listPosition.height, topElInList, ampm));
       resizeableEl.style.height = `${height}px`;
     };
 
@@ -101,8 +99,8 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
         setCoordsRanges({
           date: date,
           id: hour,
-          timeStart: `${getTime(listPosition.height, closestCoordsTop)} ${ampm}`,
-          timeEnd: `${getTime(listPosition.height, closestCoordsBottom)} ${ampm}`,
+          timeStart: `${getTime(listPosition.height, closestCoordsTop, ampm)}`,
+          timeEnd: `${getTime(listPosition.height, closestCoordsBottom, ampm)}`,
           top: closestCoordsTop,
           bottom: closestCoordsBottom,
         }),
@@ -136,7 +134,7 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
       if (bottomEl > listPosition.bottom) {
         height = height - dy;
       }
-      setTimeEnd(getTime(listPosition.height, bottomElInList));
+      setTimeEnd(getTime(listPosition.height, bottomElInList, ampm));
       resizeableEl.style.height = `${height}px`;
     };
 
@@ -159,8 +157,8 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
         setCoordsRanges({
           date: date,
           id: hour,
-          timeStart: `${getTime(listPosition.height, closestCoordsTop)} ${ampm}`,
-          timeEnd: `${getTime(listPosition.height, closestCoordsBottom)} ${ampm}`,
+          timeStart: `${getTime(listPosition.height, closestCoordsTop, ampm)}`,
+          timeEnd: `${getTime(listPosition.height, closestCoordsBottom, ampm)}`,
           top: closestCoordsTop,
           bottom: closestCoordsBottom,
         }),
@@ -188,8 +186,8 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
     resizerTop.addEventListener('pointerdown', onPointerDownTopResize);
     resizerBottom.addEventListener('pointerdown', onPointerDownBottomResize);
     deleteBtn.addEventListener('click', onClickDeleteBtn);
-    setTimeStart(getTime(listPosition.height, topElInList));
-    setTimeEnd(getTime(listPosition.height, bottomElInList));
+    setTimeStart(getTime(listPosition.height, topElInList, ampm));
+    setTimeEnd(getTime(listPosition.height, bottomElInList, ampm));
     return () => {
       resizerTop.removeEventListener('pointerdown', onPointerDownTopResize);
       resizerBottom.removeEventListener('pointerdown', onPointerDownBottomResize);
@@ -207,7 +205,7 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
           setIsVisibleBlock(true);
         }}
       >
-        <span className={s.event_block__time}>{`${timeStart} ${ampm}`}</span>
+        <span className={s.event_block__time}>{`${timeStart}`}</span>
         <div
           ref={refTop}
           className={
@@ -220,7 +218,7 @@ const EventBlock = React.memo(({ listRef, date, hour }) => {
             !isChange ? `${s.resizer} ${s.resizer_b}` : `${s.resizer} ${s.resizer_b} ${s.resizer_after_tap}`
           }
         ></div>
-        <span className={s.event_block__time}>{`${timeEnd} ${ampm}`}</span>
+        <span className={s.event_block__time}>{`${timeEnd}`}</span>
         <button
           className={s.event_block__del}
           ref={refDelete}

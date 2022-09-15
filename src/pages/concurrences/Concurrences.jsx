@@ -13,14 +13,15 @@ import { fetchMeetingConcurrences } from '../../store/actionCreators';
 import { ConcurrencesList } from '../../components/concurrencesComponents/concurrencesList';
 
 const Concurrences = () => {
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
   useEffect(() => {
     if (!isLoading && !error) {
       dispatch(fetchMeetingConcurrences());
     }
-  }, []);
+  }, [isLoading, error]);
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
 
   const matches = useMediaQuery('(min-width: 990px)');
   const fullConcurrences = useSelector(selectFullConcurrences);

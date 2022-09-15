@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, TextField, useMediaQuery } from '@mui/material';
+import { Alert, Box, Button, Snackbar, TextField, useMediaQuery } from '@mui/material';
 import { setUserName } from '../../store/slices/mainSlice';
 import { selectCode, selectDates } from '../../store/selectors';
 import { postTimeRanges } from '../../store/actionCreators';
@@ -13,11 +13,20 @@ import { getTimeRanges } from '../../helpers/getTimeRanges';
 
 const NamingForm = () => {
   const [inputValue, setInputValue] = useState('');
+  const [isEmptyRanges, setIsEmptyRanges] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dates = useSelector(selectDates);
   const meetingCode = useSelector(selectCode);
   const matches = useMediaQuery('(min-width: 990px)');
+
+  const handleClose = reason => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setIsEmptyRanges(false);
+  };
 
   const onSubmit = e => {
     e.preventDefault();
@@ -25,9 +34,14 @@ const NamingForm = () => {
       return;
     }
     dispatch(setUserName(upperLetter(inputValue)));
-    dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
+    const ranges = getTimeRanges(dates);
+    if (ranges.length) {
+      dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
+      navigate(`/${meetingCode}`);
+    } else {
+      setIsEmptyRanges(true);
+    }
     setInputValue('');
-    navigate(`/${meetingCode}`);
   };
   const onChangeInputValue = e => {
     setInputValue(e.target.value);
@@ -55,6 +69,11 @@ const NamingForm = () => {
       <Button type="submit" variant="contained" color="success">
         Save
       </Button>
+      <Snackbar open={isEmptyRanges} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Fill up your slots
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

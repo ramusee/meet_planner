@@ -1,11 +1,13 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useMediaQuery } from '@mui/material';
 import { ConcurrenceItem } from './concurrenceItem/ConcurrenceItem';
 import { useSelector } from 'react-redux';
 import { selectUserName } from '../../store/selectors';
 
 const ConcurrencesList = ({ type, concurrences }) => {
+  const matches = useMediaQuery('(max-width: 320px)');
   const userName = useSelector(selectUserName);
+  const isFullConc = type === 'Full Concurrences';
 
   return (
     <>
@@ -13,13 +15,15 @@ const ConcurrencesList = ({ type, concurrences }) => {
         <Typography variant="body2" color="text.primary">
           {type}
         </Typography>
-        <Typography variant="body2" color="text.primary">
-          Timezone: <u>PDT</u>
-        </Typography>
+        {isFullConc && (
+          <Typography variant="body2" color="text.primary">
+            Timezone: <u>PDT</u>
+          </Typography>
+        )}
       </Stack>
       <Stack
         sx={{
-          height: '250px',
+          height: !matches ? '230px' : '110px',
           overflowY: 'auto',
           mb: '15px',
         }}
