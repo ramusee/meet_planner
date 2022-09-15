@@ -47,7 +47,6 @@ const times = [
   '10:30 PM',
   '11:00 PM',
   '11:30 PM',
-  '12:00 AM',
 ];
 
 export function getDesktopTime(listHeight, coords) {
@@ -57,7 +56,7 @@ export function getDesktopTime(listHeight, coords) {
       return times[i];
     }
   }
-  return times[48];
+  return times[47];
 }
 
 export function getDesktopClosestCoords(listHeight, coords) {

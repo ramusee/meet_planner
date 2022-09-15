@@ -30,17 +30,18 @@ const NamingForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (!inputValue) {
+    const ranges = getTimeRanges(dates);
+
+    if (!inputValue || !ranges.length) {
+      setIsEmptyRanges(true);
       return;
     }
+
     dispatch(setUserName(upperLetter(inputValue)));
-    const ranges = getTimeRanges(dates);
-    if (ranges.length) {
-      dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
-      navigate(`/${meetingCode}`);
-    } else {
-      setIsEmptyRanges(true);
-    }
+    dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
+
+    navigate(`/${meetingCode}`);
+
     setInputValue('');
   };
   const onChangeInputValue = e => {

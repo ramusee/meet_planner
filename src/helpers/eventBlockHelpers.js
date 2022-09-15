@@ -50,7 +50,6 @@ const timesPM = [
   '10:30 PM',
   '11:00 PM',
   '11:30 PM',
-  '12:00 AM',
 ];
 
 export function getTime(listHeight, coords, ampm) {
@@ -66,9 +65,9 @@ export function getTime(listHeight, coords, ampm) {
     }
   }
   if (isAm) {
-    return timesAM[24];
+    return timesAM[23];
   } else {
-    return timesPM[24];
+    return timesPM[23];
   }
 }
 

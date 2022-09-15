@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { ShareButton } from '../../components/homeComponents/shareButton/ShareButton';
 
-import { selectError, selectFullConcurrences, selectIsLoading } from '../../store/selectors';
+import { selectFullConcurrences } from '../../store/selectors';
 
 import { Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
 
@@ -13,14 +13,9 @@ import { fetchMeetingConcurrences } from '../../store/actionCreators';
 import { ConcurrencesList } from '../../components/concurrencesComponents/concurrencesList';
 
 const Concurrences = () => {
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
   useEffect(() => {
-    if (!isLoading && !error) {
-      dispatch(fetchMeetingConcurrences());
-    }
-  }, [isLoading, error]);
+    dispatch(fetchMeetingConcurrences());
+  }, []);
   const dispatch = useDispatch();
 
   const matches = useMediaQuery('(min-width: 990px)');

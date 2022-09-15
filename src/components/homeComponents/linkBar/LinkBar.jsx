@@ -32,6 +32,7 @@ const LinkBar = () => {
         padding: '0 0 0 15px',
         backgroundColor: '#fff',
         borderRadius: '6px',
+        width: matches ? '290px' : '350px',
       }}
     >
       {error && (
