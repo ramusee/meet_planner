@@ -72,7 +72,7 @@ const NamingForm = () => {
       </Button>
       <Snackbar open={isEmptyRanges} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          Fill up your slots
+          Fill up your slots and name
         </Alert>
       </Snackbar>
     </Box>

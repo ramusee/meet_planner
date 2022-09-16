@@ -14,7 +14,8 @@ import { Concurrences } from './pages/concurrences/Concurrences';
 import './App.css';
 
 function App() {
-  const meetingCode = useSelector(selectCode);
+  const urlCode = window.location.pathname.slice(1);
+  const meetingCode = useSelector(selectCode) || urlCode;
   return (
     <div className="app">
       <Routes>

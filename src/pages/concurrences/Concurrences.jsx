@@ -6,17 +6,27 @@ import { Link } from 'react-router-dom';
 import { ShareButton } from '../../components/homeComponents/shareButton/ShareButton';
 
 import { selectFullConcurrences } from '../../store/selectors';
+import { setMeetingCode } from '../../store/slices/mainSlice';
 
 import { Button, Container, Stack, Typography, useMediaQuery } from '@mui/material';
 
 import { fetchMeetingConcurrences } from '../../store/actionCreators';
 import { ConcurrencesList } from '../../components/concurrencesComponents/concurrencesList';
+import { getMeetingCode, saveMeetingCode } from '../../helpers/localStorage';
 
 const Concurrences = () => {
+  const dispatch = useDispatch();
+  const isCode = !!getMeetingCode();
+  const urlCode = window.location.pathname.slice(1);
+
+  if (!isCode) {
+    dispatch(setMeetingCode(urlCode));
+    saveMeetingCode(urlCode);
+  }
+
   useEffect(() => {
     dispatch(fetchMeetingConcurrences());
   }, []);
-  const dispatch = useDispatch();
 
   const matches = useMediaQuery('(min-width: 990px)');
   const fullConcurrences = useSelector(selectFullConcurrences);

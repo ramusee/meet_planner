@@ -5,7 +5,7 @@ import { setError, setPending } from '../helpers';
 import { getMeetingCode } from '../../helpers/localStorage';
 
 const initialState = {
-  userName: '',
+  userName: null,
   meetingCode: getMeetingCode(),
   isLoading: false,
   error: null,
@@ -17,6 +17,9 @@ export const mainSlice = createSlice({
   reducers: {
     setUserName(state, action) {
       state.userName = action.payload;
+    },
+    setMeetingCode(state, action) {
+      state.meetingCode = action.payload;
     },
   },
   extraReducers: {
@@ -30,4 +33,4 @@ export const mainSlice = createSlice({
   },
 });
 export default mainSlice.reducer;
-export const { setUserName } = mainSlice.actions;
+export const { setUserName, setMeetingCode } = mainSlice.actions;

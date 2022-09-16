@@ -45,7 +45,6 @@ export const postTimeRanges = createAsyncThunk(
         user_ranges: userRanges,
       };
       const response = await axios.post(getApi(`${meetingCode}/`), data);
-      console.log(response);
       if (response.status >= 400) {
         throw new Error("Can't add time-ranges. Server Error");
       }

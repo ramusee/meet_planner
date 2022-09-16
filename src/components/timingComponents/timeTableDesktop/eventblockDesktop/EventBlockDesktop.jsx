@@ -13,7 +13,6 @@ import {
 import { getRanges } from '../../../../helpers/eventBlockHelpers';
 
 import s from '../../timeTable/timeTableList/eventBlock/eventBlock.module.css';
-import { DateObject } from 'react-multi-date-picker';
 
 const EventBlockDesktop = ({ listRef, date, hour }) => {
   const [isVisibleBlock, setIsVisibleBlock] = useState(false);
@@ -25,8 +24,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
   const refTop = useRef(null);
   const refBottom = useRef(null);
   const refDelete = useRef(null);
-
-  console.log(new Date(`0:00 PM ${new DateObject(date).format()}`));
 
   const ranges = useMemo(() => getRanges(dates, date), [dates]);
 
