@@ -17,7 +17,8 @@ const LinkBar = () => {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const link = `https://planing.msoft.team/${code}`;
+  const link = window.location.href;
+  ;
 
   const replaceCode = () => {
     dispatch(fetchMeetingCode());

@@ -15,7 +15,7 @@ import './App.css';
 
 function App() {
   const urlCode = window.location.pathname.slice(1);
-  const meetingCode = useSelector(selectCode) || urlCode;
+  const meetingCode = urlCode || useSelector(selectCode);
   return (
     <div className="app">
       <Routes>

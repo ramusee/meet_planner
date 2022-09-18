@@ -16,10 +16,11 @@ import { getMeetingCode, saveMeetingCode } from '../../helpers/localStorage';
 
 const Concurrences = () => {
   const dispatch = useDispatch();
-  const isCode = !!getMeetingCode();
   const urlCode = window.location.pathname.slice(1);
 
-  if (!isCode) {
+  const isValidCode = getMeetingCode() === urlCode;
+
+  if (!isValidCode) {
     dispatch(setMeetingCode(urlCode));
     saveMeetingCode(urlCode);
   }

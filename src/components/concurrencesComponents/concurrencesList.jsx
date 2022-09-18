@@ -23,7 +23,7 @@ const ConcurrencesList = ({ type, concurrences }) => {
       </Stack>
       <Stack
         sx={{
-          height: !matches ? '230px' : '110px',
+          height: !matches ? '220px' : '110px',
           overflowY: 'auto',
           mb: '15px',
         }}
