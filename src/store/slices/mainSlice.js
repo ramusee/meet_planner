@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchMeetingCode } from '../actionCreators';
-import { setError, setPending } from '../helpers';
+import { setErrorMeetingCode, setPendingMeetingCode } from '../helpers';
 import { getMeetingCode } from '../../helpers/localStorage';
 
 const initialState = {
@@ -28,8 +28,8 @@ export const mainSlice = createSlice({
       state.error = null;
       state.meetingCode = action.payload;
     },
-    [fetchMeetingCode.pending]: setPending,
-    [fetchMeetingCode.rejected]: setError,
+    [fetchMeetingCode.pending]: setPendingMeetingCode,
+    [fetchMeetingCode.rejected]: setErrorMeetingCode,
   },
 });
 export default mainSlice.reducer;

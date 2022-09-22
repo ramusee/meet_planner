@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Stack, Typography, useMediaQuery } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserName } from '../../store/slices/mainSlice';
 import { NamingForm } from '../../components/namingComponents/NamingForm';
-import { selectCode, selectUserName } from '../../store/selectors';
+import {
+  selectCode,
+  selectIsLoadingPostRanges,
+  selectPostSuccess,
+  selectUserName,
+} from '../../store/selectors';
 
 const Naming = () => {
   const userName = useSelector(selectUserName);
@@ -12,11 +17,18 @@ const Naming = () => {
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width: 990px)');
   const meetingCode = useSelector(selectCode);
+  const postSuccess = useSelector(selectPostSuccess);
+  const isLoadingPost = useSelector(selectIsLoadingPostRanges);
 
   const handleNextBtn = () => {
-    navigate(`${meetingCode}`);
+    navigate(`/${meetingCode}`);
   };
-
+  useEffect(() => {
+    if (!postSuccess) {
+      return;
+    }
+    navigate(`/${meetingCode}`);
+  }, [postSuccess]);
   return (
     <>
       <Typography
@@ -27,9 +39,8 @@ const Naming = () => {
       >
         Underwrite your slots
       </Typography>
-      {!userName ? (
-        <NamingForm />
-      ) : (
+      {!userName && <NamingForm />}
+      {userName && !isLoadingPost && !postSuccess && (
         <Stack alignItems="center" gap="20px">
           <Typography textAlign="center" variant="body1">
             {userName}, do you want to change your name?

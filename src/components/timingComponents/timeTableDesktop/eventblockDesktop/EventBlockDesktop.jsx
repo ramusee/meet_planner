@@ -56,7 +56,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
           setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
         }
       });
-
     }
     const onClickDeleteBtn = () => {
       dispatch(deleteSlot({ date: date, id: hour }));
@@ -64,7 +63,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
       resizeableEl.style.top = '0px';
       resizeableEl.style.bottom = '0px';
       resizeableEl.style.height = `${listPosition.height / 24 - 1}px`;
-
     };
     // Top Resize
     const onPointerMoveTopResize = e => {
@@ -81,7 +79,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
       }
       setTimeStart(getDesktopTime(listPosition.height, topElInList));
       resizeableEl.style.height = `${height}px`;
-
     };
     const onPointerUpTopResize = () => {
       const topEl = ref.current.getBoundingClientRect().top + window.scrollY;
@@ -101,17 +98,14 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
         setCoordsRanges({
           date: date,
           id: hour,
-          // timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}`,
-          timeStart,
-          // timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}`,
-          timeEnd,
+          timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}`,
+          timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}`,
           top: closestCoordsTop,
           bottom: closestCoordsBottom,
         }),
       );
       document.removeEventListener('pointermove', onPointerMoveTopResize);
       document.removeEventListener('pointerup', onPointerUpTopResize);
-
     };
     const onPointerDownTopResize = e => {
       y = e.pageY;
@@ -123,7 +117,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
       closestBorder = getClosestDesktopRangesTopCoords(ranges, topElInList + 1);
       document.addEventListener('pointermove', onPointerMoveTopResize);
       document.addEventListener('pointerup', onPointerUpTopResize);
-
     };
     // Bottom resize
     const onPointerMoveBottomResize = e => {
@@ -140,7 +133,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
       }
       resizeableEl.style.height = `${height}px`;
       setTimeEnd(getDesktopTime(listPosition.height, bottomElInList));
-
     };
     const onPointerUpBottomResize = () => {
       const bottomEl = ref.current.getBoundingClientRect().bottom + window.scrollY;
@@ -156,22 +148,18 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
         height = parseInt(styles.height) + (closestCoordsBottom - bottomElInList);
       }
       resizeableEl.style.height = `${height - 1}px`;
-      console.log(listPosition);
       dispatch(
         setCoordsRanges({
           date: date,
           id: hour,
-          // timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}`,
-          timeStart,
-          // timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}`,
-          timeEnd,
+          timeStart: `${getDesktopTime(listPosition.height, closestCoordsTop)}`,
+          timeEnd: `${getDesktopTime(listPosition.height, closestCoordsBottom)}`,
           top: closestCoordsTop,
           bottom: closestCoordsBottom,
         }),
       );
       document.removeEventListener('pointermove', onPointerMoveBottomResize);
       document.removeEventListener('pointerup', onPointerUpBottomResize);
-
     };
     const onPointerDownBottomResize = e => {
       y = e.pageY;
@@ -183,7 +171,6 @@ const EventBlockDesktop = ({ listRef, date, hour }) => {
       closestBorder = getClosestDesktopRangesBottomCoords(ranges, bottomElInList);
       document.addEventListener('pointermove', onPointerMoveBottomResize);
       document.addEventListener('pointerup', onPointerUpBottomResize);
-
     };
     // added down listeners
     const resizerTop = refTop.current;

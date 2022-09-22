@@ -48,6 +48,7 @@ export const postTimeRanges = createAsyncThunk(
       if (response.status >= 400) {
         throw new Error("Can't add time-ranges. Server Error");
       }
+      return response.data.success;
     } catch (error) {
       return rejectWithValue(error.message);
     }

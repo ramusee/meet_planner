@@ -8,17 +8,17 @@ import { fetchMeetingCode } from '../../../store/actionCreators';
 const LinkBar = () => {
   const code = useSelector(selectCode);
   const matches = useMediaQuery('(max-width: 320px)');
-  useEffect(() => {
-    if (!code) {
-      dispatch(fetchMeetingCode());
-    }
-  }, [code]);
 
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const link = window.location.href;
-  ;
+  const link = `https://meet-planner.mediasoft.team/${code}`;
+
+  useEffect(() => {
+    if (!code) {
+      dispatch(fetchMeetingCode());
+    }
+  }, []);
 
   const replaceCode = () => {
     dispatch(fetchMeetingCode());
@@ -33,7 +33,8 @@ const LinkBar = () => {
         padding: '0 0 0 15px',
         backgroundColor: '#fff',
         borderRadius: '6px',
-        width: matches ? '290px' : '350px',
+        width: '95%',
+        maxWidth: matches ? '290px' : '390px',
       }}
     >
       {error && (
@@ -46,13 +47,14 @@ const LinkBar = () => {
           component="span"
           color="primary"
           sx={{
-            fontSize: matches ? '12px' : '16px',
+            fontSize: matches ? '12px' : '14px',
+            // padding: '5px',
           }}
         >
           {link}
         </Typography>
       )}
-      <Box sx={{ display: 'flex', width: '30px' }}>{isLoading && <CircularProgress size={20} />}</Box>
+      <Box sx={{ display: 'flex', width: '20px' }}>{isLoading && <CircularProgress size={20} />}</Box>
       <IconButton color="primary" aria-label="replace link" onClick={replaceCode}>
         <ChangeCircleIcon fontSize="large" />
       </IconButton>

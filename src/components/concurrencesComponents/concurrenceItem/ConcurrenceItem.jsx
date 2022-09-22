@@ -1,12 +1,14 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import { Avatar, Stack, Typography } from '@mui/material';
 import googleIcon from '../../../images/googleIcon.png';
 import { DateObject } from 'react-multi-date-picker';
 
-const ConcurrenceItem = memo(({ userName, range }) => {
+const ConcurrenceItem = ({ userName, range }) => {
   const dateFormat = 'MM/DD/YYYY';
   const timeFormat = 'HH:mm a';
+
+  //todo в разных браузерах по разному работает new Date, починить
 
   const concurrence = {
     date: new DateObject(new Date(range[0])).format(dateFormat),
@@ -60,6 +62,6 @@ const ConcurrenceItem = memo(({ userName, range }) => {
       </Stack>
     </Stack>
   );
-});
+};
 
 export { ConcurrenceItem };

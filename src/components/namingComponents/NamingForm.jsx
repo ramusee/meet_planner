@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Alert, Box, Button, Snackbar, TextField, useMediaQuery } from '@mui/material';
 import { setUserName } from '../../store/slices/mainSlice';
-import { selectCode, selectDates } from '../../store/selectors';
+import { selectCode, selectDates, selectPostSuccess } from '../../store/selectors';
 import { postTimeRanges } from '../../store/actionCreators';
 
 import { upperLetter } from '../../helpers/upperLetter';
@@ -20,6 +20,7 @@ const NamingForm = () => {
   const dates = useSelector(selectDates);
   const meetingCode = useSelector(selectCode);
   const matches = useMediaQuery('(min-width: 990px)');
+  const postSuccess = useSelector(selectPostSuccess);
 
   const handleClose = reason => {
     if (reason === 'clickaway') {
@@ -40,10 +41,16 @@ const NamingForm = () => {
     dispatch(setUserName(upperLetter(inputValue)));
     dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
 
-    navigate(`/${meetingCode}`);
-
     setInputValue('');
   };
+
+  useEffect(() => {
+    if (!postSuccess) {
+      return;
+    }
+    navigate(`/${meetingCode}`);
+  }, [postSuccess]);
+
   const onChangeInputValue = e => {
     setInputValue(e.target.value);
   };
