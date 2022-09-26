@@ -12,7 +12,7 @@ const LinkBar = () => {
   const dispatch = useDispatch();
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const link = `https://meet-planner.mediasoft.team/${code}`;
+  const link = `${window.location.href}${code}`;
 
   useEffect(() => {
     if (!code) {

@@ -11,7 +11,7 @@ export function getTimeRanges(dates) {
 }
 export function getRangeObj(date, timeStart, timeEnd) {
   return {
-    lower: new Date(`${timeStart} ${new DateObject(date).format()}`).toISOString(),
-    upper: new Date(`${timeEnd} ${new DateObject(date).format()}`).toISOString(),
+    lower: new Date(Date.parse(`${new DateObject(date).format()} ${timeStart}`)).toISOString(),
+    upper: new Date(Date.parse(`${new DateObject(date).format()} ${timeEnd}`)).toISOString(),
   };
 }

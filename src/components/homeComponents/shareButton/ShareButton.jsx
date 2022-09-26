@@ -18,7 +18,7 @@ const ShareButton = () => {
   const [error, setError] = useState('');
 
   const code = useSelector(selectCode);
-  const link = `https://planing.msoft.team/${code}`;
+  const link = `${window.location.href}${code}`;
 
   const shareData = {
     url: link,

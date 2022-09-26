@@ -3,6 +3,7 @@ import React from 'react';
 import { Avatar, Stack, Typography } from '@mui/material';
 import googleIcon from '../../../images/googleIcon.png';
 import { DateObject } from 'react-multi-date-picker';
+import { getReformatDate } from './helpers';
 
 const ConcurrenceItem = ({ userName, range }) => {
   const dateFormat = 'MM/DD/YYYY';
@@ -11,9 +12,9 @@ const ConcurrenceItem = ({ userName, range }) => {
   //todo в разных браузерах по разному работает new Date, починить
 
   const concurrence = {
-    date: new DateObject(new Date(range[0])).format(dateFormat),
-    timeStart: new DateObject(new Date(range[0])).format(timeFormat),
-    timeEnd: new DateObject(new Date(range[1])).format(timeFormat),
+    date: new DateObject(getReformatDate(range[0])).format(dateFormat),
+    timeStart: new DateObject(getReformatDate(range[0])).format(timeFormat),
+    timeEnd: new DateObject(getReformatDate(range[1])).format(timeFormat),
   };
 
   return (
@@ -25,6 +26,7 @@ const ConcurrenceItem = ({ userName, range }) => {
       sx={{
         border: '1px solid grey',
         borderRadius: '10px',
+        flexShrink: 1,
       }}
     >
       <Stack direction="row" justifyContent="space-between" width="100%">

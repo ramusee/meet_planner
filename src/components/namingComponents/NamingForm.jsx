@@ -39,7 +39,7 @@ const NamingForm = () => {
     }
 
     dispatch(setUserName(upperLetter(inputValue)));
-    dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: getTimeRanges(dates) }));
+    dispatch(postTimeRanges({ userName: upperLetter(inputValue), userRanges: ranges }));
 
     setInputValue('');
   };
