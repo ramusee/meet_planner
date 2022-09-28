@@ -86,4 +86,4 @@ const NamingForm = () => {
   );
 };
 
-export { NamingForm };
+export {NamingForm};

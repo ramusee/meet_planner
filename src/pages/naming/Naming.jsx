@@ -6,22 +6,28 @@ import { setUserName } from '../../store/slices/mainSlice';
 import { NamingForm } from '../../components/namingComponents/NamingForm';
 import {
   selectCode,
+  selectDates,
   selectIsLoadingPostRanges,
   selectPostSuccess,
   selectUserName,
 } from '../../store/selectors';
+import { postTimeRanges } from '../../store/actionCreators';
+import { upperLetter } from '../../helpers/upperLetter';
+import { getTimeRanges } from '../../helpers/getTimeRanges';
 
 const Naming = () => {
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const matches = useMediaQuery('(min-width: 990px)');
+  const dates = useSelector(selectDates);
   const meetingCode = useSelector(selectCode);
   const postSuccess = useSelector(selectPostSuccess);
   const isLoadingPost = useSelector(selectIsLoadingPostRanges);
 
   const handleNextBtn = () => {
-    navigate(`/${meetingCode}`);
+    const ranges = getTimeRanges(dates);
+    dispatch(postTimeRanges({ userName: upperLetter(userName), userRanges: ranges }));
   };
   useEffect(() => {
     if (!postSuccess) {
